@@ -45,4 +45,6 @@ public class SearchVO {
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
+	
+	
 }

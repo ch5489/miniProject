@@ -15,10 +15,6 @@ public class ListProductAction extends Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String url = null;
-		//System.out.println(request.getQueryString());
-		
-		//if (request.getQueryString().equals("menu=search")) {
 			
 			int page = 1;
 			if (request.getParameter("page") != null)
@@ -43,6 +39,7 @@ public class ListProductAction extends Action{
 			ProductService service = new ProductServiceImpl();
 			HashMap<String, Object> map = service.getProductList(searchVO);
 			
+			
 			if (map != null) {
 				total = ((Integer) map.get("count")).intValue();
 
@@ -53,7 +50,7 @@ public class ListProductAction extends Action{
 				if (total % Integer.parseInt(pageSize) > 0)
 					totalPage += 1;
 			}
-			System.out.println(totalPage);
+			//System.out.println(totalPage);
 			
 			searchVO.setAllPageSize(totalPage);
 			//searchVO.setAllPageSize(page);
@@ -64,49 +61,58 @@ public class ListProductAction extends Action{
 			System.out.println("request.getParameter(\"searchKeyword\")"+request.getParameter("searchKeyword"));
 			//System.out.println("request 파싱 :"+(request.getQueryString()).split("&")[1]);
 
-//		String url = request.getQueryString();
-//		String contextPath = request.getContextPath();
-//		//String path = url.substring(contextPath.length());
-//
-//		System.out.println(url);
-//		System.out.println(contextPath);
-//		//System.out.println(path);
 
-			url = "forward:/product/listProduct.jsp";
-
-	//	} 
-//		else if (request.getQueryString().equals("menu=manage")){
-//
-//			
-//				int page = 1;
-//				if (request.getParameter("page") != null)
-//					page = Integer.parseInt(request.getParameter("page"));
-//
-//				SearchVO searchVO = new SearchVO();
-//				searchVO.setPage(page);
-//				searchVO.setSearchCondition(request.getParameter("searchCondition"));
-//				searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
-//
-//				String pageUnit = getServletContext().getInitParameter("pageSize");
-//				searchVO.setPageUnit(Integer.parseInt(pageUnit));
-//
-//				ProductService service = new ProductServiceImpl();
-//				HashMap<String, Object> map = service.getProductList(searchVO);
-//
-//				request.setAttribute("map", map);
-//				request.setAttribute("searchVO", searchVO);
-//
-//				
-//			
-//				url = "forward:/product/updateProductView.jsp";
-//
-//		}
-		
-		//System.out.println(url);
-		return url;
+		return "forward:/product/listProduct.jsp";
 	}
 
-	// return "forward:/product/listProduct.jsp";
+	
 }
+
+//굳이 여기서 나누지 말자!!
+
+//System.out.println(request.getQueryString());
+
+//if (request.getQueryString().equals("menu=search")) {
+
+//String url = request.getQueryString();
+//String contextPath = request.getContextPath();
+////String path = url.substring(contextPath.length());
+//
+//System.out.println(url);
+//System.out.println(contextPath);
+////System.out.println(path);
+
+	 
+
+//	} 
+//else if (request.getQueryString().equals("menu=manage")){
+//
+//	
+//		int page = 1;
+//		if (request.getParameter("page") != null)
+//			page = Integer.parseInt(request.getParameter("page"));
+//
+//		SearchVO searchVO = new SearchVO();
+//		searchVO.setPage(page);
+//		searchVO.setSearchCondition(request.getParameter("searchCondition"));
+//		searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
+//
+//		String pageUnit = getServletContext().getInitParameter("pageSize");
+//		searchVO.setPageUnit(Integer.parseInt(pageUnit));
+//
+//		ProductService service = new ProductServiceImpl();
+//		HashMap<String, Object> map = service.getProductList(searchVO);
+//
+//		request.setAttribute("map", map);
+//		request.setAttribute("searchVO", searchVO);
+//
+//		
+//	
+//		url = "forward:/product/updateProductView.jsp";
+//
+//}
+
+//System.out.println(url);
+//return "forward:/product/listProduct.jsp";
 
 

@@ -1,28 +1,22 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
-<%@ page import="java.util.*"  %>
-<%@ page import="com.model2.mvc.service.user.vo.*" %>
-<%@ page import="com.model2.mvc.common.*" %>
+<%@ page import="java.util.List" %>
+
+<%@ page import="com.model2.mvc.service.user.domain.User" %>
+<%@ page import="com.model2.mvc.common.SearchVO" %>
+<%@page import="com.model2.mvc.common.Page"%>
+<%@page import="com.model2.mvc.common.util.CommonUtil"%>
 
 <%
-	HashMap<String,Object> map=(HashMap<String,Object>)request.getAttribute("map");
+	List<User> list=(List<User>)request.getAttribute("list");
+	Page resultPage = (Page)request.getAttribute("resultPage");
+
 	SearchVO searchVO=(SearchVO)request.getAttribute("searchVO");
 	
-	int total=0;
-	ArrayList<UserVO> list=null;
-	if(map != null){
-		total=((Integer)map.get("count")).intValue();
-		list=(ArrayList<UserVO>)map.get("list");
-	}
+	// null 을 "" nullString으로 변
+	String searchCondition = CommonUtil.null2str(searchVO.getSearchCondition());
+	String searchKeyword = CommonUtil.null2str(searchVO.getSearchKeyword());
 	
-	int currentPage=searchVO.getPage();
-	
-	int totalPage=0;
-	if(total > 0) {
-		totalPage= total / searchVO.getPageSize() ;
-		if(total%searchVO.getPageSize() >0)
-			totalPage += 1;
-	}
 %>
 
 <html>
@@ -32,7 +26,9 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-function fncGetUserList(){
+// 검색 / page 두 가지 경우 모두 Form 전송을 위해 JavaScript를 이용하는 것이다!!
+function fncGetUserList(currentPage){
+	document.getElementById("currentPage").value = currentPage;
 	document.detailForm.submit();
 }
 </script>
@@ -64,7 +60,7 @@ function fncGetUserList(){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-	<%
+	<%-- <%
 		if(searchVO.getSearchCondition() != null) {
 	%>
 		<td align="right">
@@ -98,7 +94,16 @@ function fncGetUserList(){
 		</td>
 	<%
 		}
-	%>
+	%> --%>
+	
+		<td align="right">
+			<select name="searchCondition" class="ct_input_g" style="width:80px">
+				<option value="0" <%=(searchCondition.equals("0") ? "selected" : "") %>>회원ID</option>
+				<option value="1" <%=(searchCondition.equals("1") ? "selected" : "") %>>회원명</option>
+			</select>
+			<input 	type="text" name="searchKeyword"  value="<%=searchKeyword%>" 
+							class="ct_input_g" style="width:200px; height:19px" >
+		</td>
 		<td align="right" width="70">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
@@ -106,7 +111,7 @@ function fncGetUserList(){
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetUserList();">검색</a>
+						<a href="javascript:fncGetUserList('1');">검색</a>
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -119,7 +124,7 @@ function fncGetUserList(){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-		<td colspan="11" >전체  <%= total%> 건수, 현재 <%=currentPage %> 페이지</td>
+		<td colspan="11" >전체  <%= resultPage.getTotalCount()%> 건수, 현재 <%=resultPage.getCurrentPage() %> 페이지</td>
 	</tr>
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
@@ -134,12 +139,12 @@ function fncGetUserList(){
 		<td colspan="11" bgcolor="808285" height="1"></td>
 	</tr>
 	<% 	
-		int no=list.size();
+		
 		for(int i=0; i<list.size(); i++) {
-			UserVO vo = (UserVO)list.get(i);
+			User vo = list.get(i);
 	%>
 	<tr class="ct_list_pop">
-		<td align="center"><%=no--%></td>
+		<td align="center"><%=i + 1%></td>
 		<td></td>
 		<td align="left">
 			<a href="/getUser.do?userId=<%=vo.getUserId() %>"><%= vo.getUserId() %></a>
@@ -159,13 +164,24 @@ function fncGetUserList(){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="center">
+			<input type="hidden" id="currentPage" name="currentPage" value=""/>
+		<% if(resultPage.getCurrentPage() <= resultPage.getPageUnit()) {%>
+				◀ 이전
+		<% }else{ %>
+				<a href="javascript:fncGetUserList('<%= resultPage.getBeginUnitPage()-1%>')">◀ 이전</a>
+		<% } %>
 		<%
-			for(int i=1;i<=totalPage;i++){
+			for(int i=resultPage.getBeginUnitPage();i<=resultPage.getEndUnitPage();i++){
 		%>
-			<a href="/listUser.do?page=<%=i%>"><%=i %></a>
+			<a href="javascript:fncGetUserList('<%=i%>')"><%=i %></a>
 		<%
 			}
 		%>	
+		<% if(resultPage.getEndUnitPage() >= resultPage.getMaxPage()) {%>
+				이후 ▶
+		<% }else{ %>
+				<a href="javascript:fncGetUserList('<%= resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
+		<% } %>
     	</td>
 	</tr>
 </table>

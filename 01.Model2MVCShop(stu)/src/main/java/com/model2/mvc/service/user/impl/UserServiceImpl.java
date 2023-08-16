@@ -1,11 +1,11 @@
 package com.model2.mvc.service.user.impl;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.model2.mvc.common.SearchVO;
 import com.model2.mvc.service.user.UserService;
 import com.model2.mvc.service.user.dao.UserDAO;
-import com.model2.mvc.service.user.vo.UserVO;
+import com.model2.mvc.service.user.domain.User;
 
 
 public class UserServiceImpl implements UserService{
@@ -16,35 +16,35 @@ public class UserServiceImpl implements UserService{
 		userDAO=new UserDAO();
 	}
 
-	public void addUser(UserVO userVO) throws Exception {
-		userDAO.insertUser(userVO);
+	public void addUser(User user) throws Exception {
+		userDAO.insertUser(user);
 	}
 
-	public UserVO loginUser(UserVO userVO) throws Exception {
-			UserVO dbUser=userDAO.findUser(userVO.getUserId());
+	public User loginUser(User user) throws Exception {
+			User dbUser=userDAO.findUser(user.getUserId());
 
-			if(! dbUser.getPassword().equals(userVO.getPassword()))
+			if(! dbUser.getPassword().equals(user.getPassword()))
 				throw new Exception("로그인에 실패했습니다.");
 			
 			return dbUser;
 	}
 
-	public UserVO getUser(String userId) throws Exception {
+	public User getUser(String userId) throws Exception {
 		return userDAO.findUser(userId);
 	}
 
-	public HashMap<String,Object> getUserList(SearchVO searchVO) throws Exception {
+	public Map<String,Object> getUserList(SearchVO searchVO) throws Exception {
 		return userDAO.getUserList(searchVO);
 	}
 
-	public void updateUser(UserVO userVO) throws Exception {
-		userDAO.updateUser(userVO);
+	public void updateUser(User user) throws Exception {
+		userDAO.updateUser(user);
 	}
 
 	public boolean checkDuplication(String userId) throws Exception {
 		boolean result=true;
-		UserVO userVO=userDAO.findUser(userId);
-		if(userVO != null) {
+		User user=userDAO.findUser(userId);
+		if(user != null) {
 			result=false;
 		}
 		return result;

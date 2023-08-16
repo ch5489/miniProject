@@ -1,9 +1,9 @@
-package com.model2.mvc.service.user.vo;
+package com.model2.mvc.service.user.domain;
 
 import java.sql.Date;
 
 
-public class UserVO {
+public class User {
 	
 	private String userId;
 	private String userName;
@@ -15,7 +15,7 @@ public class UserVO {
 	private String email;
 	private Date regDate;
 	
-	public UserVO(){
+	public User(){
 	}
 	
 	public String getUserId() {

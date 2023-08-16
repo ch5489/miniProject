@@ -40,6 +40,7 @@
 		</init-param>
 	</servlet>
 	
+	<!-- .do 로 들어오는 페이지는 다 Action으로 보내 -->
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>
