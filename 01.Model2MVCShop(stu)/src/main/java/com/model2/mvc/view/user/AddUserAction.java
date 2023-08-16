@@ -1,12 +1,12 @@
 package com.model2.mvc.view.user;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest; 
 import javax.servlet.http.HttpServletResponse;
 
 import com.model2.mvc.framework.Action;
 import com.model2.mvc.service.user.UserService;
+import com.model2.mvc.service.user.domain.User;
 import com.model2.mvc.service.user.impl.UserServiceImpl;
-import com.model2.mvc.service.user.vo.UserVO;
 
 
 public class AddUserAction extends Action {
@@ -14,20 +14,20 @@ public class AddUserAction extends Action {
 	@Override
 	public String execute(	HttpServletRequest request,
 												HttpServletResponse response) throws Exception {
-		UserVO userVO=new UserVO();
-		userVO.setUserId(request.getParameter("userId"));
-		userVO.setPassword(request.getParameter("password"));
-		userVO.setUserName(request.getParameter("userName"));
-		userVO.setSsn(request.getParameter("ssn"));
+		User user=new User();
+		user.setUserId(request.getParameter("userId"));
+		user.setPassword(request.getParameter("password"));
+		user.setUserName(request.getParameter("userName"));
+		user.setSsn(request.getParameter("ssn"));
 		
-		userVO.setAddr(request.getParameter("addr"));
-		userVO.setPhone(request.getParameter("phone"));
-		userVO.setEmail(request.getParameter("email"));
+		user.setAddr(request.getParameter("addr"));
+		user.setPhone(request.getParameter("phone"));
+		user.setEmail(request.getParameter("email"));
 		
-		System.out.println(userVO);
+		System.out.println(user);
 		
 		UserService service=new UserServiceImpl();
-		service.addUser(userVO);
+		service.addUser(user);
 		
 		return "redirect:/user/loginView.jsp";
 	}

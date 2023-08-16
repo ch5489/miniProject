@@ -53,7 +53,7 @@ function fncAddProduct(){
 		return;
 	}
 
-	document.detailForm.action='/updateProduct.do?prodNo=${productVOprodNo}&menu=ok';
+	document.detailForm.action='/updateProduct.do?prodNo=${productVO.prodNo}&menu=ok';
 	document.detailForm.submit();
 }
 

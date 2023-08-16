@@ -1,14 +1,14 @@
 package com.model2.mvc.service.purchase.vo;
 
-import java.sql.Date;
+import java.sql.Date; 
 
 import com.model2.mvc.service.product.vo.ProductVO;
-import com.model2.mvc.service.user.vo.UserVO;
+import com.model2.mvc.service.user.domain.User;
 
 
 public class PurchaseVO {
 	
-	private UserVO buyer;
+	private User buyer;
 	private String divyAddr;
 	private String divyDate;
 	private String divyRequest;
@@ -23,10 +23,10 @@ public class PurchaseVO {
 	public PurchaseVO(){
 	}
 	
-	public UserVO getBuyer() {
+	public User getBuyer() {
 		return buyer;
 	}
-	public void setBuyer(UserVO buyer) {
+	public void setBuyer(User buyer) {
 		this.buyer = buyer;
 	}
 	public String getDivyAddr() {
