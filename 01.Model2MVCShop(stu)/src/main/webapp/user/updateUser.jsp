@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
-<%@ page import="com.model2.mvc.service.user.domain.*" %>
+<%-- <%@ page import="com.model2.mvc.service.domain.*" %>
 
 <%
 	User vo=(User)request.getAttribute("user");
-%>
+%> --%>
 
 <html>
 <head>
@@ -54,7 +54,7 @@ function resetData() {
 
 <form name="detailForm"  method="post" >
 
-<input type="hidden" name="userId" value="<%=vo.getUserId() %>">
+<input type="hidden" name="userId" value="${user.userId }">
 
 <table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
 	<tr>
@@ -85,7 +85,7 @@ function resetData() {
 		<td class="ct_write01">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="105"><%=vo.getUserId() %></td>
+					<td width="105">${user.userId }</td>
 					<td>	</td>
 				</tr>
 			</table>
@@ -101,7 +101,7 @@ function resetData() {
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input type="text" name="userName" value="<%=vo.getUserName() %>" class="ct_input_g" 
+			<input type="text" name="userName" value="${user.userName }" class="ct_input_g" 
 						style="width:100px; height:19px"  maxLength="50" >
 		</td>
 	</tr>
@@ -113,7 +113,7 @@ function resetData() {
 		<td width="104" class="ct_write">주소</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input 	type="text" name="addr" value="<%=vo.getAddr() %>" class="ct_input_g" 
+			<input 	type="text" name="addr" value="${user.addr }" class="ct_input_g" 
 							style="width:370px; height:19px"  maxLength="100">
 		</td>
 	</tr>
@@ -126,25 +126,49 @@ function resetData() {
 		<td class="ct_write01">
 			<select 	name="phone1" class="ct_input_g" style="width:50px" 
 							onChange="document.detailForm.phone2.focus();">
-				<option value="010" >010</option>
-				<option value="011" >011</option>
-				<option value="016" >016</option>
-				<option value="018" >018</option>
-				<option value="019" >019</option>
-			</select>
-			<input type="text" name="phone2"
-						<%if (vo.getPhone() != null) {%> 
-							value="<%=vo.getPhone().split("-")[1] %>"
-						<%} %> 
-						class="ct_input_g" style="width:100px; height:19px"  maxLength="9" >
-			- 
-			<input type="text" name="phone3" 
-						<%if (vo.getPhone() != null) {%> 
-							value="<%=vo.getPhone().split("-")[2] %>"
-						<%} %> 
-						class="ct_input_g" style="width:100px; height:19px"  maxLength="9" >
-			<input type="hidden" name="phone" class="ct_input_g"  >
-		</td>
+						<%-- <% 010,011 등 파싱하여 선택되게 해주기 위함
+						String phone1 = "";
+						String phone2 = "";
+						String phone3 = "";
+						if (vo.getPhone() != null) {
+							phone1 = vo.getPhone().split("-")[0];
+							phone2 = vo.getPhone().split("-")[1];
+							phone3 = vo.getPhone().split("-")[2];
+						}
+						%>
+						<option value="010" <%=phone1.equals("010") ? "selected" : ""%>>010</option>
+						<option value="011" <%=phone1.equals("011") ? "selected" : ""%>>011</option>
+						<option value="016" <%=phone1.equals("016") ? "selected" : ""%>>016</option>
+						<option value="018" <%=phone1.equals("018") ? "selected" : ""%>>018</option>
+						<option value="019" <%=phone1.equals("019") ? "selected" : ""%>>019</option> --%>
+						
+						<!-- &&는 참과 참을 찾는다 but 하나가 false 일 경우 넘어감
+						||는 하나의 참을 찾기 때문에 하나만 true 일 경우 true -->
+						<option value="010"
+							${ ! empty user.phone1 && user.phone1 == "010" ? "selected" : ""  }>010</option>
+						<option value="011"
+							${ ! empty user.phone1 && user.phone1 == "011" ? "selected" : ""  }>011</option>
+						<option value="016"
+							${ ! empty user.phone1 && user.phone1 == "016" ? "selected" : ""  }>016</option>
+						<option value="018"
+							${ ! empty user.phone1 && user.phone1 == "018" ? "selected" : ""  }>018</option>
+						<option value="019"
+							${ ! empty user.phone1 && user.phone1 == "019" ? "selected" : ""  }>019</option>
+				</select>
+			<%-- <input type="text" name="phone2"
+					value="<%=phone2.equals("") ? "" : phone2%>" class="ct_input_g"
+					style="width: 100px; height: 19px" maxLength="9"> - <input
+					type="text" name="phone3"
+					value="<%=phone3.equals("") ? "" : phone3%>" class="ct_input_g"
+					style="width: 100px; height: 19px" maxLength="9"> --%>
+					
+					<input 	type="text" name="phone2" value="${ ! empty user.phone2 ? user.phone2 : ''}" 
+							class="ct_input_g" style="width:100px; height:19px"  maxLength="9" >
+					- 
+					<input 	type="text" name="phone3" value="${ ! empty user.phone3 ? user.phone3 : ''}"  
+							class="ct_input_g"  style="width:100px; height:19px"  maxLength="9" >
+					<input type="hidden" name="phone" class="ct_input_g" />
+				</td>
 	</tr>
 
 	<tr>
@@ -157,7 +181,7 @@ function resetData() {
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td height="26">
-						<input 	type="text" name="email" value="<%=vo.getEmail() %>" class="ct_input_g" 
+						<input 	type="text" name="email" value="${user.email }" class="ct_input_g" 
 										style="width:100px; height:19px" onChange="check_email(this.form);">
 					</td>
 				</tr>

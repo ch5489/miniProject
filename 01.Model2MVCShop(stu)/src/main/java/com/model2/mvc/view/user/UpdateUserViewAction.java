@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.model2.mvc.framework.Action;
+import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
-import com.model2.mvc.service.user.domain.User;
 import com.model2.mvc.service.user.impl.UserServiceImpl;
 
 

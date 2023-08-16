@@ -38,6 +38,7 @@
 			<param-name>resources</param-name>
 			<param-value>com/model2/mvc/resources/actionmapping.properties</param-value>
 		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
 	<!-- .do 로 들어오는 페이지는 다 Action으로 보내 -->

@@ -312,9 +312,10 @@ function resetData() {
 
 </form>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 document.getElementById("btnCmfID").focus();
-</script>
+</script> -->
+<!-- 왜 첫번째에만 이게 있지,,? -->
 
 </body>
 </html>
