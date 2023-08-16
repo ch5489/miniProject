@@ -1,6 +1,6 @@
 package com.model2.mvc.service.user;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 
 import com.model2.mvc.common.SearchVO;
 import com.model2.mvc.service.user.vo.UserVO;

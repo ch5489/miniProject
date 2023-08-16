@@ -1,6 +1,6 @@
 package com.model2.mvc.framework;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,15 +26,22 @@ public class ActionServlet extends HttpServlet {
 																									throws ServletException, IOException {
 		
 		String url = request.getRequestURI();
+		//System.out.println("url 파싱 :"+url);
 		String contextPath = request.getContextPath();
+		//System.out.println("contextPath 파싱 :"+contextPath);
 		String path = url.substring(contextPath.length());
 		System.out.println(path);
 		
 		try{
 			Action action = mapper.getAction(path);
+			//map에 파싱한 패스로 액션 맵핑해줌
 			action.setServletContext(getServletContext());
-			
+			//서블릿컨텍스트 세팅
+			//System.out.println("서블릿컨텓ㄱ스트 진행");
 			String resultPage=action.execute(request, response);
+			//System.out.println(request);
+			//System.out.println(response);
+			//System.out.println("100000"+resultPage);
 			String result=resultPage.substring(resultPage.indexOf(":")+1);
 			
 			if(resultPage.startsWith("forward:"))

@@ -5,13 +5,13 @@ import java.sql.Date;
 
 public class ProductVO {
 	
-	private String fileName;
-	private String manuDate;
+	private String fileName;//올리는파일명
+	private String manuDate;//제조일자
 	private int price;
-	private String prodDetail;
-	private String prodName;
-	private int prodNo;
-	private Date regDate;
+	private String prodDetail;//상품상세
+	private String prodName;//상품이름
+	private int prodNo;//상품번호 프라이머리키 신경x
+	private Date regDate;//등록일시
 	private String proTranCode;
 	
 	public ProductVO(){
@@ -34,6 +34,7 @@ public class ProductVO {
 	}
 	public void setManuDate(String manuDate) {
 		this.manuDate = manuDate;
+		//this.manuDate = manuDate.replaceAll("-", "");
 	}
 	public int getPrice() {
 		return price;

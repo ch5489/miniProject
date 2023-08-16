@@ -1,6 +1,6 @@
 package com.model2.mvc.view.user;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +22,7 @@ public class ListUserAction extends Action {
 		if(request.getParameter("page") != null)
 			page=Integer.parseInt(request.getParameter("page"));
 		
+		System.out.println(request.getParameter("page"));
 		searchVO.setPage(page);
 		searchVO.setSearchCondition(request.getParameter("searchCondition"));
 		searchVO.setSearchKeyword(request.getParameter("searchKeyword"));

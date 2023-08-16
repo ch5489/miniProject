@@ -9,6 +9,8 @@ public class DBUtil {
 	
 	private final static String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private final static String JDBC_URL = "jdbc:oracle:thin:scott/tiger123@devcs.co.kr:10038:xe";
+	
+	//private final static String JDBC_URL = "jdbc:oracle:thin:scott/tiger@127.0.0.1:1521:xe";
 
 	public static Connection getConnection() {
 		Connection conn = null;

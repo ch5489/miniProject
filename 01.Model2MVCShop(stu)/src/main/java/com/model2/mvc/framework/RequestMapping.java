@@ -1,6 +1,6 @@
 package com.model2.mvc.framework;
 
-import java.io.InputStream;
+import java.io.InputStream; 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
