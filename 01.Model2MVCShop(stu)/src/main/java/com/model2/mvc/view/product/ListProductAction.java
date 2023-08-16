@@ -25,6 +25,9 @@ public class ListProductAction extends Action{
 				page = Integer.parseInt(request.getParameter("page"));
 			System.out.println("받아오는 페이지 수"+page);
 			
+			int total = 0;
+			int totalPage = 0;
+			
 			
 			SearchVO searchVO = new SearchVO();
 			searchVO.setPage(page);
@@ -39,7 +42,22 @@ public class ListProductAction extends Action{
 
 			ProductService service = new ProductServiceImpl();
 			HashMap<String, Object> map = service.getProductList(searchVO);
+			
+			if (map != null) {
+				total = ((Integer) map.get("count")).intValue();
 
+			}
+			
+			if (total > 0) {
+				totalPage = total / Integer.parseInt(pageSize);
+				if (total % Integer.parseInt(pageSize) > 0)
+					totalPage += 1;
+			}
+			System.out.println(totalPage);
+			
+			searchVO.setAllPageSize(totalPage);
+			//searchVO.setAllPageSize(page);
+			
 			request.setAttribute("map", map);
 			request.setAttribute("searchVO", searchVO);
 			System.out.println("request.getParameter(\"searchCondition\")"+request.getParameter("searchCondition"));

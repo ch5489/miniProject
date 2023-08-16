@@ -7,6 +7,7 @@ public class SearchVO {
 	String searchCondition;
 	String searchKeyword;
 	int pageSize;
+	int allPageSize;
 	
 	public SearchVO(){
 	}
@@ -24,7 +25,14 @@ public class SearchVO {
 	public void setPage(int page) {
 		this.page = page;
 	}
-
+	
+	public int getAllPageSize() {
+		return allPageSize;
+	}
+	public void setAllPageSize(int allPageSize) {
+		this.allPageSize = allPageSize;
+	}
+	
 	public String getSearchCondition() {
 		return searchCondition;
 	}

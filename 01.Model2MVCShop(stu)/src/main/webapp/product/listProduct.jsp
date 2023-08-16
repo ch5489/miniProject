@@ -2,7 +2,7 @@
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 
-<%@ page import="java.util.*"  %>
+<%-- <%@ page import="java.util.*"  %>
 <%@ page import="com.model2.mvc.service.product.vo.*" %>
 <%@ page import="com.model2.mvc.common.*" %>
 
@@ -37,23 +37,27 @@
 	
 	String sK = request.getParameter("searchKeyword");
 	//String sK = searchVO.getSearchKeyword();
-	String sC = request.getParameter("searchCondition");
+	//String sC = request.getParameter("searchCondition");
 	//String sC = searchVO.getSearchCondition();
 	//System.out.println(pg);
 	System.out.println(sK);
-	System.out.println(sC);
+	//System.out.println(sC);
 	
 	//System.out.println(menu);
-%>
+%> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 
-<%if(menu.equals("manage")){%>
+<%-- <%if(menu.equals("manage")){%> --%>
+<c:if test="${param.menu == 'manage'}">
 	<title>상품 관리</title>
-	
-<%}else{ %>
+</c:if>
+<%-- <%}else{ %> --%>
+<c:if test="${param.menu == 'search'}">
 <title>상품 목록조회</title>
-<%} %>
+<%-- <%} %> --%>
+</c:if>
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
@@ -67,7 +71,7 @@ function fncGetProductList(){
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do?&menu=<%=menu%>" method="post">
+<form name="detailForm" action="/listProduct.do?&menu=${param.menu }" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -77,16 +81,19 @@ function fncGetProductList(){
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<%
+								<%-- <%
 								if (menu.equals("manage")) {
-								%>
+								%> --%>
+								<c:if test="${param.menu == 'manage'}">
 								<td width="93%" class="ct_ttl01">상품 관리</td>
-
-								<%
+								</c:if>
+								<%-- <%
 								} else {
-								%>
+								%> --%>
+								<c:if test="${param.menu == 'search'}">
 								<td width="93%" class="ct_ttl01">상품 목록조회</td>
-								<%} %>
+								<%-- <%} %> --%>
+								</c:if>
 
 								
 							</tr>
@@ -100,63 +107,113 @@ function fncGetProductList(){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-	<%
+	<td align="right">
+	<%-- <%
 		if(searchVO.getSearchCondition() != null && !searchVO.getSearchCondition().equals("null")) {
 			
-	%>
-		<td align="right">
-			<select name="searchCondition" class="ct_input_g" style="width:80px">
-		<%
-				if(searchVO.getSearchCondition().equals("0")){
-		%>
+	%> --%>
+	<%-- <% System.out.println("searchVO.getSearchCondition ; "+searchVO.getSearchCondition()); %> --%>
+	<select name="searchCondition" class="ct_input_g" style="width:80px">
+	<c:choose>
+		<c:when test="${searchVO.searchCondition == '0'}">
 				<option value="0" selected>상품번호</option>
 				<option value="1">상품명</option>
 				<option value="2">상품가격</option>
-		<%
-				}else if(searchVO.getSearchCondition().equals("1")){
-		%>
+		</c:when>
+		
+		<c:when test="${searchVO.searchCondition == '1'}">
 				<option value="0" >상품번호</option>
 				<option value="1" selected>상품명</option>
 				<option value="2">상품가격</option>
-		<%
-				}else {//if(searchVO.getSearchCondition().equals("2")){
-					
-		%>		<option value="0" >상품번호</option>
+		</c:when>
+		
+		<c:when test="${searchVO.searchCondition == '2'}">		
+				<option value="0" >상품번호</option>
 				<option value="1" >상품명</option>
 				<option value="2" selected>상품가격</option>
-				
-				<%}%>
-		
+		</c:when>
+		<c:otherwise>
+				<option value="0">상품번호</option>
+				<option value="1">상품명</option>
+				<option value="2">상품가격</option>
+		</c:otherwise>
+	</c:choose>
+	</select>
+	<%-- <c:if test="${ searchVO.searchCondition != null}">
+	
+		<td align="right">
+			<select name="searchCondition" class="ct_input_g" style="width:80px">
+			<% System.out.println("위에 이프문 디버깅 ");%>
+		<%
+				if(searchVO.getSearchCondition().equals("0")){
+		%> --%>
+		<%-- 	<c:if test="${searchVO.searchCondition == '0' }">
+				<option value="0" selected>상품번호</option>
+				<option value="1">상품명</option>
+				<option value="2">상품가격</option>
+			</c:if> --%>
+		<%-- <%
+				}else if(searchVO.getSearchCondition().equals("1")){
+		%> --%>
+		<%-- 	<c:if test="${searchVO.searchCondition == '1' }">
+				<option value="0" >상품번호</option>
+				<option value="1" selected>상품명</option>
+				<option value="2">상품가격</option>
+			</c:if> --%>
+<%-- 		<%
+				}else {//if(searchVO.getSearchCondition().equals("2")){
+					
+		%>	 --%>	
+		<%-- 	<c:if test="${searchVO.searchCondition == '2' }">
+				<option value="0" >상품번호</option>
+				<option value="1" >상품명</option>
+				<option value="2" selected>상품가격</option>
+			</c:if>	
 			</select>
+		
+		</c:if> --%>
+			<%-- 	<%}%> --%>
+		
 			
 			
-							<%-- <% request.setAttribute("serachKeyword", searchVO.getSearchKeyword()); %> --%>
+			
+	<%-- <% request.setAttribute("serachKeyword", searchVO.getSearchKeyword()); %> --%>
 		<!-- </td> -->
-	<%
+	<%-- <%
 		}else{
-	%>
+	%> --%>
+<%-- 	<c:if test="${searchVO.searchCondition == null}">
+	
+	<% System.out.println("아래 이프문 디버깅 ");%>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
 				<option value="0">상품번호</option>
 				<option value="1">상품명</option>
 				<option value="2">상품가격</option>
 			</select>
-			
-			
-			<!-- <input type="text" name="searchKeyword"  class="ct_input_g" style="width:200px; height:19px" > -->
+	</c:if>	 --%>
+	
+	<%-- <%
+		}
+	%> --%>
+
+					<!-- <input type="text" name="searchKeyword"  class="ct_input_g" style="width:200px; height:19px" > -->
 			
 		<!-- </td> -->
-	<%
-		}
-	%>
-		<%if(searchVO.getSearchKeyword() != null && !searchVO.getSearchKeyword().equals("null")){%>
-			<input 	type="text" name="searchKeyword"  value="<%=searchVO.getSearchKeyword()%>" 
+	
+		<%-- <%if(searchVO.getSearchKeyword() != null && !searchVO.getSearchKeyword().equals("null")){%> --%>
+		<c:choose>
+		<c:when test="${ !empty searchVO.searchKeyword && searchVO.searchKeyword}">
+			<input 	type="text" name="searchKeyword"  value="${searchVO.searchKeyword }" 
 							class="ct_input_g" style="width:200px; height:19px" >
-			<%}else{%>
-			
+		</c:when>
+			<%-- <%}else{%> --%>
+		<c:otherwise>
 			<input 	type="text" name="searchKeyword" 
 							class="ct_input_g" style="width:200px; height:19px" >				
-			<%} %>
+		</c:otherwise>
+		</c:choose>
+			<%-- <%} %> --%>
 		</td>
 		<td align="right" width="70">
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -178,7 +235,9 @@ function fncGetProductList(){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-		<td colspan="11" >전체  <%= total%> 건수, 현재 <%=currentPage %> 페이지</td>
+		<td colspan="11" >전체  ${map.count } 건수, 현재 ${searchVO.page } 페이지</td> 
+		
+		<%--  추가예정, ${searchVO.searchKeyword} --%>
 	</tr>
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
@@ -194,52 +253,68 @@ function fncGetProductList(){
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
 	</tr>
-	<% 	
+	
+	
+	<%-- <% 	
 		 int no=list.size();
 		for(int i=0; i<list.size(); i++) {
 			ProductVO vo = (ProductVO)list.get(i); 
-	%>
+	%> --%>
+	<%-- <%=no--%> 
+	<%-- <%if(menu.equals("manage")){%> --%>
+	<%-- <%}else{ %> --%>
+	<%-- <%} %> --%>
+<%-- 	<% } %> --%>
+	<c:forEach var = "list" items = "${ map.list}" begin = "0" step = "1" varStatus = "status">
+	
 	<tr class="ct_list_pop">
-		<td align="center"><%=no--%></td>
+		<td align="center">${status.count }</td>
+		
 		<td></td>
 		<td align="left">
 		
-		<%if(menu.equals("manage")){%>
-			<a href="/updateProductView.do?prodNo=<%=vo.getProdNo() %>&menu=manage" ><%=vo.getProdName() %></a>
-	
-		<%}else{ %>
-			<a href="/getProduct.do?prodNo=<%=vo.getProdNo() %>&menu=search" ><%=vo.getProdName() %></a>
-		<%} %>
+		<c:choose>
+		<c:when test="${param.menu == 'manage'}">
+			<a href="/updateProductView.do?prodNo=${list.prodNo }&menu=manage">${list.prodName }</a>
+		</c:when>
+		
+		<c:otherwise>
+			<a href="/getProduct.do?prodNo=${list.prodNo }&menu=search">${list.prodName }</a>
+		
+		</c:otherwise>
+		</c:choose>
 		
 			
 		</td>
 		<td></td>
-		<td align="left"><%= vo.getPrice() %></td>
+		<td align="left">${list.price }</td>
 		<td></td>
-		<td align="left"><%= vo.getRegDate() %></td>		
+		<td align="left">${list.regDate }</td>		
 		<td></td>
-		<td align="left"><%= vo.getProTranCode() %></td>
+		<td align="left">${list.proTranCode }</td>
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
 	</tr>
-	<% } %>
+	</c:forEach>
+
 </table>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="center">
-		<%if(pg == 1 || pg == 0){ %>
+		<%-- <%if(pg == 1 || pg == 0){ %>
 		◀ 이전
 		<%}else{ %>
-		<a href= /listProduct.do?page=<%=pg-1%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>""/>◀ 이전
-			<%-- href="/listProduct.do?page=<%=i%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>" --%>
+		<a href= /listProduct.do?page=<%=pg-1%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=searchVO.getSearchCondition()%>>
+		◀ 이전</a>
+			href="/listProduct.do?page=<%=i%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>"
 			
 			<%} %>
 		<%
 			for(int i = pg ;i< pg + pU ;i++){
 		%>
-				<a href="/listProduct.do?page=<%=i%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>"><%=i %></a>
+				<a href="/listProduct.do?page=<%=i%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=searchVO.getSearchCondition()%>"><%=i %></a>
 		<%		
 			if(i==totalPage){break;}
 			}
@@ -248,9 +323,46 @@ function fncGetProductList(){
 		<%if(pg == totalPage){ %>
 		이후 ▶
 		<%}else { %>
-		<a href= /listProduct.do?page=<%=pg+1%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>""/>이후 ▶
-		<%} %>	
-		<%-- 화살표 구현 및 페이지 넘어가는거 멈추게 <% int%> int --%>
+		<a href= /listProduct.do?page=<%=pg+1%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=searchVO.getSearchCondition()%>>
+		이후 ▶</a>
+		<%} %>	 --%>
+		
+		<c:choose>
+		<c:when test="${empty searchVO.page || searchVO.page == 1}">
+		◀ 이전
+		</c:when>
+		<c:when test="${searchVO.page-pageUnit <= 0}">
+		<a href= "/listProduct.do?page=1&&menu=${param.menu }&searchKeyword=${searchVO.searchKeyword }&searchCondition=${searchVO.searchCondition }">
+		◀ 이전</a>
+		</c:when>
+		<c:otherwise>
+		<a href= "/listProduct.do?page=${searchVO.page -pageUnit }&&menu=${param.menu }&searchKeyword=${searchVO.searchKeyword }&searchCondition=${searchVO.searchCondition }">
+		◀ 이전</a>
+		</c:otherwise>
+		</c:choose>
+		
+		<c:set var = "pageLoop" value = "false"/>
+		<c:forEach var ="i" begin = "${searchVO.page }"  end = "${searchVO.page + pageUnit -1}" step = "1">
+<!-- 	loop 멈추게 밖에 변수를 하나 두어 이프문이 작동안하게 함 = break 같은 기능 -->
+			<c:if test="${not pageLoop }">
+				<a href="/listProduct.do?page=${i }&&menu=${param.menu }&searchKeyword=${searchVO.searchKeyword }&searchCondition=${searchVO.searchCondition }">${i }</a>
+				<c:if test="${i == searchVO.allPageSize}">
+					<c:set var = "pageLoop" value = "true"/>
+				</c:if>
+			</c:if>
+			
+		</c:forEach>
+		
+		<c:choose>
+		<c:when test="${searchVO.page == searchVO.allPageSize || searchVO.page+pageUnit >= searchVO.allPageSize}">
+		이후 ▶
+		</c:when>
+		<c:otherwise>
+		<a href= "/listProduct.do?page=${searchVO.page +pageUnit }&&menu=${param.menu }&searchKeyword=${searchVO.searchKeyword }&searchCondition=${searchVO.searchCondition }">
+		이후 ▶</a>
+		</c:otherwise>
+		</c:choose>
+		
 		
     	</td>
 	</tr>
