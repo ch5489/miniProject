@@ -1,9 +1,9 @@
 package com.model2.mvc.service.purchase.vo;
 
-import java.sql.Date; 
+import java.sql.Date;
 
+import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.vo.ProductVO;
-import com.model2.mvc.service.user.domain.User;
 
 
 public class PurchaseVO {
