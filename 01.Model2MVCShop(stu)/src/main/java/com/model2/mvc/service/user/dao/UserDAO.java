@@ -72,11 +72,11 @@ public class UserDAO {
 		String sql = "select * from USERS ";
 		if (searchVO.getSearchCondition() != null) {
 			if (searchVO.getSearchCondition().equals("0")) {
-				sql += " where USER_ID='" + searchVO.getSearchKeyword()
-						+ "'";
+				sql += " where USER_ID LIKE '%" + searchVO.getSearchKeyword()
+						+ "%'";
 			} else if (searchVO.getSearchCondition().equals("1")) {
-				sql += " where USER_NAME='" + searchVO.getSearchKeyword()
-						+ "'";
+				sql += " where USER_NAME LIKE '%" + searchVO.getSearchKeyword()
+						+ "%'";
 			}
 		}
 		sql += " order by USER_ID";
@@ -94,13 +94,13 @@ public class UserDAO {
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("count", new Integer(total));
 
-		rs.absolute(searchVO.getPage() * searchVO.getPageUnit() - searchVO.getPageUnit()+1);
+		rs.absolute(searchVO.getPage() * searchVO.getPageSize() - searchVO.getPageSize()+1);
 		System.out.println("searchVO.getPage():" + searchVO.getPage());
-		System.out.println("searchVO.getPageUnit():" + searchVO.getPageUnit());
+		System.out.println("searchVO.getPageUnit():" + searchVO.getPageSize());
 
 		ArrayList<UserVO> list = new ArrayList<UserVO>();
 		if (total > 0) {
-			for (int i = 0; i < searchVO.getPageUnit(); i++) {
+			for (int i = 0; i < searchVO.getPageSize(); i++) {
 				UserVO vo = new UserVO();
 				vo.setUserId(rs.getString("USER_ID"));
 				vo.setUserName(rs.getString("USER_NAME"));

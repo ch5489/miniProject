@@ -23,21 +23,27 @@ public class ListProductAction extends Action{
 			int page = 1;
 			if (request.getParameter("page") != null)
 				page = Integer.parseInt(request.getParameter("page"));
-
+			System.out.println("받아오는 페이지 수"+page);
+			
+			
 			SearchVO searchVO = new SearchVO();
 			searchVO.setPage(page);
 			searchVO.setSearchCondition(request.getParameter("searchCondition"));
 			searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
 
-			String pageUnit = getServletContext().getInitParameter("pageSize");
-			searchVO.setPageUnit(Integer.parseInt(pageUnit));
+			String pageSize = getServletContext().getInitParameter("pageSize");
+			searchVO.setPageSize(Integer.parseInt(pageSize));
+			
+			String pageUnit = getServletContext().getInitParameter("pageUnit");
+			request.setAttribute("pageUnit", pageUnit);
 
 			ProductService service = new ProductServiceImpl();
 			HashMap<String, Object> map = service.getProductList(searchVO);
 
 			request.setAttribute("map", map);
 			request.setAttribute("searchVO", searchVO);
-			
+			System.out.println("request.getParameter(\"searchCondition\")"+request.getParameter("searchCondition"));
+			System.out.println("request.getParameter(\"searchKeyword\")"+request.getParameter("searchKeyword"));
 			//System.out.println("request 파싱 :"+(request.getQueryString()).split("&")[1]);
 
 //		String url = request.getQueryString();

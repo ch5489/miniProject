@@ -27,8 +27,8 @@ public class ListUserAction extends Action {
 		searchVO.setSearchCondition(request.getParameter("searchCondition"));
 		searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
 		
-		String pageUnit=getServletContext().getInitParameter("pageSize");
-		searchVO.setPageUnit(Integer.parseInt(pageUnit));
+		String pageSize=getServletContext().getInitParameter("pageSize");
+		searchVO.setPageSize(Integer.parseInt(pageSize));
 		
 		UserService service=new UserServiceImpl();
 		HashMap<String,Object> map=service.getUserList(searchVO);

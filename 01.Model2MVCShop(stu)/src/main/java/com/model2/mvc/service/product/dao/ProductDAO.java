@@ -1,10 +1,11 @@
 package com.model2.mvc.service.product.dao;
 
-import java.sql.Connection;  
+import java.sql.Connection;   
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.model2.mvc.common.SearchVO;
 import com.model2.mvc.common.util.DBUtil;
@@ -77,55 +78,78 @@ public void addProduct(ProductVO productVO) throws Exception {
 	  
 	  Connection con = DBUtil.getConnection();
 	  
-		String sql = "select * from PRODUCT ";
+	  //int page =1;
+	  //if(searchVO.getPage() != 0) {
+		 // page = searchVO.getPage();
+	 // }
+	  
+		String sql = "SELECT * FROM PRODUCT ";
 		if (searchVO.getSearchCondition() != null) {
 			if (searchVO.getSearchCondition().equals("0")) {
-				sql += " where PROD_NO='" + searchVO.getSearchKeyword() + "'";
+				sql += " WHERE PROD_NO LIKE'%" + searchVO.getSearchKeyword() + "%'";
 			} else if (searchVO.getSearchCondition().equals("1")) {
-				sql += " where PROD_NAME='" + searchVO.getSearchKeyword() + "'";
+				sql += " WHERE PROD_NAME LIKE'%" + searchVO.getSearchKeyword() + "%'";
 			} else if (searchVO.getSearchCondition().equals("2")) {
-				sql += " where PRICE=" + searchVO.getSearchKeyword();
+				sql += " WHERE PRICE=" + searchVO.getSearchKeyword();
 			}
 		}
-		sql += " order by PROD_NO";
+		sql += "ORDER BY PROD_NO";
+				
+		
+		System.out.println("수정전 sql : "+sql);
 
-		PreparedStatement stmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+		PreparedStatement stmt1 = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
-		ResultSet rs = stmt.executeQuery();
+		ResultSet rs1 = stmt1.executeQuery();
 
-		rs.last();
-		int total = rs.getRow();
+		rs1.last();
+		int total = rs1.getRow();
 		System.out.println("로우의 수:" + total);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("count", new Integer(total));
-
-		rs.absolute(searchVO.getPage() * searchVO.getPageUnit() - searchVO.getPageUnit() + 1);
+		System.out.println(map);
+		
+		
 		System.out.println("searchVO.getPage():" + searchVO.getPage());
-		System.out.println("searchVO.getPageUnit():" + searchVO.getPageUnit());
-
-		ArrayList<ProductVO> list = new ArrayList<ProductVO>();
+		System.out.println("searchVO.getPageUnit():" + searchVO.getPageSize());
+		
+		sql = makeCurrentPageSql(sql, searchVO);
+		PreparedStatement stmt2 =con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs2 = stmt2.executeQuery();
+		System.out.println("변경됐나 sql : "+sql);
+		
+		rs2.absolute(1);
+		//1 또는 가지고 오는 값 부터
+		//System.out.println("rs2.absolute(1) ;"+rs2.absolute(1));
+		//System.out.println("rs2.absolute(searchVO.getPage() * searchVO.getPageUnit() - searchVO.getPageUnit() + 1)"+rs2.absolute(searchVO.getPage() * searchVO.getPageUnit() - searchVO.getPageUnit() + 1));
+		
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		
 		if (total > 0) {
-			for (int i = 0; i < searchVO.getPageUnit(); i++) {
+			for (int i = 0; i < searchVO.getPageSize(); i++) {
 				ProductVO vo = new ProductVO();
 				//System.out.println("1");
-				vo.setProdNo(rs.getInt("PROD_NO"));
+				//System.out.println(rs2.getInt("PROD_NO"));
+				vo.setProdNo(rs2.getInt("PROD_NO"));
 				//System.out.println("2");
-				vo.setProdName(rs.getString("PROD_NAME"));
+				vo.setProdName(rs2.getString("PROD_NAME"));
 				//System.out.println("3");
-				vo.setProdDetail(rs.getString("PROD_DETAIL"));
+				vo.setProdDetail(rs2.getString("PROD_DETAIL"));
 				//System.out.println("4");
-				vo.setManuDate(rs.getString("manufacture_day"));
+				vo.setManuDate(rs2.getString("manufacture_day"));
 				//System.out.println("5");
-				vo.setPrice(rs.getInt("PRICE"));
+				vo.setPrice(rs2.getInt("PRICE"));
 				//System.out.println("6");
-				vo.setFileName(rs.getString("IMAGE_FILE"));
+				vo.setFileName(rs2.getString("IMAGE_FILE"));
 			//	System.out.println("7");
-				vo.setRegDate(rs.getDate("REG_DATE"));
+				vo.setRegDate(rs2.getDate("REG_DATE"));
 				//System.out.println("8");
-
+				
 				list.add(vo);
-				if (!rs.next())
+				System.out.println(list);
+				if (!rs2.next())
 					break;
 			}
 		}
@@ -134,6 +158,8 @@ public void addProduct(ProductVO productVO) throws Exception {
 		System.out.println("map().size() : " + map.size());
 
 		con.close();
+//		rs1.close();
+//		rs2.close();
 
 		return map;
 	}
@@ -155,6 +181,20 @@ public void addProduct(ProductVO productVO) throws Exception {
 		stmt.executeUpdate();
 
 		con.close();
+	}
+	  
+	String makeCurrentPageSql(String sql, SearchVO searchVO) {
+		
+//		int page =1;
+//		  if(searchVO.getPage() != 0) {
+//			  page = searchVO.getPage();
+//		  }
+		sql = "SELECT pt1.* FROM (SELECT ROWNUM rnum, pt.* FROM ("+sql+
+				") pt) pt1 WHERE pt1.rnum BETWEEN "+((searchVO.getPage()*searchVO.getPageSize())-(searchVO.getPageSize()-1))+" and "+(searchVO.getPage()*searchVO.getPageSize());
+		//System.out.println((page*searchVO.getPageUnit())-(searchVO.getPageUnit()-1));
+		System.out.println("변경해야할 sql : "+sql);
+		return sql;
+
 	}
 	 
 }

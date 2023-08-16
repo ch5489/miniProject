@@ -21,12 +21,28 @@
 	
 	int totalPage=0;
 	if(total > 0) {
-		totalPage= total / searchVO.getPageUnit() ;
-		if(total%searchVO.getPageUnit() >0)
+		totalPage= total / searchVO.getPageSize() ;
+		if(total%searchVO.getPageSize() >0)
 			totalPage += 1;
 	}
 	
 	String menu = request.getParameter("menu");
+	System.out.println("map 입니다"+map);
+	
+	//String pg = request.getParameter("page");
+	int pg = searchVO.getPage();
+	String spU = (String)request.getAttribute("pageUnit");
+	int pU = Integer.parseInt(spU);
+	
+	
+	String sK = request.getParameter("searchKeyword");
+	//String sK = searchVO.getSearchKeyword();
+	String sC = request.getParameter("searchCondition");
+	//String sC = searchVO.getSearchCondition();
+	//System.out.println(pg);
+	System.out.println(sK);
+	System.out.println(sC);
+	
 	//System.out.println(menu);
 %>
 <html>
@@ -51,7 +67,7 @@ function fncGetProductList(){
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do" method="post">
+<form name="detailForm" action="/listProduct.do?&menu=<%=menu%>" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -85,7 +101,8 @@ function fncGetProductList(){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 	<%
-		if(searchVO.getSearchCondition() != null) {
+		if(searchVO.getSearchCondition() != null && !searchVO.getSearchCondition().equals("null")) {
+			
 	%>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
@@ -102,7 +119,7 @@ function fncGetProductList(){
 				<option value="1" selected>상품명</option>
 				<option value="2">상품가격</option>
 		<%
-				}else{
+				}else {//if(searchVO.getSearchCondition().equals("2")){
 					
 		%>		<option value="0" >상품번호</option>
 				<option value="1" >상품명</option>
@@ -111,9 +128,10 @@ function fncGetProductList(){
 				<%}%>
 		
 			</select>
-			<input 	type="text" name="searchKeyword"  value="<%=searchVO.getSearchKeyword() %>" 
-							class="ct_input_g" style="width:200px; height:19px" >
-		</td>
+			
+			
+							<%-- <% request.setAttribute("serachKeyword", searchVO.getSearchKeyword()); %> --%>
+		<!-- </td> -->
 	<%
 		}else{
 	%>
@@ -123,11 +141,23 @@ function fncGetProductList(){
 				<option value="1">상품명</option>
 				<option value="2">상품가격</option>
 			</select>
-			<input type="text" name="searchKeyword"  class="ct_input_g" style="width:200px; height:19px" >
-		</td>
+			
+			
+			<!-- <input type="text" name="searchKeyword"  class="ct_input_g" style="width:200px; height:19px" > -->
+			
+		<!-- </td> -->
 	<%
 		}
 	%>
+		<%if(searchVO.getSearchKeyword() != null && !searchVO.getSearchKeyword().equals("null")){%>
+			<input 	type="text" name="searchKeyword"  value="<%=searchVO.getSearchKeyword()%>" 
+							class="ct_input_g" style="width:200px; height:19px" >
+			<%}else{%>
+			
+			<input 	type="text" name="searchKeyword" 
+							class="ct_input_g" style="width:200px; height:19px" >				
+			<%} %>
+		</td>
 		<td align="right" width="70">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
@@ -199,15 +229,28 @@ function fncGetProductList(){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="center">
-		
-		
+		<%if(pg == 1 || pg == 0){ %>
+		◀ 이전
+		<%}else{ %>
+		<a href= /listProduct.do?page=<%=pg-1%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>""/>◀ 이전
+			<%-- href="/listProduct.do?page=<%=i%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>" --%>
+			
+			<%} %>
 		<%
-			for(int i=1;i<=totalPage;i++){
+			for(int i = pg ;i< pg + pU ;i++){
 		%>
-				<a href="/listProduct.do?page=<%=i%>&&menu=<%=menu%>"><%=i %></a>
-		<%
+				<a href="/listProduct.do?page=<%=i%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>"><%=i %></a>
+		<%		
+			if(i==totalPage){break;}
 			}
-		%>	
+		%>
+		
+		<%if(pg == totalPage){ %>
+		이후 ▶
+		<%}else { %>
+		<a href= /listProduct.do?page=<%=pg+1%>&&menu=<%=menu%>&searchKeyword=<%=sK%>&searchCondition=<%=sC%>""/>이후 ▶
+		<%} %>	
+		<%-- 화살표 구현 및 페이지 넘어가는거 멈추게 <% int%> int --%>
 		
     	</td>
 	</tr>

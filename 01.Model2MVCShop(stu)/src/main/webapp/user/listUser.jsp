@@ -19,8 +19,8 @@
 	
 	int totalPage=0;
 	if(total > 0) {
-		totalPage= total / searchVO.getPageUnit() ;
-		if(total%searchVO.getPageUnit() >0)
+		totalPage= total / searchVO.getPageSize() ;
+		if(total%searchVO.getPageSize() >0)
 			totalPage += 1;
 	}
 %>

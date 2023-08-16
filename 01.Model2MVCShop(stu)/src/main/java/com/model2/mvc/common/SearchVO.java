@@ -6,16 +6,16 @@ public class SearchVO {
 	private int page;
 	String searchCondition;
 	String searchKeyword;
-	int pageUnit;
+	int pageSize;
 	
 	public SearchVO(){
 	}
 	
-	public int getPageUnit() {
-		return pageUnit;
+	public int getPageSize() {
+		return pageSize;
 	}
-	public void setPageUnit(int pageUnit) {
-		this.pageUnit = pageUnit;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 	
 	public int getPage() {

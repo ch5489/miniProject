@@ -11,12 +11,18 @@
 		<param-name>pageSize</param-name>
 		<param-value>3</param-value>
 	</context-param>
+	
+	<context-param>
+		<param-name>pageUnit</param-name>
+		<param-value>5</param-value>
+	</context-param>
 
 	<filter>
 		<filter-name>requestFilter</filter-name>
 		<filter-class>com.model2.mvc.filter.RequestFilter</filter-class>
 	</filter>
 	
+	<!-- Filter 를 이용 한글처리 -->
 	<filter-mapping>
 		<filter-name>requestFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -24,6 +30,7 @@
 	<!-- /*는 8080으로 들어오는 모든 루트 및 url을 받겠다.
 		/ 는 8080으로 들어오는 모든 루트 만 받겠다. url로 들어오는 건 구분x-->
 
+	<!-- 단일인입점 설정 -->
 	<servlet>
 		<servlet-name>action</servlet-name>
 		<servlet-class>com.model2.mvc.framework.ActionServlet</servlet-class>
