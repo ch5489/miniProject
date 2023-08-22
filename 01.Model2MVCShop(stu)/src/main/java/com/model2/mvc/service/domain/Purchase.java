@@ -1,26 +1,25 @@
-package com.model2.mvc.service.purchase.vo;
+package com.model2.mvc.service.domain;
 
 import java.sql.Date;
 
-import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.vo.ProductVO;
 
 
-public class PurchaseVO {
+public class Purchase {
 	
-	private User buyer;
-	private String divyAddr;
-	private String divyDate;
-	private String divyRequest;
-	private Date orderDate;
-	private String paymentOption;
-	private ProductVO purchaseProd;
-	private String receiverName;
-	private String receiverPhone;
-	private String tranCode;
-	private int tranNo;
+	private User buyer;				//User 타입의 구매자 정보
+	private String divyAddr;		//배송지 주소
+	private String divyDate;		//배송 희망 일자
+	private String divyRequest;		//배송 요구사항
+	private Date orderDate;			//구매일자
+	private String paymentOption;	//지불방식
+	private ProductVO purchaseProd;	//구매 물품 정보
+	private String receiverName;	//받는사람 이름
+	private String receiverPhone;	//받는사람 전화번호
+	private String tranCode;		//구매 상태 코드
+	private int tranNo;				//구매 번호
 	
-	public PurchaseVO(){
+	public Purchase(){
 	}
 	
 	public User getBuyer() {

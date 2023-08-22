@@ -1,6 +1,6 @@
 package com.model2.mvc.view.user;
 
-import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletRequest;  
 import javax.servlet.http.HttpServletResponse;
 
 import com.model2.mvc.framework.Action;
