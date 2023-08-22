@@ -10,7 +10,7 @@ public interface UserService {
 	
 	public void addUser(User user) throws Exception;
 	
-	public User loginUser(User user) throws Exception;
+	//public User loginUser(User user) throws Exception;
 	
 	public User getUser(String userId) throws Exception;
 	

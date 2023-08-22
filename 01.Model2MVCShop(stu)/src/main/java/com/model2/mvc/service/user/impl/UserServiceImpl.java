@@ -1,6 +1,12 @@
 package com.model2.mvc.service.user.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.model2.mvc.common.SearchVO;
 import com.model2.mvc.service.domain.User;
@@ -8,45 +14,59 @@ import com.model2.mvc.service.user.UserService;
 import com.model2.mvc.service.user.dao.UserDAO;
 
 
+@Service("userServiceImpl")
 public class UserServiceImpl implements UserService{
 	
-	private UserDAO userDAO;
+	@Autowired
+	@Qualifier("userDaoImpl")
+	private UserDAO userDao;
+	public void setUserDao(UserDAO userDao) {
+		this.userDao = userDao;
+	}
 	
 	public UserServiceImpl() {
-		userDAO=new UserDAO();
+		System.out.println(this.getClass());
 	}
 
 	public void addUser(User user) throws Exception {
-		userDAO.insertUser(user);
+		userDao.addUser(user);
 	}
 
-	public User loginUser(User user) throws Exception {
-			User dbUser=userDAO.findUser(user.getUserId());
-
-			if(! dbUser.getPassword().equals(user.getPassword()))
-				throw new Exception("로그인에 실패했습니다.");
-			
-			return dbUser;
-	}
 
 	public User getUser(String userId) throws Exception {
-		return userDAO.findUser(userId);
+		return userDao.getUser(userId);
 	}
 
 	public Map<String,Object> getUserList(SearchVO searchVO) throws Exception {
-		return userDAO.getUserList(searchVO);
+		List<User> list = userDao.getUserList(searchVO);
+		int totalCount = userDao.getTotalCount(searchVO);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
+		
+		return map;
 	}
 
 	public void updateUser(User user) throws Exception {
-		userDAO.updateUser(user);
+		userDao.updateUser(user);
 	}
 
 	public boolean checkDuplication(String userId) throws Exception {
 		boolean result=true;
-		User user=userDAO.findUser(userId);
+		User user=userDao.getUser(userId);
 		if(user != null) {
 			result=false;
 		}
 		return result;
 	}
 }
+
+//public User loginUser(User user) throws Exception {
+//User dbUser=userDao.findUser(user.getUserId());
+//
+//if(! dbUser.getPassword().equals(user.getPassword()))
+//	throw new Exception("로그인에 실패했습니다.");
+//
+//return dbUser;
+//}

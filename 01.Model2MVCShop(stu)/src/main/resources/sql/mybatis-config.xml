@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+		PUBLIC "-/mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+		
+<configuration>
+	<settings>
+		<setting name="callSettersOnNulls" value = "false"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias alias = "user" type="com.model2.mvc.service.domain.User"/>
+		<typeAlias alias = "searchVO" type="com.model2.mvc.common.SearchVO"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource = "sql/UserMapper.xml"/>
+	</mappers>
+</configuration>

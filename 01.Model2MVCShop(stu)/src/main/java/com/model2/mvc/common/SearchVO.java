@@ -3,11 +3,14 @@ package com.model2.mvc.common;
 
 public class SearchVO {
 	
-	private int page;
-	String searchCondition;
-	String searchKeyword;
-	int pageSize;
-	int allPageSize;
+	private int page; //curruntPage 로 수정하자! 헷갈린다,,
+	private String searchCondition;
+	private String searchKeyword;
+	private int pageSize;
+	private int allPageSize;
+	
+	private int endRowNum;
+	private int startRowNum;
 	
 	public SearchVO(){
 	}
@@ -45,6 +48,27 @@ public class SearchVO {
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
-	
+	public int getEndRowNum() {
+		return getPage()*getPageSize();
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
+	public int getStartRowNum() {
+		return (getPage()-1)*getPageSize()+1;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	@Override
+	public String toString() {
+		return "Search [Page=" + page + ", searchCondition="
+				+ searchCondition + ", searchKeyword=" + searchKeyword
+				+ ", pageSize=" + pageSize + "]";
+	}	
 	
 }
