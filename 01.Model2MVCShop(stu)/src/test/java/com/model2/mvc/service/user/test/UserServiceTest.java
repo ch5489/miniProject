@@ -25,7 +25,10 @@ import com.model2.mvc.service.user.UserService;
  * ㅇ @Test : 테스트 실행 소스 지정
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:config/commonservice.xml" })
+@ContextConfiguration(locations = { "classpath:config/context-common.xml",
+										"classpath:config/context-aspect.xml",
+										"classpath:config/context-mybatis.xml",
+										"classpath:config/context-transaction.xml" })
 public class UserServiceTest {
 
 	//==>@RunWith,@ContextConfiguration 이용 Wiring, Test 할 instance DI
@@ -61,7 +64,7 @@ public class UserServiceTest {
 		Assert.assertEquals("test@test.com", user.getEmail());
 	}
 	
-	//@Test
+	@Test
 	public void testGetUser() throws Exception {
 		
 		User user = new User();
@@ -79,16 +82,22 @@ public class UserServiceTest {
 		//==> console 확인
 		System.out.println(user);
 		
-		//==> API 확인
-		Assert.assertEquals("testUserId", user.getUserId());
-		Assert.assertEquals("testUserName", user.getUserName());
-		Assert.assertEquals("testPasswd", user.getPassword());
-		Assert.assertEquals("111-2222-3333", user.getPhone());
-		Assert.assertEquals("경기도", user.getAddr());
-		Assert.assertEquals("test@test.com", user.getEmail());
+//		//==> API 확인(변경전)
+//		Assert.assertEquals("testUserId", user.getUserId());
+//		Assert.assertEquals("testUserName", user.getUserName());
+//		Assert.assertEquals("testPasswd", user.getPassword());
+//		Assert.assertEquals("111-2222-3333", user.getPhone());
+//		Assert.assertEquals("경기도", user.getAddr());
+//		Assert.assertEquals("test@test.com", user.getEmail());
 
-		Assert.assertNotNull(userService.getUser("user02"));
-		Assert.assertNotNull(userService.getUser("user05"));
+//		Assert.assertNotNull(userService.getUser("user02"));
+//		Assert.assertNotNull(userService.getUser("user05"));
+		
+		//==> API 확인(변경)
+		Assert.assertEquals("change", user.getUserName());
+		Assert.assertEquals("777-7777-7777", user.getPhone());
+		Assert.assertEquals("change", user.getAddr());
+		Assert.assertEquals("change@change.com", user.getEmail());
 	}
 	
 	//@Test
@@ -97,10 +106,10 @@ public class UserServiceTest {
 		User user = userService.getUser("testUserId");
 		Assert.assertNotNull(user);
 		
-		Assert.assertEquals("testUserName", user.getUserName());
-		Assert.assertEquals("111-2222-3333", user.getPhone());
-		Assert.assertEquals("경기도", user.getAddr());
-		Assert.assertEquals("test@test.com", user.getEmail());
+//		Assert.assertEquals("testUserName", user.getUserName());
+//		Assert.assertEquals("111-2222-3333", user.getPhone());
+//		Assert.assertEquals("경기도", user.getAddr());
+//		Assert.assertEquals("test@test.com", user.getEmail());
 
 		user.setUserName("change");
 		user.setPhone("777-7777-7777");

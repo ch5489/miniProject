@@ -27,7 +27,10 @@ import com.model2.mvc.service.user.UserService;
  * ㅇ @Test : 테스트 실행 소스 지정
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:config/commonservice.xml" })
+@ContextConfiguration(locations = { "classpath:config/context-common.xml",
+										"classpath:config/context-aspect.xml",
+										"classpath:config/context-mybatis.xml",
+										"classpath:config/context-transacㅊㅊㅊ tion.xml" })
 public class ProductServiceTest {
 
 	//==>@RunWith,@ContextConfiguration 이용 Wiring, Test 할 instance DI
