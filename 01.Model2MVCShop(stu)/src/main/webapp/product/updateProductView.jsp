@@ -12,7 +12,7 @@
 <%@ page import="com.model2.mvc.service.product.*" %>
 
 <%
-	ProductVO vo=(ProductVO)request.getAttribute("productVO");
+	product vo=(product)request.getAttribute("product");
 	
 %> --%>
 
@@ -53,7 +53,7 @@ function fncAddProduct(){
 		return;
 	}
 
-	document.detailForm.action='/updateProduct.do?prodNo=${productVO.prodNo}&menu=ok';
+	document.detailForm.action='/updateProduct.do?prodNo=${product.prodNo}&menu=ok';
 	document.detailForm.submit();
 }
 
@@ -101,7 +101,7 @@ function resetData(){
 				<tr>
 					<td width="105">
 						<input type="text" name="prodName" class="ct_input_g" 
-									style="width: 100px; height: 19px" maxLength="20" value = "${productVO.prodName }"/>
+									style="width: 100px; height: 19px" maxLength="20" value = "${product.prodName }"/>
 					</td>
 				</tr>
 			</table>
@@ -117,7 +117,7 @@ function resetData(){
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input type="text" name="prodDetail" class="ct_input_g" 
-						style="width: 100px; height: 19px" maxLength="10" minLength="6"value = "${productVO.prodDetail }"/>
+						style="width: 100px; height: 19px" maxLength="10" minLength="6"value = "${product.prodDetail }"/>
 		</td>
 	</tr>
 	
@@ -131,7 +131,7 @@ function resetData(){
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input type="text" name="manuDate" readonly="readonly" class="ct_input_g"  
-						style="width: 100px; height: 19px"	maxLength="10" minLength="6" value = "${productVO.manuDate }"/>
+						style="width: 100px; height: 19px"	maxLength="10" minLength="6" value = "${product.manuDate }"/>
 				&nbsp;<img src="../images/ct_icon_date.gif" width="15" height="15" 
 										onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)"/>
 		</td>
@@ -146,7 +146,7 @@ function resetData(){
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input type="text" name="price" 	class="ct_input_g" 
-						style="width: 100px; height: 19px" maxLength="10" value = "${productVO.price }">&nbsp;¿ø
+						style="width: 100px; height: 19px" maxLength="10" value = "${product.price }">&nbsp;¿ø
 		</td>
 	</tr>
 	
@@ -158,7 +158,7 @@ function resetData(){
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input		type="text" name="fileName" class="ct_input_g" 
-							style="width: 200px; height: 19px" maxLength="13" value = "${productVO.fileName }"/>
+							style="width: 200px; height: 19px" maxLength="13" value = "${product.fileName }"/>
 		</td>
 	</tr>
 	<tr>

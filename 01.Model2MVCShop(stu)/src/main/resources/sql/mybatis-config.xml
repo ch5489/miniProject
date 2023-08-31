@@ -11,8 +11,8 @@
 	
 	<typeAliases>
 		<typeAlias alias = "user" type="com.model2.mvc.service.domain.User"/>
-		<typeAlias alias = "searchVO" type="com.model2.mvc.common.SearchVO"/>
-		<typeAlias alias = "product" type="com.model2.mvc.service.product.vo.ProductVO"/>
+		<typeAlias alias = "searchVO" type="com.model2.mvc.common.Search"/>
+		<typeAlias alias = "product" type="com.model2.mvc.service.domain.Product"/>
 	</typeAliases>
 	
 	<mappers>

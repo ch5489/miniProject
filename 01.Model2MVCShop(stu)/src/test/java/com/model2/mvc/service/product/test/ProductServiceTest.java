@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
-import com.model2.mvc.service.product.vo.ProductVO;
 import com.model2.mvc.service.user.UserService;
 
 
@@ -41,7 +41,7 @@ public class ProductServiceTest {
 	//@Test
 	public void testAddProduct() throws Exception {
 		
-		ProductVO product = new ProductVO();
+		Product product = new Product();
 		product.setFileName("testFile");
 		product.setManuDate("20230808");
 		product.setPrice(999999999);
@@ -68,7 +68,7 @@ public class ProductServiceTest {
 	//@Test
 	public void testGetProduct() throws Exception {
 		
-		ProductVO product = new ProductVO();
+		Product product = new Product();
 		//==> 필요하다면...
 //		user.setUserId("testUserId");
 //		user.setUserName("testUserName");
@@ -97,7 +97,7 @@ public class ProductServiceTest {
 	//@Test
 	 public void testUpdateProduct() throws Exception{
 		 
-		ProductVO product = productService.getProduct(590000);
+		Product product = productService.getProduct(590000);
 		Assert.assertNotNull(product);
 		
 		Assert.assertEquals("testFile", product.getFileName());
@@ -157,10 +157,10 @@ public class ProductServiceTest {
 	 //@Test
 	 public void testGetProductListAll() throws Exception{
 		 
-	 	SearchVO searchVO = new SearchVO();
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	Map<String,Object> map = productService.getProductList(searchVO);
+	 	Search search = new Search();
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	Map<String,Object> map = productService.getProductList(search);
 	 	
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
@@ -173,11 +173,11 @@ public class ProductServiceTest {
 	 	
 	 	System.out.println("=======================================");
 	 	
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	searchVO.setSearchCondition("0");
-	 	searchVO.setSearchKeyword("");
-	 	map = productService.getProductList(searchVO);
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("0");
+	 	search.setSearchKeyword("");
+	 	map = productService.getProductList(search);
 	 	
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
@@ -192,12 +192,12 @@ public class ProductServiceTest {
 	// @Test
 	 public void testGetProductListByProdNo() throws Exception{
 		 
-	 	SearchVO searchVO= new SearchVO();
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	searchVO.setSearchCondition("0");
-	 	searchVO.setSearchKeyword("10000");
-	 	Map<String,Object> map = productService.getProductList(searchVO);
+	 	Search search= new Search();
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("0");
+	 	search.setSearchKeyword("10000");
+	 	Map<String,Object> map = productService.getProductList(search);
 	 	
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	//System.out.println(list);
@@ -211,9 +211,9 @@ public class ProductServiceTest {
 	 	
 	 	System.out.println("=======================================");
 	 	
-	 	searchVO.setSearchCondition("0");
-	 	searchVO.setSearchKeyword(""+System.currentTimeMillis());
-	 	map = productService.getProductList(searchVO);
+	 	search.setSearchCondition("0");
+	 	search.setSearchKeyword(""+System.currentTimeMillis());
+	 	map = productService.getProductList(search);
 	 	
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(0, list.size());
@@ -228,12 +228,12 @@ public class ProductServiceTest {
 	 //@Test
 	 public void testGetProductListByProdName() throws Exception{
 		 
-	 	SearchVO searchVO = new SearchVO();
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	searchVO.setSearchCondition("1");
-	 	searchVO.setSearchKeyword("태현");
-	 	Map<String,Object> map = productService.getProductList(searchVO);
+	 	Search search = new Search();
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("1");
+	 	search.setSearchKeyword("태현");
+	 	Map<String,Object> map = productService.getProductList(search);
 	 	
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
@@ -246,9 +246,9 @@ public class ProductServiceTest {
 	 	
 	 	System.out.println("=======================================");
 	 	
-	 	searchVO.setSearchCondition("1");
-	 	searchVO.setSearchKeyword(""+System.currentTimeMillis());
-	 	map = productService.getProductList(searchVO);
+	 	search.setSearchCondition("1");
+	 	search.setSearchKeyword(""+System.currentTimeMillis());
+	 	map = productService.getProductList(search);
 	 	
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(0, list.size());
@@ -263,12 +263,12 @@ public class ProductServiceTest {
 	 @Test
 	 public void testGetProductListByPrice() throws Exception{
 		 
-	 	SearchVO searchVO = new SearchVO();
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	searchVO.setSearchCondition("2");
-	 	searchVO.setSearchKeyword("111");
-	 	Map<String,Object> map = productService.getProductList(searchVO);
+	 	Search search = new Search();
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("2");
+	 	search.setSearchKeyword("111");
+	 	Map<String,Object> map = productService.getProductList(search);
 	 	
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(1, list.size());
@@ -281,9 +281,9 @@ public class ProductServiceTest {
 	 	
 	 	System.out.println("=======================================");
 	 	
-	 	searchVO.setSearchCondition("2");
-	 	searchVO.setSearchKeyword(""+System.currentTimeMillis());
-	 	map = productService.getProductList(searchVO);
+	 	search.setSearchCondition("2");
+	 	search.setSearchKeyword(""+System.currentTimeMillis());
+	 	map = productService.getProductList(search);
 	 	
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(0, list.size());

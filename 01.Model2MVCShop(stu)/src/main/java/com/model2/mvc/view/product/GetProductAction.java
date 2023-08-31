@@ -4,9 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.model2.mvc.framework.Action;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.product.impl.ProductServiceImpl;
-import com.model2.mvc.service.product.vo.ProductVO;
 
 public class GetProductAction extends Action{
 	
@@ -17,9 +17,9 @@ public class GetProductAction extends Action{
 		//System.out.println(prodNo);
 		
 		ProductService service = new ProductServiceImpl();
-		ProductVO vo = service.getProduct(prodNo);
+		Product product = service.getProduct(prodNo);
 		
-		request.setAttribute("vo", vo);
+		request.setAttribute("vo", product);
 		
 		
 		

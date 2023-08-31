@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.DBUtil;
 import com.model2.mvc.service.domain.User;
 
@@ -20,11 +20,11 @@ public interface UserDAO {
 
 	public User getUser(String userId) throws Exception ;
 
-	public List<User> getUserList(SearchVO searchVO) throws Exception ;
+	public List<User> getUserList(Search search) throws Exception ;
 
 	public void updateUser(User user) throws Exception ;
 	
-	public int getTotalCount(SearchVO searchVO) throws Exception ;
+	public int getTotalCount(Search search) throws Exception ;
 	
 	
 	
@@ -152,7 +152,7 @@ public interface UserDAO {
 //}
 
 
-// private String makeCurrentPageSql(String sql, SearchVO searchVO) ;
+// private String makeCurrentPageSql(String sql, Search searchVO) ;
 //{
 //	
 //	sql = "SELECT COUNT(*) "+

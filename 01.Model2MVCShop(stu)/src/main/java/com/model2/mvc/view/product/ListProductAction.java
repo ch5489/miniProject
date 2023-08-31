@@ -1,11 +1,12 @@
 package com.model2.mvc.view.product;
 
-import java.util.HashMap; 
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.framework.Action;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.product.impl.ProductServiceImpl;
@@ -25,19 +26,19 @@ public class ListProductAction extends Action{
 			int totalPage = 0;
 			
 			
-			SearchVO searchVO = new SearchVO();
-			searchVO.setPage(page);
-			searchVO.setSearchCondition(request.getParameter("searchCondition"));
-			searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
+			Search search = new Search();
+			search.setPage(page);
+			search.setSearchCondition(request.getParameter("searchCondition"));
+			search.setSearchKeyword(request.getParameter("searchKeyword"));
 
 			String pageSize = getServletContext().getInitParameter("pageSize");
-			searchVO.setPageSize(Integer.parseInt(pageSize));
+			search.setPageSize(Integer.parseInt(pageSize));
 			
 			String pageUnit = getServletContext().getInitParameter("pageUnit");
 			request.setAttribute("pageUnit", pageUnit);
 
 			ProductService service = new ProductServiceImpl();
-			HashMap<String, Object> map = service.getProductList(searchVO);
+			Map<String, Object> map = service.getProductList(search);
 			
 			
 			if (map != null) {
@@ -52,11 +53,11 @@ public class ListProductAction extends Action{
 			}
 			//System.out.println(totalPage);
 			
-			searchVO.setAllPageSize(totalPage);
+			search.setAllPageSize(totalPage);
 			//searchVO.setAllPageSize(page);
 			
 			request.setAttribute("map", map);
-			request.setAttribute("searchVO", searchVO);
+			request.setAttribute("searchVO", search);
 			System.out.println("request.getParameter(\"searchCondition\")"+request.getParameter("searchCondition"));
 			System.out.println("request.getParameter(\"searchKeyword\")"+request.getParameter("searchKeyword"));
 			//System.out.println("request ÆÄ½Ì :"+(request.getQueryString()).split("&")[1]);
@@ -92,7 +93,7 @@ public class ListProductAction extends Action{
 //		if (request.getParameter("page") != null)
 //			page = Integer.parseInt(request.getParameter("page"));
 //
-//		SearchVO searchVO = new SearchVO();
+//		Search searchVO = new Search();
 //		searchVO.setPage(page);
 //		searchVO.setSearchCondition(request.getParameter("searchCondition"));
 //		searchVO.setSearchKeyword(request.getParameter("searchKeyword"));

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
 
@@ -160,10 +160,10 @@ public class UserServiceTest {
 	 //@Test
 	 public void testGetUserListAll() throws Exception{
 		 
-	 	SearchVO searchVO = new SearchVO();
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	Map<String,Object> map = userService.getUserList(searchVO);
+	 	Search search = new Search();
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	Map<String,Object> map = userService.getUserList(search);
 	 	
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
@@ -176,11 +176,11 @@ public class UserServiceTest {
 	 	
 	 	System.out.println("=======================================");
 	 	
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	searchVO.setSearchCondition("0");
-	 	searchVO.setSearchKeyword("");
-	 	map = userService.getUserList(searchVO);
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("0");
+	 	search.setSearchKeyword("");
+	 	map = userService.getUserList(search);
 	 	
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
@@ -195,12 +195,12 @@ public class UserServiceTest {
 	 //@Test
 	 public void testGetUserListByUserId() throws Exception{
 		 
-	 	SearchVO searchVO= new SearchVO();
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	searchVO.setSearchCondition("0");
-	 	searchVO.setSearchKeyword("admin");
-	 	Map<String,Object> map = userService.getUserList(searchVO);
+	 	Search search= new Search();
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("0");
+	 	search.setSearchKeyword("admin");
+	 	Map<String,Object> map = userService.getUserList(search);
 	 	
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(1, list.size());
@@ -213,9 +213,9 @@ public class UserServiceTest {
 	 	
 	 	System.out.println("=======================================");
 	 	
-	 	searchVO.setSearchCondition("0");
-	 	searchVO.setSearchKeyword(""+System.currentTimeMillis());
-	 	map = userService.getUserList(searchVO);
+	 	search.setSearchCondition("0");
+	 	search.setSearchKeyword(""+System.currentTimeMillis());
+	 	map = userService.getUserList(search);
 	 	
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(0, list.size());
@@ -230,12 +230,12 @@ public class UserServiceTest {
 	 //@Test
 	 public void testGetUserListByUserName() throws Exception{
 		 
-	 	SearchVO searchVO = new SearchVO();
-	 	searchVO.setPage(1);
-	 	searchVO.setPageSize(3);
-	 	searchVO.setSearchCondition("1");
-	 	searchVO.setSearchKeyword("SCOTT");
-	 	Map<String,Object> map = userService.getUserList(searchVO);
+	 	Search search = new Search();
+	 	search.setCurrentPage(1);
+	 	search.setPageSize(3);
+	 	search.setSearchCondition("1");
+	 	search.setSearchKeyword("SCOTT");
+	 	Map<String,Object> map = userService.getUserList(search);
 	 	
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
@@ -248,9 +248,9 @@ public class UserServiceTest {
 	 	
 	 	System.out.println("=======================================");
 	 	
-	 	searchVO.setSearchCondition("1");
-	 	searchVO.setSearchKeyword(""+System.currentTimeMillis());
-	 	map = userService.getUserList(searchVO);
+	 	search.setSearchCondition("1");
+	 	search.setSearchKeyword(""+System.currentTimeMillis());
+	 	map = userService.getUserList(search);
 	 	
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(0, list.size());

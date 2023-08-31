@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
 import com.model2.mvc.service.user.dao.UserDAO;
@@ -37,9 +37,9 @@ public class UserServiceImpl implements UserService{
 		return userDao.getUser(userId);
 	}
 
-	public Map<String,Object> getUserList(SearchVO searchVO) throws Exception {
-		List<User> list = userDao.getUserList(searchVO);
-		int totalCount = userDao.getTotalCount(searchVO);
+	public Map<String,Object> getUserList(Search search) throws Exception {
+		List<User> list = userDao.getUserList(search);
+		int totalCount = userDao.getTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);

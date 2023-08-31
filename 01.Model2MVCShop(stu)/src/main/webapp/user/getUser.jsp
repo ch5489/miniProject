@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=EUC-KR "%>
+<%@ page contentType="text/html; charset=euc-kr"%>
 
 <%-- <%@ page import="com.model2.mvc.service.domain.*" %> --%>
 
@@ -45,7 +45,7 @@
 		<td class="ct_write01">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="105">${vo.userId }</td>
+					<td width="105">${user.userId }</td>
 					<td></td>
 				</tr>
 			</table>
@@ -60,7 +60,7 @@
 			이름 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${vo.userName }</td>
+		<td class="ct_write01">${user.userName }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -68,7 +68,7 @@
 	<tr>
 		<td width="104" class="ct_write">주소</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${vo.addr }</td>
+		<td class="ct_write01">${user.addr }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -76,7 +76,7 @@
 	<tr>
 		<td width="104" class="ct_write">휴대전화번호</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${!empty vo.phone ? vo.phone : ''}</td>
+		<td class="ct_write01">${!empty user.phone ? user.phone : ''}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -87,7 +87,7 @@
 		<td class="ct_write01">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td height="26">${vo.email }</td>
+					<td height="26">${user.email }</td>
 				</tr>
 			</table>
 		</td>
@@ -99,7 +99,7 @@
 	<tr>
 		<td width="104" class="ct_write">가입일자</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${vo.regDate}</td>
+		<td class="ct_write01">${user.regDate}</td>
 	</tr>
 
 	<tr>
@@ -117,7 +117,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="/updateUserView.do?userId=${vo.userId }">수정</a>
+						<a href="/updateUserView.do?userId=${user.userId }">수정</a>
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">

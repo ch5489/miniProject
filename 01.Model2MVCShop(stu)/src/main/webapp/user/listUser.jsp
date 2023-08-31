@@ -3,7 +3,7 @@
 <%-- <%@ page import="java.util.List" %>
 
 <%@ page import="com.model2.mvc.service.domain.User" %>
-<%@ page import="com.model2.mvc.common.SearchVO" %>
+<%@ page import="com.model2.mvc.common.Search" %>
 <%@page import="com.model2.mvc.common.Page"%>
 <%@page import="com.model2.mvc.common.util.CommonUtil"%> --%>
 
@@ -13,11 +13,11 @@
 	List<User> list=(List<User>)request.getAttribute("list");
 	Page resultPage = (Page)request.getAttribute("resultPage");
 
-	SearchVO searchVO=(SearchVO)request.getAttribute("searchVO");
+	search search=(search)request.getAttribute("search");
 	
 	// null 을 "" nullString으로 변
-	String searchCondition = CommonUtil.null2str(searchVO.getSearchCondition());
-	String searchKeyword = CommonUtil.null2str(searchVO.getSearchKeyword());
+	String searchCondition = CommonUtil.null2str(search.getSearchCondition());
+	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
 	
 %> --%>
 
@@ -63,12 +63,12 @@ function fncGetUserList(currentPage){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 	<%-- <%
-		if(searchVO.getSearchCondition() != null) {
+		if(search.getSearchCondition() != null) {
 	%>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
 		<%
-				if(searchVO.getSearchCondition().equals("0")){
+				if(search.getSearchCondition().equals("0")){
 		%>
 				<option value="0" selected>회원ID</option>
 				<option value="1">회원명</option>
@@ -81,7 +81,7 @@ function fncGetUserList(currentPage){
 				}
 		%>
 			</select>
-			<input 	type="text" name="searchKeyword"  value="<%=searchVO.getSearchKeyword() %>" 
+			<input 	type="text" name="searchKeyword"  value="<%=search.getSearchKeyword() %>" 
 							class="ct_input_g" style="width:200px; height:19px" >
 		</td>
 	<%
@@ -100,10 +100,10 @@ function fncGetUserList(currentPage){
 	
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
-				<option value="0" ${ !empty searchVO.searchCondition && searchVO.searchCondition == 0 ? "selected" : ""}>회원ID</option>
-				<option value="1" ${ !empty searchVO.searchCondition && searchVO.searchCondition == 1 ? "selected" : ""}>회원명</option>
+				<option value="0" ${ !empty search.searchCondition && search.searchCondition == 0 ? "selected" : ""}>회원ID</option>
+				<option value="1" ${ !empty search.searchCondition && search.searchCondition == 1 ? "selected" : ""}>회원명</option>
 			</select>
-			<input 	type="text" name="searchKeyword"  value="${!empty searchVO.searchKeyword ? searchVO.searchKeyword : ""}" 
+			<input 	type="text" name="searchKeyword"  value="${!empty search.searchKeyword ? search.searchKeyword : ""}" 
 							class="ct_input_g" style="width:200px; height:19px" >
 		</td>
 		<td align="right" width="70">

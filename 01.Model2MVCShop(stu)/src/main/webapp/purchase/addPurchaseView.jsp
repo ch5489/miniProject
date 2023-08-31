@@ -3,14 +3,13 @@
 <!DOCTYPE html>
 
 <%@page import = "com.model2.mvc.service.domain.User" %>
-<%@page import = "com.model2.mvc.service.product.vo.ProductVO" %>
+<%@page import = "com.model2.mvc.service.domain.Product" %>
 
 
 <%
-	User user = (User)session.getAttribute("user");
+User user = (User)session.getAttribute("user");
 
-	ProductVO product = (ProductVO)request.getAttribute("product");
-
+	Product product = (Product)request.getAttribute("product");
 %>
 
 

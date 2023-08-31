@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.model2.mvc.framework.Action;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.product.impl.ProductServiceImpl;
-import com.model2.mvc.service.product.vo.ProductVO;
 
 public class AddPurchaseViewAction extends Action{
 	
@@ -19,7 +19,7 @@ public class AddPurchaseViewAction extends Action{
 		//System.out.println(prodNo);
 		
 		ProductService service = new ProductServiceImpl();
-		ProductVO product = service.getProduct(prodNo);
+		Product product = service.getProduct(prodNo);
 		
 		request.setAttribute("product", product);
 		

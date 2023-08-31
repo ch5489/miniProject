@@ -1,9 +1,9 @@
-package com.model2.mvc.service.product.vo;
+package com.model2.mvc.service.domain;
 
 import java.sql.Date;
 
 
-public class ProductVO {
+public class Product {
 	
 	private String fileName;//올리는파일명
 	private String manuDate;//제조일자
@@ -14,7 +14,7 @@ public class ProductVO {
 	private Date regDate;//등록일시
 	private String proTranCode;
 	
-	public ProductVO(){
+	public Product(){
 	}
 	
 	public String getProTranCode() {
@@ -69,7 +69,7 @@ public class ProductVO {
 
 	// Override
 	public String toString() {
-		return "ProductVO : [fileName]" + fileName
+		return "Product : [fileName]" + fileName
 				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
 				+ "[prodName]" + prodName + "[prodNo]" + prodNo;
 	}	

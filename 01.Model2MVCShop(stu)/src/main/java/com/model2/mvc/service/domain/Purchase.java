@@ -2,8 +2,6 @@ package com.model2.mvc.service.domain;
 
 import java.sql.Date;
 
-import com.model2.mvc.service.product.vo.ProductVO;
-
 
 public class Purchase {
 	
@@ -13,7 +11,7 @@ public class Purchase {
 	private String divyRequest;		//배송 요구사항
 	private Date orderDate;			//구매일자
 	private String paymentOption;	//지불방식
-	private ProductVO purchaseProd;	//구매 물품 정보
+	private Product purchaseProd;	//구매 물품 정보
 	private String receiverName;	//받는사람 이름
 	private String receiverPhone;	//받는사람 전화번호
 	private String tranCode;		//구매 상태 코드
@@ -58,10 +56,10 @@ public class Purchase {
 	public void setPaymentOption(String paymentOption) {
 		this.paymentOption = paymentOption;
 	}
-	public ProductVO getPurchaseProd() {
+	public Product getPurchaseProd() {
 		return purchaseProd;
 	}
-	public void setPurchaseProd(ProductVO purchaseProd) {
+	public void setPurchaseProd(Product purchaseProd) {
 		this.purchaseProd = purchaseProd;
 	}
 	public String getReceiverName() {

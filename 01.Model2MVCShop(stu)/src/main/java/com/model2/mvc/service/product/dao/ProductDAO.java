@@ -7,22 +7,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.DBUtil;
-import com.model2.mvc.service.product.vo.ProductVO;
+import com.model2.mvc.service.domain.Product;
 
 public interface ProductDAO {
 	
 		
-		public void addProduct(ProductVO productVO) throws Exception;
+		public void addProduct(Product product) throws Exception;
 
-		public ProductVO getProduct(int prodNo) throws Exception;
+		public Product getProduct(int prodNo) throws Exception;
 
-		public List<ProductVO> getProductList(SearchVO searchVO) throws Exception;
+		public List<Product> getProductList(Search search) throws Exception;
 
-		public void updateProduct(ProductVO productVO) throws Exception ;
+		public void updateProduct(Product product) throws Exception ;
 		
-		public int getTotalCount(SearchVO searchVO) throws Exception;
+		public int getTotalCount(Search search) throws Exception;
 }
 	
 		
@@ -70,9 +70,9 @@ public interface ProductDAO {
 //
 //	ResultSet rs = stmt.executeQuery();
 //
-//	ProductVO productVO = null;
+//	Product productVO = null;
 //	while (rs.next()) {
-//		productVO = new ProductVO();
+//		productVO = new Product();
 //		productVO.setProdNo(rs.getInt("PROD_NO"));
 //		productVO.setProdName(rs.getString("PROD_NAME"));
 //		productVO.setProdDetail(rs.getString("PROD_DETAIL"));
@@ -140,11 +140,11 @@ public interface ProductDAO {
 //	//System.out.println("rs2.absolute(1) ;"+rs2.absolute(1));
 //	//System.out.println("rs2.absolute(searchVO.getPage() * searchVO.getPageUnit() - searchVO.getPageUnit() + 1)"+rs2.absolute(searchVO.getPage() * searchVO.getPageUnit() - searchVO.getPageUnit() + 1));
 //	
-//	List<ProductVO> list = new ArrayList<ProductVO>();
+//	List<Product> list = new ArrayList<Product>();
 //	
 //	if (total > 0) {
 //		for (int i = 0; i < searchVO.getPageSize(); i++) {
-//			ProductVO vo = new ProductVO();
+//			Product vo = new Product();
 //			//System.out.println("1");
 //			//System.out.println(rs2.getInt("PROD_NO"));
 //			vo.setProdNo(rs2.getInt("PROD_NO"));
@@ -199,7 +199,7 @@ public interface ProductDAO {
 //	}
 //
 	
-	//	public String makeCurrentPageSql(String sql, SearchVO searchVO) ;
+	//	public String makeCurrentPageSql(String sql, Search searchVO) ;
 //{
 //	
 ////	int page =1;

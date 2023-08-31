@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.dao.UserDAO;
 
@@ -40,9 +40,9 @@ public class UserDaoImpl implements UserDAO{
 	}
 
 	@Override
-	public List<User> getUserList(SearchVO searchVO) throws Exception {
+	public List<User> getUserList(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("UserMapper.getUserList", searchVO);
+		return sqlSession.selectList("UserMapper.getUserList", search);
 	}
 
 	@Override
@@ -53,9 +53,9 @@ public class UserDaoImpl implements UserDAO{
 	}
 
 	@Override
-	public int getTotalCount(SearchVO searchVO) throws Exception {
+	public int getTotalCount(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("UserMapper.getTotalCount", searchVO);
+		return sqlSession.selectOne("UserMapper.getTotalCount", search);
 	}
 
 }

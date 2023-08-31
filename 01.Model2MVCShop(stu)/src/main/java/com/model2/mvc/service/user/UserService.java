@@ -2,7 +2,7 @@ package com.model2.mvc.service.user;
 
 import java.util.Map;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
 
 
@@ -14,7 +14,7 @@ public interface UserService {
 	
 	public User getUser(String userId) throws Exception;
 	
-	public Map<String, Object> getUserList(SearchVO searchVO) throws Exception;
+	public Map<String, Object> getUserList(Search search) throws Exception;
 	
 	public void updateUser(User user) throws Exception;
 	

@@ -1,9 +1,9 @@
 package com.model2.mvc.common;
 
 
-public class SearchVO {
+public class Search {
 	
-	private int page; //curruntPage 로 수정하자! 헷갈린다,,
+	private int currentPage; //curruntPage 로 수정하자! 헷갈린다,,
 	private String searchCondition;
 	private String searchKeyword;
 	private int pageSize;
@@ -12,7 +12,7 @@ public class SearchVO {
 	private int endRowNum;
 	private int startRowNum;
 	
-	public SearchVO(){
+	public Search(){
 	}
 	
 	public int getPageSize() {
@@ -22,11 +22,11 @@ public class SearchVO {
 		this.pageSize = pageSize;
 	}
 	
-	public int getPage() {
-		return page;
+	public int getCurrentPage() {
+		return currentPage;
 	}
-	public void setPage(int page) {
-		this.page = page;
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
 	}
 	
 	public int getAllPageSize() {
@@ -49,7 +49,7 @@ public class SearchVO {
 		this.searchKeyword = searchKeyword;
 	}
 	public int getEndRowNum() {
-		return getPage()*getPageSize();
+		return getCurrentPage()*getPageSize();
 	}
 
 	public void setEndRowNum(int endRowNum) {
@@ -57,7 +57,7 @@ public class SearchVO {
 	}
 
 	public int getStartRowNum() {
-		return (getPage()-1)*getPageSize()+1;
+		return (getCurrentPage()-1)*getPageSize()+1;
 	}
 
 	public void setStartRowNum(int startRowNum) {
@@ -66,9 +66,10 @@ public class SearchVO {
 
 	@Override
 	public String toString() {
-		return "Search [Page=" + page + ", searchCondition="
+		return "Search [currentPage=" + currentPage + ", searchCondition="
 				+ searchCondition + ", searchKeyword=" + searchKeyword
-				+ ", pageSize=" + pageSize + "]";
+				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
+				+ ", allPageSize=" + allPageSize+ ", startRowNum=" + startRowNum + "]";
 	}	
 	
 }

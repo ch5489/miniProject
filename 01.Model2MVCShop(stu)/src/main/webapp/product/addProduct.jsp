@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 
 
-<%-- <%@page import="com.model2.mvc.service.product.vo.ProductVO"%> --%>
+<%-- <%@page import="com.model2.mvc.service.product.vo.product"%> --%>
 <%-- 
 <%
-	ProductVO vo = (ProductVO)request.getAttribute("productVO");
+	product vo = (product)request.getAttribute("product");
 	System.out.println(vo);
 %> --%>
 
@@ -55,7 +55,7 @@
 		<td class="ct_write01">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="105">${productVO.prodName}</td>
+					<td width="105">${product.prodName}</td>
 					<td></td>
 				</tr>
 			</table>
@@ -70,7 +70,7 @@
 			상품상세정보 <img  src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${productVO.prodDetail }</td>
+		<td class="ct_write01">${product.prodDetail }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -81,7 +81,7 @@
 			제조일자<img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${requestScope.productVO.manuDate}</td>
+		<td class="ct_write01">${requestScope.product.manuDate}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -91,7 +91,7 @@
 			가격<img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${productVO.price }
+		<td class="ct_write01">${product.price }
 	</tr>
 
 	<tr>
@@ -100,7 +100,7 @@
 	<tr>
 		<td width="104" class="ct_write">상품이미지</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${productVO.fileName}
+		<td class="ct_write01">${product.fileName}
 			<!-- 테이블 시작 -->
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>

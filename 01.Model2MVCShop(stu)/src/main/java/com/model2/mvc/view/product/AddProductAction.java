@@ -7,33 +7,33 @@ import javax.servlet.http.HttpSession;
 import com.model2.mvc.framework.Action;
 import com.model2.mvc.service.user.UserService;
 import com.model2.mvc.service.user.impl.UserServiceImpl;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.product.impl.ProductServiceImpl;
-import com.model2.mvc.service.product.vo.ProductVO;
 
 public class AddProductAction extends Action {
 	
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		ProductVO productVO = new ProductVO();
-		productVO.setFileName(request.getParameter("fileName"));
-		productVO.setManuDate((request.getParameter("manuDate")).replaceAll("-", ""));
-		productVO.setPrice(Integer.parseInt(request.getParameter("price")));
-		productVO.setProdDetail(request.getParameter("prodDetail"));
+		Product product = new Product();
+		product.setFileName(request.getParameter("fileName"));
+		product.setManuDate((request.getParameter("manuDate")).replaceAll("-", ""));
+		product.setPrice(Integer.parseInt(request.getParameter("price")));
+		product.setProdDetail(request.getParameter("prodDetail"));
 
-		productVO.setProdName(request.getParameter("prodName"));
+		product.setProdName(request.getParameter("prodName"));
 		
 		//productVO.setRegDate(request.getParameter("regDate"));
 		//productVO.setProTranCode(request.getParameter("proTranCode"));
 		
 
-		System.out.println("데이터가 등록 되었습니다. : "+productVO);
+		System.out.println("데이터가 등록 되었습니다. : "+product);
 
 		ProductService service = new ProductServiceImpl();
-		service.addProduct(productVO);
+		service.addProduct(product);
 		
 
-		request.setAttribute("productVO", productVO);
+		request.setAttribute("productVO", product);
 		
 		//System.out.println(productVO);
 		System.out.println(request.getAttribute("productVO"));

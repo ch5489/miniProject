@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.model2.mvc.common.SearchVO;
+import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.dao.ProductDAO;
-import com.model2.mvc.service.product.vo.ProductVO;
 
 @Repository("productDaoImpl")
 public class ProductDaoImpl implements ProductDAO{
@@ -24,34 +24,34 @@ public class ProductDaoImpl implements ProductDAO{
 		System.out.println(this.getClass());
 	}
 	@Override
-	public void addProduct(ProductVO productVO) throws Exception {
+	public void addProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.insert("ProductMapper.addProduct", productVO);
+		sqlSession.insert("ProductMapper.addProduct", product);
 		
 	}
 
 	@Override
-	public ProductVO getProduct(int prodNo) throws Exception {
+	public Product getProduct(int prodNo) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("ProductMapper.getProduct", prodNo);
 	}
 
 	@Override
-	public List<ProductVO> getProductList(SearchVO searchVO) throws Exception {
+	public List<Product> getProductList(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("ProductMapper.getProductList", searchVO);
+		return sqlSession.selectList("ProductMapper.getProductList", search);
 	}
 
 	@Override
-	public void updateProduct(ProductVO productVO) throws Exception {
+	public void updateProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.update("ProductMapper.updateProduct", productVO);
+		sqlSession.update("ProductMapper.updateProduct", product);
 	}
 
 	@Override
-	public int getTotalCount(SearchVO searchVO) throws Exception {
+	public int getTotalCount(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("ProductMapper.getTotalCount", searchVO);
+		return sqlSession.selectOne("ProductMapper.getTotalCount", search);
 	}
 
 }
