@@ -29,11 +29,11 @@
 	        <tr> 
 	          <td width="115">
 	          <c:if test="${user == null }">
-	          	 <a href="/user/loginView.jsp" target="rightFrame">login</a>   
+	          	 <a href="/user/login" target="rightFrame">login</a>   
 	          </c:if>
 	          
 	           <c:if test="${user != null }">
-	           	<a href="/logout.do" target="_parent">logout</a>  
+	           	<a href="/user/logout" target="_parent">logout</a>  
 	           </c:if>
 	          
 	        <%--   <%

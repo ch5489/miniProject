@@ -45,7 +45,7 @@
 	   	WHERE user_id = #{userId}
 	 </update>
 	 
-	 <select  id="getUserList"  parameterType="searchVO"	resultMap="userSelectMap">
+	 <select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT user_id , user_name , email
@@ -53,10 +53,10 @@
 											<if test="searchCondition != null">
 												<where>
 													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				user_id = #{searchKeyword}
+										 				user_id like '%'||#{searchKeyword}||'%'
 													</if>
 													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				user_name = #{searchKeyword}
+										 				user_name like '%'||#{searchKeyword}||'%'
 													</if>
 												</where>
 											</if>
@@ -65,17 +65,17 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	 
-	 <select  id="getTotalCount"  parameterType="searchVO"	 resultType="int">
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT user_id , user_name , email
 						FROM users
 						<if test="searchCondition != null">
 							<where>
 								<if test="searchCondition == 0 and searchKeyword !='' ">
-						 			user_id = #{searchKeyword}
+						 			user_id like '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchCondition == 1 and searchKeyword !='' ">
-						 		user_name = #{searchKeyword}
+						 		user_name like '%'||#{searchKeyword}||'%'
 								</if>
 							</where>
 						</if> ) countTable						

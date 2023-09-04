@@ -11,7 +11,7 @@
 	
 	<typeAliases>
 		<typeAlias alias = "user" type="com.model2.mvc.service.domain.User"/>
-		<typeAlias alias = "searchVO" type="com.model2.mvc.common.Search"/>
+		<typeAlias alias = "search" type="com.model2.mvc.common.Search"/>
 		<typeAlias alias = "product" type="com.model2.mvc.service.domain.Product"/>
 	</typeAliases>
 	

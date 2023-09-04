@@ -43,9 +43,11 @@ public class Search {
 		this.searchCondition = searchCondition;
 	}
 	public String getSearchKeyword() {
+		//System.out.println("--------getSearchCondition 확인 : "+searchKeyword+" --------");
 		return searchKeyword;
 	}
 	public void setSearchKeyword(String searchKeyword) {
+		//System.out.println("--------setSearchCondition 확인 : "+searchKeyword+" --------");
 		this.searchKeyword = searchKeyword;
 	}
 	public int getEndRowNum() {

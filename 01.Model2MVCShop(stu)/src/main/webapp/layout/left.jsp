@@ -40,14 +40,14 @@ function history(){
 		<c:if test="${! empty user }">
 		<tr>
 		<td class="Depth03">
-			<a href="/getUser.do?userId=${user.userId }" target="rightFrame">개인정보조회</a>
+			<a href="/user/getUser?userId=${user.userId }" target="rightFrame">개인정보조회</a>
 		</td>
 		</tr>
 		</c:if>
 		<c:if test="${user.role == 'admin' }">
 		<tr>
 		<td class="Depth03" >
-			<a href="/listUser.do" target="rightFrame">회원정보조회</a>
+			<a href="/user/listUser" target="rightFrame">회원정보조회</a>
 		</td>
 		</tr>
 		</c:if>
@@ -115,7 +115,7 @@ function history(){
 							<td class="Depth03"><a href="../product/addProductView.jsp;"
 								target="rightFrame">판매상품등록</a></td>
 						</tr>
-						<td class="Depth03"><a href="/listProduct.do?menu=manage"
+						<td class="Depth03"><a href="/product/listProduct?menu=manage"
 							target="rightFrame">판매상품관리</a></td>
 						</tr>
 						<tr>
@@ -132,7 +132,7 @@ function history(){
 	<table  border="0" cellspacing="0" cellpadding="0" width="159">
 		<tr>
 			<td class="Depth03">
-				<a href="/listProduct.do?menu=search" target="rightFrame">상 품 검 색</a>
+				<a href="/product/listProduct?menu=search" target="rightFrame">상 품 검 색</a>
 			</td>
 		</tr>
 		

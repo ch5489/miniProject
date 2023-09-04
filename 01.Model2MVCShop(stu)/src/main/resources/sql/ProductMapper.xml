@@ -45,7 +45,7 @@
 	   	WHERE PROD_NO = #{prodNo}
 	 </update>
 	 
-	 <select  id="getProductList"  parameterType="searchVO"	resultMap="productSelectMap">
+	 <select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT *
@@ -68,20 +68,20 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	 
-	  <select  id="getTotalCount"  parameterType="searchVO"	 resultType="int">
+	  <select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT *
 						FROM PRODUCT
 						<if test="searchCondition != null">
 							<where>
 								<if test="searchCondition == 0 and searchKeyword !='' ">
-						 			PROD_NO = #{searchKeyword}
+						 			PROD_NO LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchCondition == 1 and searchKeyword !='' ">
 						 			PROD_NAME LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchCondition == 2 and searchKeyword !='' ">
-									PRICE = #{searchKeyword}
+									PRICE LIKE '%'||#{searchKeyword}||'%'
 								</if>
 							</where>
 						</if> ) countTable						

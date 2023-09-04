@@ -61,9 +61,10 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-function fncGetProductList(){
-	document.detailForm.submit();
-}
+	function fncGetProductList(currentPage){
+		document.getElementById("currentPage").value = currentPage;
+		document.detailForm.submit();
+	}
 </script>
 </head>
 
@@ -71,7 +72,7 @@ function fncGetProductList(){
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do?&menu=${param.menu }" method="post">
+<form name="detailForm" action="/product/listProduct?menu=${param.menu}" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -85,13 +86,13 @@ function fncGetProductList(){
 								if (menu.equals("manage")) {
 								%> --%>
 								<c:if test="${param.menu == 'manage'}">
-								<td width="93%" class="ct_ttl01">상품 관리</td>
+									<td width="93%" class="ct_ttl01">상품 관리</td>
 								</c:if>
 								<%-- <%
 								} else {
 								%> --%>
 								<c:if test="${param.menu == 'search'}">
-								<td width="93%" class="ct_ttl01">상품 목록조회</td>
+									<td width="93%" class="ct_ttl01">상품 목록조회</td>
 								<%-- <%} %> --%>
 								</c:if>
 
@@ -203,13 +204,13 @@ function fncGetProductList(){
 	
 		<%-- <%if(search.getSearchKeyword() != null && !search.getSearchKeyword().equals("null")){%> --%>
 		<c:choose>
-		<c:when test="${ !empty search.searchKeyword && search.searchKeyword}">
+		<c:when test="${ !empty search.searchKeyword }">
 			<input 	type="text" name="searchKeyword"  value="${search.searchKeyword }" 
 							class="ct_input_g" style="width:200px; height:19px" >
 		</c:when>
 			<%-- <%}else{%> --%>
 		<c:otherwise>
-			<input 	type="text" name="searchKeyword" 
+			<input 	type="text" name="searchKeyword" value = ""
 							class="ct_input_g" style="width:200px; height:19px" >				
 		</c:otherwise>
 		</c:choose>
@@ -222,7 +223,7 @@ function fncGetProductList(){
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetProductList();">검색</a>
+						<a href="javascript:fncGetProductList('1');">검색</a>
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -235,7 +236,7 @@ function fncGetProductList(){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-		<td colspan="11" >전체  ${map.count } 건수, 현재 ${search.currentPage } 페이지</td> 
+		<td colspan="11" >전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage } 페이지</td> 
 		
 		<%--  추가예정, ${search.searchKeyword} --%>
 	</tr>
@@ -275,11 +276,11 @@ function fncGetProductList(){
 		
 		<c:choose>
 		<c:when test="${param.menu == 'manage'}">
-			<a href="/updateProductView.do?prodNo=${list.prodNo }&menu=manage">${list.prodName }</a>
+			<a href="/product/updateProduct?prodNo=${list.prodNo }&menu=manage">${list.prodName }</a>
 		</c:when>
 		
 		<c:otherwise>
-			<a href="/getProduct.do?prodNo=${list.prodNo }&menu=search">${list.prodName }</a>
+			<a href="/product/getProduct?prodNo=${list.prodNo }&menu=search">${list.prodName }</a>
 		
 		</c:otherwise>
 		</c:choose>
@@ -303,6 +304,8 @@ function fncGetProductList(){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="center">
+			<input type="hidden" id="currentPage" name="currentPage" value=""/>
+		<!-- <input type="hidden" id="currentPage" name="currentPage" value=""/> -->
 		<%-- <%if(pg == 1 || pg == 0){ %>
 		◀ 이전
 		<%}else{ %>
@@ -328,24 +331,24 @@ function fncGetProductList(){
 		<%} %>	 --%>
 		
 		<c:choose>
-		<c:when test="${empty resultPage.currentPage || resultPage.currentPage == 1}">
-		◀ 이전
-		</c:when>
-		<c:when test="${resultPage.currentPage-resultPage.pageUnit <= 0}">
-		<a href= "/listProduct.do?currentPage=1&&menu=${param.menu }&searchKeyword=${search.searchKeyword }&searchCondition=${search.searchCondition }">
-		◀ 이전</a>
-		</c:when>
+			<c:when test="${empty resultPage.currentPage || resultPage.currentPage == 1}">
+			◀ 이전
+			</c:when>
+			<c:when test="${resultPage.currentPage-resultPage.pageUnit <= 0}">
+			<a href= "javascript:fncGetProductList('1')">
+			◀ 이전</a>
+			</c:when>
 		<c:otherwise>
-		<a href= "/listProduct.do?currentPage=${resultPage.currentPage -resultPage.pageUnit }&&menu=${param.menu }&searchKeyword=${search.searchKeyword }&searchCondition=${search.searchCondition }">
-		◀ 이전</a>
-		</c:otherwise>
+			<a href= "javascript:fncGetProductList('${resultPage.currentPage -resultPage.pageUnit }')">
+			◀ 이전</a>
+			</c:otherwise>
 		</c:choose>
 		
 		<c:set var = "pageLoop" value = "false"/>
 		<c:forEach var ="i" begin = "${resultPage.currentPage }"  end = "${resultPage.currentPage + resultPage.pageUnit -1}" step = "1">
 <!-- 	loop 멈추게 밖에 변수를 하나 두어 이프문이 작동안하게 함 = break 같은 기능 -->
 			<c:if test="${not pageLoop }">
-				<a href="/listProduct.do?currentPage=${i }&&menu=${param.menu }&searchKeyword=${search.searchKeyword }&searchCondition=${search.searchCondition }">${i }</a>
+				<a href="javascript:fncGetProductList('${ i }')">${i }</a>
 				<c:if test="${i == resultPage.maxPage}">
 					<c:set var = "pageLoop" value = "true"/>
 				</c:if>
@@ -354,13 +357,13 @@ function fncGetProductList(){
 		</c:forEach>
 		
 		<c:choose>
-		<c:when test="${resultPage.currentPage == resultPage.maxPage || resultPage.currentPage+resultPage.pageUnit >= resultPage.maxPage}">
-		이후 ▶
-		</c:when>
-		<c:otherwise>
-		<a href= "/listProduct.do?currentPage=${resultPage.currentPage +resultPage.pageUnit }&&menu=${param.menu }&searchKeyword=${search.searchKeyword }&searchCondition=${search.searchCondition }">
-		이후 ▶</a>
-		</c:otherwise>
+			<c:when test="${resultPage.currentPage == resultPage.maxPage || resultPage.currentPage+resultPage.pageUnit >= resultPage.maxPage}">
+			이후 ▶
+			</c:when>
+			<c:otherwise>
+			<a href= "javascript:fncGetProductList('${resultPage.endUnitPage+1}')">
+			이후 ▶</a>
+			</c:otherwise>
 		</c:choose>
 		
 		
