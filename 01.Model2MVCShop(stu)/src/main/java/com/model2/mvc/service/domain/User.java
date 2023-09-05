@@ -101,6 +101,6 @@ public class User {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "User : [userId] "+userId+" [userName] "+userName+" [password] "+password+" [role] "+ role
-			+" [ssn] "+ssn+" [phone] "+phone+" [email] "+email+" [regDate] "+regDate;
+			+" [ssn] "+ssn+" [phone] "+phone+" [email] "+email+" [regDate] "+regDate+"[addr]"+addr;
 	}
 }
