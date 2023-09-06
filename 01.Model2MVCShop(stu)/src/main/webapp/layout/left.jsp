@@ -19,11 +19,28 @@
 <title>Model2 MVC Shop</title>
 
 <link href="/css/left.css" rel="stylesheet" type="text/css">
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 <script type="text/javascript">
 function history(){
 	popWin = window.open("/history.jsp","popWin","left=300, top=200, width=300, height=200, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 }
+
+$(function () {
+	
+	
+	$(".Depth03:contains('개인정보조회')").on("click",function(){
+		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId=${user.userId}");	
+	})	
+	$(".Depth03:contains('회원정보조회')").on("click",function(){
+		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/listUser")
+	})
+	$(".Depth03:contains('판매상품등록')").on("click",function(){
+		$(window.parent.frames["rightFrame"].document.location).attr("href","../product/addProductView.jsp")
+	})
+	$(".Depth03:contains('판매상품관리')").on("click",function(){
+		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=manage")
+	})
+})
 </script>
 </head>
 
@@ -40,14 +57,14 @@ function history(){
 		<c:if test="${! empty user }">
 		<tr>
 		<td class="Depth03">
-			<a href="/user/getUser?userId=${user.userId }" target="rightFrame">개인정보조회</a>
+			개인정보조회
 		</td>
 		</tr>
 		</c:if>
 		<c:if test="${user.role == 'admin' }">
 		<tr>
 		<td class="Depth03" >
-			<a href="/user/listUser" target="rightFrame">회원정보조회</a>
+			회원정보조회
 		</td>
 		</tr>
 		</c:if>
@@ -112,11 +129,9 @@ function history(){
 				<td valign="top">
 					<table border="0" cellspacing="0" cellpadding="0" width="159">
 						<tr>
-							<td class="Depth03"><a href="../product/addProductView.jsp;"
-								target="rightFrame">판매상품등록</a></td>
+							<td class="Depth03">판매상품등록</td>
 						</tr>
-						<td class="Depth03"><a href="/product/listProduct?menu=manage"
-							target="rightFrame">판매상품관리</a></td>
+						<td class="Depth03">판매상품관리</td>
 						</tr>
 						<tr>
 							<td class="DepthEnd">&nbsp;</td>

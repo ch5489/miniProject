@@ -686,15 +686,6 @@ public class RestHttpClientApp {
 			
 			System.out.println(boo);
 		}
-		new/dev : 23.09.06 : user 리팩토링 ~ing (8)
-
-		user
-
-		다양한 클라이언트에 데이터 전달 할 수 있는 RestController 추가
-		(add ,update ,dupication, get)
-
-		테스트 할 수 있는 클라이언트 App 작성
-		(다른 프로젝트에 옮겨서 사용)
 
 	
 }

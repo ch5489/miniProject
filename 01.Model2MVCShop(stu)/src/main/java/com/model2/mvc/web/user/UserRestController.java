@@ -24,12 +24,12 @@ import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
 
-@RestController
-@RequestMapping("/user/*")
+//@RestController
+//@RequestMapping("/user/*")
 public class UserRestController {
 	
-	@Autowired
-	@Qualifier("userServiceImpl")
+	//@Autowired
+	//@Qualifier("userServiceImpl")
 	private UserService userService;
 	
 	public UserRestController() {

@@ -9,30 +9,48 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- <%
-	List<User> list=(List<User>)request.getAttribute("list");
-	Page resultPage = (Page)request.getAttribute("resultPage");
 
-	search search=(search)request.getAttribute("search");
-	
-	// null 을 "" nullString으로 변
-	String searchCondition = CommonUtil.null2str(search.getSearchCondition());
-	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
-	
-%> --%>
 
 <html>
 <head>
 <title>회원 목록조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 <script type="text/javascript">
 // 검색 / page 두 가지 경우 모두 Form 전송을 위해 JavaScript를 이용하는 것이다!!
 function fncGetUserList(currentPage){
-	document.getElementById("currentPage").value = currentPage;
-	document.detailForm.submit();
+	$("#currentPage").val(currentPage);
+	$("form").attr("method","POST").attr("action","/user/listUser").submit();
 }
+
+$(function () {
+	$("td.ct_btn01:contains('검색')").on("click", function () {
+		
+		fncGetUserList(1);
+	})
+	
+	$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+		//Debug..
+		//alert( $( this ).text() );
+		//alert( $( this ).text().trim() );
+		self.location ="/user/getUser?userId="+$(this).text().trim();
+	});
+	
+	$( ".ct_list_pop td:nth-child(3)" ).css("color" , "rgb(262,162,138)");
+	$("h7").css("color" , "rgb(262,162,138)");
+	
+	$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+	//$(".ct_list_pop:nth-child(5)" ).css("background-color" , "red");
+	//console.log ( $(".ct_list_pop:nth-child(1)" ).html() );
+	//console.log ( $(".ct_list_pop:nth-child(2)" ).html() );
+	//console.log ( $(".ct_list_pop:nth-child(3)" ).html() );
+	//console.log ( $(".ct_list_pop:nth-child(4)" ).html() ); //==> ok
+	//console.log ( $(".ct_list_pop:nth-child(5)" ).html() ); 
+	//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
+	//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
+	
+})
 </script>
 </head>
 
@@ -62,41 +80,6 @@ function fncGetUserList(currentPage){
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-	<%-- <%
-		if(search.getSearchCondition() != null) {
-	%>
-		<td align="right">
-			<select name="searchCondition" class="ct_input_g" style="width:80px">
-		<%
-				if(search.getSearchCondition().equals("0")){
-		%>
-				<option value="0" selected>회원ID</option>
-				<option value="1">회원명</option>
-		<%
-				}else {
-		%>
-				<option value="0">회원ID</option>
-				<option value="1" selected>회원명</option>
-		<%
-				}
-		%>
-			</select>
-			<input 	type="text" name="searchKeyword"  value="<%=search.getSearchKeyword() %>" 
-							class="ct_input_g" style="width:200px; height:19px" >
-		</td>
-	<%
-		}else{
-	%>
-		<td align="right">
-			<select name="searchCondition" class="ct_input_g" style="width:80px">
-				<option value="0">회원ID</option>
-				<option value="1">회원명</option>
-			</select>
-			<input type="text" name="searchKeyword"  class="ct_input_g" style="width:200px; height:19px" >
-		</td>
-	<%
-		}
-	%> --%>
 	
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
@@ -113,7 +96,7 @@ function fncGetUserList(currentPage){
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetUserList('1');">검색</a>
+						검색
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -131,7 +114,11 @@ function fncGetUserList(currentPage){
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">회원ID</td>
+		<td class="ct_list_b" width="150">
+		회원ID
+			<br>
+			<h7 >(id click:상세정보)</h7>
+		</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">회원명</td>
 		<td class="ct_line02"></td>
@@ -142,47 +129,24 @@ function fncGetUserList(currentPage){
 	</tr>
 	
 	<c:set var="i" value="0"/>
-		<c:forEach var="user" items="${list }">
-			<c:set var="i" value="${i+1 }"/>
-			<tr class="ct_list_pop">
-		<td align="center">${i }</td>
-		<td></td>
-		<td align="left">
-			<a href="/user/getUser?userId=${user.userId }">${user.userId }</a>
-		</td>
-		<td></td>
-		<td align="left">${user.userName }</td>
-		<td></td>
-		<td align="left">${user.email }
-		</td>		
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-	</tr>	
-		</c:forEach>
+	<c:forEach var="user" items="${list }">
+		<c:set var="i" value="${i+1 }"/>
+		<tr class="ct_list_pop">
+			<td align="center">${i }</td>
+			<td></td>
+			<td align="left">
+				${user.userId }
+			</td>
+			<td></td>
+			<td align="left">${user.userName }</td>
+			<td></td>
+			<td align="left">${user.email }</td>		
+		</tr>
+		<tr>
+			<td colspan="11" bgcolor="D6D7D6" height="1"></td>
+		</tr>	
+	</c:forEach>
 	
-	<%-- 
-	<% 	
-		
-		for(int i=0; i<list.size(); i++) {
-			User vo = list.get(i);
-	%>
-	<tr class="ct_list_pop">
-		<td align="center"><%=i + 1%></td>
-		<td></td>
-		<td align="left">
-			<a href="/getUser.do?userId=<%=vo.getUserId() %>"><%= vo.getUserId() %></a>
-		</td>
-		<td></td>
-		<td align="left"><%= vo.getUserName() %></td>
-		<td></td>
-		<td align="left"><%= vo.getEmail() %>
-		</td>		
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-	</tr>
-	<% } %> --%>
 	
 	
 </table>
@@ -190,24 +154,7 @@ function fncGetUserList(currentPage){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="center">
-			<input type="hidden" id="currentPage" name="currentPage" value=""/>
-		<%-- <% if(resultPage.getCurrentPage() <= resultPage.getPageUnit()) {%>
-				◀ 이전
-		<% }else{ %>
-				<a href="javascript:fncGetUserList('<%= resultPage.getBeginUnitPage()-1%>')">◀ 이전</a>
-		<% } %>
-		<%
-			for(int i=resultPage.getBeginUnitPage();i<=resultPage.getEndUnitPage();i++){
-		%>
-			<a href="javascript:fncGetUserList('<%=i%>')"><%=i %></a>
-		<%
-			}
-		%>	
-		<% if(resultPage.getEndUnitPage() >= resultPage.getMaxPage()) {%>
-				이후 ▶
-		<% }else{ %>
-				<a href="javascript:fncGetUserList('<%= resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
-		<% } %> --%>
+		
     	<jsp:include page="../common/pageNavigator.jsp"/>
     	</td>
 	</tr>
