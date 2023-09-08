@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 <script   src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 <script type="text/javascript">
-
+<!--
 $(function () {
 	$("#userId").focus();
 	$("#userId").on("keydown",function(event){
@@ -56,7 +56,7 @@ $(function () {
 				window.close();
 			});
 		});
-
+-->
 </script>
 </head>
 

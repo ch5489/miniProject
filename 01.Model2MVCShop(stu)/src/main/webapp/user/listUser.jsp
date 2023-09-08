@@ -19,6 +19,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 <script type="text/javascript">
 // 검색 / page 두 가지 경우 모두 Form 전송을 위해 JavaScript를 이용하는 것이다!!
+<!--
 function fncGetUserList(currentPage){
 	$("#currentPage").val(currentPage);
 	$("form").attr("method","POST").attr("action","/user/listUser").submit();
@@ -32,8 +33,8 @@ $(function () {
 	
 	$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
 		//Debug..
-		//alert( $( this ).text() );
-		//alert( $( this ).text().trim() );
+		alert( $( this ).text() );
+		alert( $( this ).text().trim() );
 		self.location ="/user/getUser?userId="+$(this).text().trim();
 	});
 	
@@ -49,8 +50,9 @@ $(function () {
 	//console.log ( $(".ct_list_pop:nth-child(5)" ).html() ); 
 	//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
 	//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
-	
+	self.location="/product/updateProduct?prodNo=${list.prodNo }&menu=${param.menu}";
 })
+-->
 </script>
 </head>
 

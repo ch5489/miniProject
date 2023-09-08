@@ -26,19 +26,30 @@
 <head>
 <title>상품상세조회</title>
 
-<script type="text/javascript"  src="../javascript/calendar.js">
-<!--function resetData(){
-	document.detailForm.reset();
-}
--->
-</script>
+
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 
+<script type="text/javascript"  src="../javascript/calendar.js"></script>
+<script type="text/javascript">
+$(function () {
+	
+	$("td.ct_btn01:contains('확인')").on("click", function(){
+		/* self.location="/product/listProduct?menu=manage"; */
+		$("form").attr("method","POST").attr("action","/product/listProduct?menu=manage").submit();
+	})
+	
+	$("td.ct_btn01:contains('이전')").on("click", function(){
+		history.go(-1)
+	})
+	
+})
+</script>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
-<form name="detailForm" method="post" >
+<form  >
 
 <table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
 	<tr>
@@ -183,14 +194,6 @@
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
-<%-- <%if(menu.equals("manage")){%> --%>
-					<c:if test="${param.menu == 'manage'}">
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="/product/listProduct?menu=manage">수정</a>
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td></c:if>
 <%-- <%}else if(menu.equals("search")){ %> --%>
 					<c:if test="${param.menu == 'search'}">
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
@@ -201,7 +204,7 @@
 					
 					<c:if test="${param.menu == 'ok'}">
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="/product/listProduct?menu=manage">확인</a><td width="14" height="23">
+						확인</td><td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
 					</td>
 					</c:if>
@@ -211,17 +214,7 @@
 <%-- <%} %> --%>	<td width="30"></td>	
 					
 					
-					<%-- <%if(menu.equals("manage")){%> --%>
-					<c:if test="${param.menu == 'manage'} ">
 					
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="../product/addProductView.jsp;">추가등록</a>
-					</td><td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td></c:if>
 					<%-- <%}else{ %> --%>
 					<c:if test="${param.menu =='search'}">
 					
@@ -229,7 +222,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	 style="padding-top: 3px;">
-					<a href="javascript:history.go(-1)">이전</a>
+					이전
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

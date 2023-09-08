@@ -40,6 +40,9 @@ $(function () {
 	$(".Depth03:contains('판매상품관리')").on("click",function(){
 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=manage")
 	})
+	$(".Depth03:contains('상 품 검 색')").on("click",function(){
+		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search")
+	})
 })
 </script>
 </head>
@@ -147,7 +150,7 @@ $(function () {
 	<table  border="0" cellspacing="0" cellpadding="0" width="159">
 		<tr>
 			<td class="Depth03">
-				<a href="/product/listProduct?menu=search" target="rightFrame">상 품 검 색</a>
+				상 품 검 색
 			</td>
 		</tr>
 		

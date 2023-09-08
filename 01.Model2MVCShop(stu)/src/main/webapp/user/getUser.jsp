@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 <script type="text/javascript">
+<!--
 	$(function () {
 		$("td.ct_btn01:contains('È®ÀÎ')").on("click", function () {
 			history.go(-1);
@@ -24,6 +25,7 @@
 			self.location = "/user/updateUser?userId=${user.userId }"
 		})
 	})
+-->
 </script>
 
 </head>

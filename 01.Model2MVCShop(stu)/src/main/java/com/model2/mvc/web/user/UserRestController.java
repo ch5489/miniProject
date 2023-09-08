@@ -24,23 +24,23 @@ import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
 
-//@RestController
-//@RequestMapping("/user/*")
+@RestController
+@RequestMapping("/user/*")
 public class UserRestController {
 	
-	//@Autowired
-	//@Qualifier("userServiceImpl")
+	@Autowired
+	@Qualifier("userServiceImpl")
 	private UserService userService;
 	
 	public UserRestController() {
 		System.out.println(this.getClass());
 	}
 	
-	//@Value("#{commonProperties['pageUnit']}")
+	@Value("#{commonProperties['pageUnit']}")
 	// @Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
 
-	//@Value("#{commonProperties['pageSize']}")
+	@Value("#{commonProperties['pageSize']}")
 	// @Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
@@ -141,20 +141,20 @@ public class UserRestController {
 		System.out.println(userId);
 		
 		Map map = new HashMap();
-		System.out.println("---------디버그그그그그11--------");
+		//System.out.println("---------디버그그그그그11--------");
 		boolean result = userService.checkDuplication(userId);
-		System.out.println("---------디버그그그그그22--------");
+		//System.out.println("---------디버그그그그그22--------");
 		map.put("result",new Boolean(result));
-		System.out.println("---------디버그그그그그33--------");
+		//System.out.println("---------디버그그그그그33--------");
 		map.put("userId",userId);
 		
 		return map;
 	}
 	
-	//@RequestMapping(value="listUser")
-	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+	@RequestMapping(value="json/listUser{search}")
+	public Map listUser( @PathVariable  Search search , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/user/listUser : GET / POST");
+		System.out.println("/user/json/listUser : GET / POST");
 		//System.out.println("/////////////////"+search.getCurrentPage());
 		
 		if(search.getCurrentPage() ==0 ){
@@ -164,16 +164,16 @@ public class UserRestController {
 		
 		// Business logic 수행
 		Map<String , Object> map=userService.getUserList(search);
-		
+		Map returnmap = new HashMap();
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
 		// Model 과 View 연결
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("resultPage", resultPage);
-		model.addAttribute("search", search);
+		returnmap.put("list", map.get("list"));
+		returnmap.put("resultPage", resultPage);
+		returnmap.put("search", search);
 		
-		return "forward:/user/listUser.jsp";
+		return map;
 	}
 	
 }

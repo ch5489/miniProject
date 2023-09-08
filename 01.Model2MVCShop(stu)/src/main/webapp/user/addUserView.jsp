@@ -22,20 +22,23 @@ function fncAddUser() {
 	}
 	if(pw == null || pw.length <1){
 		alert("패스워드는  반드시 입력하셔야 합니다.");
+		$("input:password[name='password']").focus();
 		return;
 	}
 	if(pw_confirm == null || pw_confirm.length <1){
 		alert("패스워드 확인은  반드시 입력하셔야 합니다.");
+		$("input:password[name='password2']").focus();
 		return;
 	}
 	if(name == null || name.length <1){
 		alert("이름은  반드시 입력하셔야 합니다.");
+		$("input:text[name='userName']").focus();
 		return;
 	}
 	
 	if(pw != pw_confirm) {
 		alert("비밀번호 확인이 일치하지 않습니다.");
-		$("input:text[name='password2']").focus();
+		$("input:password[name='password2']").focus();
 		return;
 	}
 		
@@ -117,6 +120,10 @@ $(function () {
 })
 $(function () {
 	$('span').css('color',"rgb(262,162,138)");
+	
+	$("input:text[name = 'ssn']").on("change",function(){
+		checkSsn();
+	})
 })
 -->
 </script>
@@ -246,7 +253,7 @@ $(function () {
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input 	type="text" name="ssn" class="ct_input_g" 
-							style="width:100px; height:19px" onChange="javascript:checkSsn();"  maxLength="13" >
+							style="width:100px; height:19px"  maxLength="13" >
 			-제외, 13자리 입력
 		</td>
 	</tr>
@@ -344,11 +351,6 @@ $(function () {
 </table>
 
 </form>
-
-<!-- <script type="text/javascript">
-document.getElementById("btnCmfID").focus();
-</script> -->
-<!-- 왜 첫번째에만 이게 있지,,? -->
 
 </body>
 </html>
