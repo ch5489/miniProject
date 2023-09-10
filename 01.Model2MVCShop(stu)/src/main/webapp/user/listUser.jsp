@@ -22,6 +22,7 @@
 <!--
 function fncGetUserList(currentPage){
 	$("#currentPage").val(currentPage);
+	
 	$("form").attr("method","POST").attr("action","/user/listUser").submit();
 }
 
@@ -33,8 +34,8 @@ $(function () {
 	
 	$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
 		//Debug..
-		alert( $( this ).text() );
-		alert( $( this ).text().trim() );
+		//alert( $( this ).text() );
+		//alert( $( this ).text().trim() );
 		self.location ="/user/getUser?userId="+$(this).text().trim();
 	});
 	
@@ -50,7 +51,7 @@ $(function () {
 	//console.log ( $(".ct_list_pop:nth-child(5)" ).html() ); 
 	//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
 	//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
-	self.location="/product/updateProduct?prodNo=${list.prodNo }&menu=${param.menu}";
+	
 })
 -->
 </script>
@@ -156,7 +157,7 @@ $(function () {
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="center">
-		
+			<input type="hidden" id="currentPage" name="currentPage" value=""/>
     	<jsp:include page="../common/pageNavigator.jsp"/>
     	</td>
 	</tr>

@@ -150,18 +150,19 @@ public class UserRestController {
 		
 		return map;
 	}
-	
-	@RequestMapping(value="json/listUser{search}")
-	public Map listUser( @PathVariable  Search search , HttpServletRequest request) throws Exception{
+//	@RequestMapping(value="json/listUser/{search}")
+	@RequestMapping(value="json/listUser")
+	public Map listUser( @ModelAttribute("search")  Search searchGet ,@RequestBody Search searchPost, HttpServletRequest request) throws Exception{
 		
+		Search search = (searchGet.getCurrentPage() == 0? searchPost:searchGet);
 		System.out.println("/user/json/listUser : GET / POST");
 		//System.out.println("/////////////////"+search.getCurrentPage());
-		
-		if(search.getCurrentPage() ==0 ){
+		System.out.println(search.getCurrentPage());
+		if(search.getCurrentPage() ==0){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
-		
+		System.out.println("---------디버그그그그그22--------");
 		// Business logic 수행
 		Map<String , Object> map=userService.getUserList(search);
 		Map returnmap = new HashMap();
@@ -173,7 +174,7 @@ public class UserRestController {
 		returnmap.put("resultPage", resultPage);
 		returnmap.put("search", search);
 		
-		return map;
+		return returnmap;
 	}
 	
 }
