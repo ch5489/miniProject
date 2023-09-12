@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	public void addProduct(Product product) throws Exception {
+		
 		productDao.addProduct(product);
 	}
 	

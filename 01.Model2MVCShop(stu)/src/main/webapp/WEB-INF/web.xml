@@ -72,6 +72,22 @@
 		<servlet-name>action</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>action2</servlet-name>
+		<servlet-class>com.model2.mvc.framework.ActionServlet</servlet-class>
+		<init-param>
+			<param-name>resources</param-name>
+			<param-value>com/model2/mvc/resources/actionmapping.properties</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<!-- .do 로 들어오는 페이지는 다 Action으로 보내 -->
+	<servlet-mapping>
+		<servlet-name>action2</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
 		
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file> 

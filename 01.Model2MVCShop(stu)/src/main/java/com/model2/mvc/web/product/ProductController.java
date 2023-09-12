@@ -40,7 +40,7 @@ public class ProductController {
 	// @Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	@RequestMapping(value = "addProduct", method = RequestMethod.GET)
+	//@RequestMapping(value = "addProduct", method = RequestMethod.GET)
 	public String addProduct() throws Exception{
 		
 		System.out.println("/product/addProduct : GET");
@@ -48,7 +48,7 @@ public class ProductController {
 		return "redirect:/product/addProduct.jsp";
 	}
 	
-	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
+	//@RequestMapping(value = "addProduct", method = RequestMethod.POST)
 	public String addProduct(@ModelAttribute("product") Product product) throws Exception{
 		
 		System.out.println("/product/addProduct : POST");
