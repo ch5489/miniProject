@@ -41,7 +41,7 @@ function fncAddProduct(){
 	}
 
 	
-	$("form").attr("method","POST").attr("action","/product/updateProduct?prodNo=${product.prodNo}&menu=ok").submit();
+	$("form").attr("method","POST").attr("enctype","multipart/form-data").attr("action","/product/updateProduct?prodNo=${product.prodNo}&menu=ok").submit();
 	
 }
 $(function () {
@@ -56,7 +56,8 @@ $(function () {
 	
 	$("#calImg").on("click",function(){
 		show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value);
-	}) 
+	})
+	
 })
 
 
@@ -157,8 +158,8 @@ $(function () {
 	<tr>
 		<td width="104" class="ct_write">상품이미지</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input		type="text" name="fileName" class="ct_input_g" 
+		<td class="ct_write01">${product.fileName }
+			<input		type="file" name="fileNamePost" class="ct_input_g" 
 							style="width: 200px; height: 19px" maxLength="13" value = "${product.fileName }"/>
 		</td>
 	</tr>
