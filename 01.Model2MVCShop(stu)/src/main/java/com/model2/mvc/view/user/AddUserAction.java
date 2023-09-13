@@ -19,7 +19,7 @@ public class AddUserAction extends Action {
 		user.setPassword(request.getParameter("password"));
 		user.setUserName(request.getParameter("userName"));
 		user.setSsn(request.getParameter("ssn"));
-		
+		dd
 		user.setAddr(request.getParameter("addr"));
 		user.setPhone(request.getParameter("phone"));
 		user.setEmail(request.getParameter("email"));
