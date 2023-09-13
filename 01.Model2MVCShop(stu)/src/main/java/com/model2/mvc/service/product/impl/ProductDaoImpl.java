@@ -26,7 +26,7 @@ public class ProductDaoImpl implements ProductDAO{
 	@Override
 	public void addProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("::::::::"+product);
+		//System.out.println("::::::::"+product);
 		sqlSession.insert("ProductMapper.addProduct", product);
 		
 	}

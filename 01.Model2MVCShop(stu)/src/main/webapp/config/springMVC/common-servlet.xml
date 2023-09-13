@@ -70,7 +70,15 @@
 	<mvc:resources mapping="/css/**" location="/css/" />
    	<mvc:resources mapping="/images/**" location="/images/" />
    	<mvc:resources mapping="/javascript/**" location="/javascript/" />
-
+   	
+   	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   		<property name="maxUploadSize" value="1048576"></property>
+   		<property name="uploadTempDir" value="/Users/ssg/miniProject/01.Model2MVCShop(stu)/src/main/webapp/images/uploadFiles"></property>
+   	</bean>
+   		
+	<!-- <bean id="uploadDirectory" class="org.springframework.core.io.FileSystemResource">
+    <constructor-arg value="/Users/ssg/miniProject/01.Model2MVCShop(stu)/src/main/webapp/images/uploadFiles" /> 업로드 임시 디렉토리 경로 설정
+</bean> -->
 	<!-- 	:: exception resolver  선언 :: 서술적 / 선언적 예외처리 
 			:: Servlet 에서의 선언적 예외처리를 다시 생각하며....  -->
 	<bean id="exceptionResolver"
