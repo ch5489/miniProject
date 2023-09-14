@@ -152,9 +152,9 @@ public class UserRestController {
 	}
 //	@RequestMapping(value="json/listUser/{search}")
 	@RequestMapping(value="json/listUser")
-	public Map listUser( @ModelAttribute("search")  Search searchGet ,@RequestBody Search searchPost, HttpServletRequest request) throws Exception{
-		
-		Search search = (searchGet.getCurrentPage() == 0? searchPost:searchGet);
+	public Map listUser( @ModelAttribute("search")  Search search, HttpServletRequest request) throws Exception{
+		//Get ,@RequestBody Search searchPost
+		//Search search = (searchGet.getCurrentPage() == 0? searchPost:searchGet);
 		System.out.println("/user/json/listUser : GET / POST");
 		//System.out.println("/////////////////"+search.getCurrentPage());
 		System.out.println(search.getCurrentPage());

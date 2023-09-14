@@ -16,7 +16,10 @@
 <title>회원 목록조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
+ <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript">
 // 검색 / page 두 가지 경우 모두 Form 전송을 위해 JavaScript를 이용하는 것이다!!
 <!--
@@ -52,6 +55,53 @@ $(function () {
 	//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
 	//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
 	
+	var mouseX, mouseY;
+        $(document).on("mousemove",function(e) {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+        })
+	
+	$( ".ct_list_pop td:nth-child(9)" ).on("mouseenter",function () {
+		var userId = $(this).closest("tr").find("td:eq(2)").text().trim();;
+		
+		$.ajax( 
+				{
+					url : "/user/json/getUser/"+userId ,
+					method : "GET" ,
+					dataType : "json" ,
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					success : function(JSONData , status) {
+						var messageText = "휴대폰 : "+JSONData.phone+"<br>"
+										+"주소 : "+JSONData.addr+"<br>"
+										+"ROLE : "+JSONData.role+"<br>"
+										+"등록일 : "+JSONData.regDateString+"<br>"+"<br>"
+										+"= 상세정보 확인 및 수정은 회원 ID를 클릭해주세요 =";
+						
+						   var dialog = $( "#dialog-message" ).dialog({
+							   
+							   modal: true,
+						      buttons: {
+						        Ok: function() {
+						          $( this ).dialog( "close" );
+						        }
+						      },
+						   position: {
+				                my: "left top",
+				                at: "left+" + mouseX + " top+" + mouseY,
+				                of: window
+				            }
+						    });
+						   dialog.html(messageText);
+						   dialog.mouseleave(function(){
+							   dialog.dialog("close");
+						   })
+						  
+					}
+			});
+	})
 })
 -->
 </script>
@@ -125,7 +175,10 @@ $(function () {
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">회원명</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b">이메일</td>		
+		<td class="ct_list_b">이메일</td>	
+		<td class="ct_line02"></td>
+		<td class="ct_list_b">추가 회원정보 보기<br>
+			<h7 >(마우스를 올려 확인해주세요)</h7></td>		
 	</tr>
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
@@ -143,7 +196,9 @@ $(function () {
 			<td></td>
 			<td align="left">${user.userName }</td>
 			<td></td>
-			<td align="left">${user.email }</td>		
+			<td align="left">${user.email }</td>	
+			<td></td>
+			<td align="center">√</td>		
 		</tr>
 		<tr>
 			<td colspan="11" bgcolor="D6D7D6" height="1"></td>
@@ -165,6 +220,12 @@ $(function () {
 <!--  페이지 Navigator 끝 -->
 </form>
 </div>
+
+<div id="dialog-message" title="회원정보 추가보기">
+  
+  
+</div>
+
 
 </body>
 </html>

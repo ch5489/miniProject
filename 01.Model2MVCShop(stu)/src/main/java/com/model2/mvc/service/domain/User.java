@@ -18,6 +18,8 @@ public class User {
 	private String phone1;
 	private String phone2;
 	private String phone3;
+	// JSON ==> Domain Object Binding을 위해 추가된 부분
+	private String regDateString;
 	
 	public User(){
 	}
@@ -81,7 +83,14 @@ public class User {
 		return regDate;
 	}
 	public void setRegDate(Date regDate) {
+		
 		this.regDate = regDate;
+		if(regDate !=null) {
+			// JSON ==> Domain Object  Binding을 위해 추가된 부분
+			this.setRegDateString( regDate.toString().split("-")[0]
+													+"-"+ regDate.toString().split("-")[1]
+													+ "-" +regDate.toString().split("-")[2] );
+		}
 	}
 
 /////////////// EL 적용 위해 추가된 getter Method ///////////
@@ -95,6 +104,15 @@ public class User {
 
 	public String getPhone3() {
 		return phone3;
+	}
+/////////////////////////////////////////////////////////////////////////////////////////
+
+	public String getRegDateString() {
+		return regDateString;
+	}
+
+	public void setRegDateString(String regDateString) {
+		this.regDateString = regDateString;
 	}
 	
 	@Override
