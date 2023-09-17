@@ -1,6 +1,7 @@
 package com.model2.mvc.web.product;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -135,34 +136,36 @@ public class ProductRestController {
 	}
 	
 	@RequestMapping(value = "/json/listProductAuto")
-	public Map listProductAuto( @ModelAttribute("search") Search searchGet , Search searchPost , HttpServletRequest request) throws Exception{
+	public List<Product> listProductAuto( @ModelAttribute("search") Search search , HttpServletRequest request) throws Exception{
 		
 		System.out.println("/product/json/listProductAuto : GET / POST");
 		
-		Search search = (searchGet.getCurrentPage() == 0? searchPost:searchGet);
-		if(search.getCurrentPage() ==0 ){
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
 		
-		Map returnmap = new HashMap();
+		search.setCurrentPage(1);
+		
+		search.setPageSize(10);
+		
+		
+		//Map returnmap = new HashMap();
 		
 		// Business logic 수행
 		Map<String , Object> map=productService.getProductList(search);
+		List<Product> list = (List<Product>)map.get("list");
 		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
+		
+//		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+//		System.out.println(resultPage);
 		//System.out.println(search);
 		
 		// Model 과 View 연결
-		returnmap.put("list", map.get("list"));
+		//returnmap.put("list", map.get("list"));
 		//System.out.println("model.addAttribute-----1");
-		returnmap.put("resultPage", resultPage);
+	//	returnmap.put("resultPage", resultPage);
 		//System.out.println("model.addAttribute-----2");
-		returnmap.put("search", search);
+	//	returnmap.put("search", search);
 		//System.out.println("model.addAttribute-----3");
 		
-		return returnmap;
+		return list;
 	}
 	
 }

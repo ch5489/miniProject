@@ -16,7 +16,10 @@
 <%-- <%} %> --%>
 </c:if>
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+ 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript">
 	function fncGetProductList(currentPage){
 		$("#currentPage").val(currentPage);
@@ -59,6 +62,41 @@
 			}
 		})
 		
+		
+		$( "input:text[name='searchKeyword']" ).on("keyup",function(){
+			
+		var prod = ($("option:selected").val() == 0)? 'prodNo':	($("option:selected").val() == 1)? 'prodName' :($("option:selected").val() == 2)? 'price' :"";
+			
+		var availableTags = new Array();
+			$.ajax( 
+					{
+						url : "/product/json/listProductAuto?searchKeyword="+$( "input:text[name='searchKeyword']" ).val()+"&searchCondition="+$( "option:selected" ).val() ,
+						method : "GET" ,
+						dataType : "json" ,
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+						success : function(JSONData , status) {
+							$.each(JSONData, function(index,value){
+								//availableTags.push(JSONData[index].prodName); 
+								availableTags.push(JSONData[index][prod].toString()); 
+								//alert(prod)
+								//alert(availableTags) 
+							})
+							
+							$( "input:text[name='searchKeyword']" ).autocomplete({
+							      source: availableTags
+							    });
+							  
+							  
+						}
+						 
+				});
+		    
+			
+		
+		})
 	})
 </script>
 </head>
