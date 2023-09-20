@@ -20,7 +20,7 @@ public class GetProductAction extends Action{
 		Product product = service.getProduct(prodNo);
 		
 		request.setAttribute("vo", product);
-		
+		dd
 		
 		
 		
