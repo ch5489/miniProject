@@ -102,7 +102,40 @@ $(function () {
 					}
 			});
 	})
+	
+	
+	let lastScroll = 0;
+
+        $(window).on('scroll',function(){
+            //현재 높이 저장
+            console.log("이제 여기서 데이터를 더 불러와 주면 된다.11111");
+            var currentScroll = $(this).scrollTop();
+            //전체 문서의 높이
+            var documentHeight = $(document).height();
+
+            //(현재 화면상단 + 현재 화면 높이)
+            var nowHeight = $(this).scrollTop() + $(window).height();
+
+
+            //스크롤이 아래로 내려갔을때만 해당 이벤트 진행.
+            if(currentScroll > lastScroll){
+
+                //nowHeight을 통해 현재 화면의 끝이 어디까지 내려왔는지 파악가능 
+                //즉 전체 문서의 높이에 일정량 근접했을때 글 더 불러오기)
+                if(documentHeight < (nowHeight + (documentHeight*0.1))){
+                    console.log("이제 여기서 데이터를 더 불러와 주면 된다.");
+                }
+            }
+
+            //현재위치 최신화
+            lastScroll = currentScroll;
+
+        });
+	
+	
 })
+
+
 -->
 </script>
 </head>
