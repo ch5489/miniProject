@@ -164,6 +164,7 @@ public class ProductRestController {
 		//System.out.println("model.addAttribute-----2");
 	//	returnmap.put("search", search);
 		//System.out.println("model.addAttribute-----3");
+		//System.out.println(list);
 		
 		return list;
 	}

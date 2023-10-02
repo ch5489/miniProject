@@ -2,15 +2,6 @@
     pageEncoding="euc-kr"%>
 <!DOCTYPE html>
 
-<%@page import = "com.model2.mvc.service.domain.User" %>
-<%@page import = "com.model2.mvc.service.domain.Product" %>
-
-
-<%
-User user = (User)session.getAttribute("user");
-
-	Product product = (Product)request.getAttribute("product");
-%>
 
 
 <html>
@@ -18,9 +9,11 @@ User user = (User)session.getAttribute("user");
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
-<title>상품상세조회</title>
+<title>상품구매</title>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
 <script type="text/javascript" src="../javascript/calendar.js">
+
 </script>
 
 <script type="text/javascript">
@@ -28,13 +21,23 @@ User user = (User)session.getAttribute("user");
 function fncAddPurchase() {
 	document.addPurchase.submit();
 }
+$(function () {
+	$("td.ct_btn01:contains('취소')").on("click", function(){
+		history.go(-1)
+	})
+	$("td.ct_btn01:contains('구매')").on("click", function(){
+		
+		$("form").attr("method","POST").attr("action","/purchase/addPurchase").submit();
+	})
+	
+})
 -->
 </script>
 </head>
 
 <body>
 
-<form name="addPurchase" method="post" action="/addPurchase.do?prodNo=<%=product.getProdNo() %>">
+<form name="detailForm">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -44,7 +47,7 @@ function fncAddPurchase() {
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="93%" class="ct_ttl01">상품상세조회</td>
+					<td width="93%" class="ct_ttl01">상품구매</td>
 					<td width="20%" align="right">&nbsp;</td>
 				</tr>
 			</table>
@@ -55,7 +58,7 @@ function fncAddPurchase() {
 	</tr>
 </table>
 
-<input type="hidden" name="prodNo" value="10084" />
+<input type="hidden" name="prodNo" value="${product.prodNo }" />
 
 <table width="600" border="0" cellspacing="0" cellpadding="0"	align="center" style="margin-top: 13px;">
 	<tr>
@@ -69,7 +72,7 @@ function fncAddPurchase() {
 		<td class="ct_write01" width="299">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="105"><%=product.getProdNo() %></td>
+					<td width="105">${product.prodNo }</td>
 				</tr>
 			</table>
 		</td>
@@ -82,7 +85,7 @@ function fncAddPurchase() {
 			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=product.getProdName() %></td>
+		<td class="ct_write01">${product.prodName }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -92,7 +95,7 @@ function fncAddPurchase() {
 			상품상세정보 <img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=product.getProdDetail() %></td>
+		<td class="ct_write01">${product.prodDetail }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -100,7 +103,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">제조일자</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=product.getManuDate() %></td>
+		<td class="ct_write01">${product.manuDate }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -108,7 +111,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">가격</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=product.getPrice() %></td>
+		<td class="ct_write01">${product.price }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -116,7 +119,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">등록일자</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=product.getRegDate() %></td>
+		<td class="ct_write01">${product.regDate }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -126,8 +129,8 @@ function fncAddPurchase() {
 			구매자아이디 <img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%=user.getUserId() %></td>
-		<input type="hidden" name="buyerId" value="user01" />
+		<td class="ct_write01">${user.userId }</td>
+		
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -151,7 +154,7 @@ function fncAddPurchase() {
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input type="text" name="receiverName" 	class="ct_input_g" 
-						style="width: 100px; height: 19px" maxLength="20" value="<%=user.getUserName() %>" />
+						style="width: 100px; height: 19px" maxLength="20" value="${user.userName }" />
 		</td>
 	</tr>
 	<tr>
@@ -162,7 +165,7 @@ function fncAddPurchase() {
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input 	type="text" name="receiverPhone" class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20" value="<%=user.getPhone() %>" />
+							style="width: 100px; height: 19px" maxLength="20" value="${user.phone }" />
 		</td>
 	</tr>
 	<tr>
@@ -172,8 +175,8 @@ function fncAddPurchase() {
 		<td width="104" class="ct_write">구매자주소</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input 	type="text" name="receiverAddr" class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20" 	value="<%=user.getAddr() %>" />
+			<input 	type="text" name="dlvyAddr" class="ct_input_g" 
+							style="width: 100px; height: 19px" maxLength="20" 	value="${user.addr }" />
 		</td>
 	</tr>
 	<tr>
@@ -183,7 +186,7 @@ function fncAddPurchase() {
 		<td width="104" class="ct_write">구매요청사항</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input		type="text" name="receiverRequest" 	class="ct_input_g" 
+			<input		type="text" name="dlvyRequest" 	class="ct_input_g" 
 							style="width: 100px; height: 19px" maxLength="20" />
 		</td>
 	</tr>
@@ -197,7 +200,7 @@ function fncAddPurchase() {
 			<input 	type="text" readonly="readonly" name="receiverDate" class="ct_input_g" 
 							style="width: 100px; height: 19px" maxLength="20"/>
 			<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
-						onclick="show_calendar('document.addPurchase.receiverDate', document.addPurchase.receiverDate.value)"/>
+						onclick="show_calendar('document.detailForm.receiverDate', document.detailForm.receiverDate.value)"/>
 		</td>
 	</tr>
 	<tr>
@@ -225,7 +228,7 @@ function fncAddPurchase() {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:history.go(-1)">취소</a>
+						취소
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

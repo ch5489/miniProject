@@ -4,7 +4,7 @@ import com.model2.mvc.service.domain.Purchase;
 
 public interface PurchaseService {
 	
-	public void insertPurchase(Purchase purchase) throws Exception;
+	public void addPurchase(Purchase purchase) throws Exception;
 }
 
 //getPurchase

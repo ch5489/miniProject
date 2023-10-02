@@ -24,46 +24,46 @@
 <table border=1>
 	<tr>
 		<td>물품번호</td>
-		<td>10108</td>
+		<td>${purchase.purchaseProd.prodNo }</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매자아이디</td>
-		<td>user01</td>
+		<td>${purchase.buyer.userId }</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매방법</td>
 		<td>
 		
-			신용구매
+			${purchase.paymentOption }
 		
 		</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매자이름</td>
-		<td>SCOTT</td>
+		<td>${purchase.receiverName }</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매자연락처</td>
-		<td>010110</td>
+		<td>${purchase.receiverPhone }</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>구매자주소</td>
-		<td>서울</td>
+		<td>${purchase.dlvyAddr }</td>
 		<td></td>
 	</tr>
 		<tr>
 		<td>구매요청사항</td>
-		<td></td>
+		<td>${purchase.dlvyRequest }</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>배송희망일자</td>
-		<td></td>
+		<td>${purchase.dlvyDate }</td>
 		<td></td>
 	</tr>
 </table>
