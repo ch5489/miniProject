@@ -83,7 +83,7 @@ public class PurchaseController {
 		
 		System.out.println("/purchase/addPurchase : POST");
 		
-		String viewName = "/purchase/getPurchase.jsp";
+		String viewName = "/purchase/readPurchase.jsp";
 		
 		Product product = productService.getProduct(prodNo);
 		purchase.setPurchaseProd(product);
@@ -100,12 +100,18 @@ public class PurchaseController {
 	}
 	
 	
-	//@RequestMapping(value = "getProduct", method = RequestMethod.GET)
-	public String getProduct(@RequestParam("prodNo") int prodNo, Model model) throws Exception{
+	@RequestMapping(value = "getPurchase", method = RequestMethod.GET)
+	public ModelAndView getProduct(@RequestParam("tranNo") int tranNo, @RequestParam("buyerId") String buyerId, Purchase purchase) throws Exception{
 		
-		System.out.println("/product/getProduct : GET");
+		System.out.println("/Purchase/getPurchase : GET");
+		String viewName = "/purchase/getPurchase.jsp";
 		
-		Product product = productService.getProduct(prodNo);
+		User user = userService.getUser(buyerId);
+		
+		purchase.setBuyer(user);
+		purchase.setTranNo(tranNo);
+		
+		purchaseService.getPurchase(purchase);
 		
 		
 		model.addAttribute("product", product);
@@ -148,39 +154,43 @@ public class PurchaseController {
 		
 		return "redirect:/product/getProduct?prodNo=" + product.getProdNo()+"&menu=ok";
 	}
-	
-
-	//@RequestMapping(value = "listProduct")
-	public String listProduct( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+	@RequestMapping(value = "listPurchase")
+	public ModelAndView listPurchase( @ModelAttribute("search") Search search, HttpSession session) throws Exception{
 		
-		System.out.println("/product/listProduct : GET / POST");
+		System.out.println("/purchase/listPurchase : GET / POST");
+		String viewName = "/purchase/listPurchase.jsp";
 		
-		System.out.println(search);
-		System.out.println(model);
+		//System.out.println(search);
+		//System.out.println(session);
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
+		User user = (User)session.getAttribute("user");
 		
+		search.setBuyerId(user.getUserId());
 		
+		System.out.println(";;;;;;;;;;;;;;;;;;;;"+search);
 		
 		// Business logic 수행
-		Map<String , Object> map=productService.getProductList(search);
+		Map<String , Object> map=purchaseService.getPurchaseList(search);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
 		System.out.println(resultPage);
-		//System.out.println(search);
+		System.out.println(map);
 		
-		// Model 과 View 연결
-		model.addAttribute("list", map.get("list"));
-		//System.out.println("model.addAttribute-----1");
-		model.addAttribute("resultPage", resultPage);
-		//System.out.println("model.addAttribute-----2");
-		model.addAttribute("search", search);
-		//System.out.println("model.addAttribute-----3");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName(viewName);
+		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("resultPage", resultPage);
+		modelAndView.addObject("search", search);
 		
-		return "forward:/product/listProduct.jsp";
+		//model.addAttribute("search", search);
+
+		
+		return modelAndView;
 	}
 	
 }

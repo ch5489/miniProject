@@ -1,5 +1,7 @@
 package com.model2.mvc.common;
 
+import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.User;
 
 public class Search {
 	
@@ -11,6 +13,9 @@ public class Search {
 	
 	private int endRowNum;
 	private int startRowNum;
+	
+	//private User buyer;
+	private String buyerId;
 	
 	public Search(){
 	}
@@ -51,6 +56,7 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	public int getEndRowNum() {
+		System.out.println("너가 문제가 있음,,"+getCurrentPage()*getPageSize());
 		return getCurrentPage()*getPageSize();
 	}
 
@@ -65,13 +71,20 @@ public class Search {
 	public void setStartRowNum(int startRowNum) {
 		this.startRowNum = startRowNum;
 	}
+	public String getBuyerId() {
+		return buyerId;
+	}
+
+	public void setBuyerId(String buyerId) {
+		this.buyerId = buyerId;
+	}
 
 	@Override
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition="
 				+ searchCondition + ", searchKeyword=" + searchKeyword
 				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", allPageSize=" + allPageSize+ ", startRowNum=" + startRowNum + "]";
+				+ ", allPageSize=" + allPageSize+ ", startRowNum=" + startRowNum+ "]";
 	}	
 	
 }
