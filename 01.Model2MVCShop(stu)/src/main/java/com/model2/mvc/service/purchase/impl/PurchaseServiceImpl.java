@@ -43,6 +43,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		return map;
 	}
+	
+	public Purchase getPurchase(int tranNo) throws Exception{
+		
+		return purchaseDao.getPurchase(tranNo);
+		
+	}
 }
 
 //getPurchase

@@ -38,6 +38,11 @@ public class PurchaseDAOimpl implements PurchaseDAO {
 		
 		return sqlSession.selectOne("PurchaseMapper.getTotalCount", search);
 	}
+	
+	public Purchase getPurchase(int tranNo) throws Exception{
+		
+		return sqlSession.selectOne("PurchaseMapper.getPurchase", tranNo);
+	}
 
 //	public PurchaseDAOimpl() {
 //		

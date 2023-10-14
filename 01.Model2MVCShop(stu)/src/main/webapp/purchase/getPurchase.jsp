@@ -1,16 +1,36 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
-<%-- <%@ page import="com.model2.mvc.service.domain.*" %>
-
-<%
-	User user=(User)request.getAttribute("user");
-%> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
 <title>구매상세조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" ></script>
+ <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script type="text/javascript">
+// 검색 / page 두 가지 경우 모두 Form 전송을 위해 JavaScript를 이용하는 것이다!!
+<!--
+
+$(function () {
+
+	
+	$("td.ct_btn01:contains('확인')").on("click", function() {
+			history.go(-1);
+		})
+	})
+	$(function() {
+		$("td.ct_btn01:contains('수정')").on("click", function() {
+			self.location = "/purchase/updatePurchase?tranNo=${purchase.tranNo }"
+		})
+
+	})
+
+	-->
+</script>
 
 </head>
 
@@ -45,7 +65,7 @@
 		<td class="ct_write01">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="105">${user.userId }</td>
+					<td width="105">${purchase.purchaseProd.prodNo }</td>
 					<td>	</td>
 				</tr>
 			</table>
@@ -60,7 +80,7 @@
 			구매자아이디 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle">
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${user.userName }</td>
+		<td class="ct_write01">${purchase.buyer.userId }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -69,7 +89,7 @@
 	<tr>
 		<td width="104" class="ct_write">구매방법</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${user.addr }</td>
+		<td class="ct_write01">${purchase.paymentOption }</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -77,7 +97,7 @@
 	<tr>
 		<td width="104" class="ct_write">구매자이름</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${user.phone }</td>
+		<td class="ct_write01">${purchase.receiverName }</td>
 	</tr>
 
 	<tr>
@@ -89,7 +109,7 @@
 		<td class="ct_write01">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td height="26">${user.email }</td>
+					<td height="26">${purchase.receiverPhone }</td>
 				</tr>
 			</table>
 		</td>
@@ -101,7 +121,7 @@
 	<tr>
 		<td width="104" class="ct_write">구매자주소</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${user.regDate}</td>
+		<td class="ct_write01">${purchase.dlvyAddr}</td>
 	</tr>
 
 	<tr>
@@ -110,7 +130,7 @@
 	<tr>
 		<td width="104" class="ct_write">구매요청사항</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${user.regDate}</td>
+		<td class="ct_write01">${purchase.dlvyRequest}</td>
 	</tr>
 
 	<tr>
@@ -119,7 +139,7 @@
 	<tr>
 		<td width="104" class="ct_write">배송희망일</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${user.regDate}</td>
+		<td class="ct_write01">${purchase.dlvyDate}</td>
 	</tr>
 
 	<tr>
@@ -128,7 +148,7 @@
 	<tr>
 		<td width="104" class="ct_write">주문일</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${user.regDate}</td>
+		<td class="ct_write01">${purchase.orderDate}</td>
 	</tr>
 
 	<tr>
@@ -146,7 +166,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="/user/updateUser?userId=${user.userId }">수정</a>
+						수정
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -156,7 +176,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:history.go(-1);">확인</a>
+						확인
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

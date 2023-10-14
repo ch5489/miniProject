@@ -34,21 +34,15 @@ $(function () {
 		//alert( $( this ).text() );
 		//alert( $( this ).text().trim() );
 		
-		self.location ="/Purchase/getPurchase?buyId="+$(this).text().trim()+"&tranCode="+$('input:hidden[name='+ $( this ).text().trim()+']').val();
+		self.location ="/purchase/getPurchase?tranNo="+$('input:hidden[name='+ $( this ).text().trim()+']').val();
 	});
 	
 	$( ".ct_list_pop td:nth-child(1)" ).css("color" , "rgb(262,162,138)");
 	$("h7").css("color" , "rgb(262,162,138)");
 	
 	$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
-	//$(".ct_list_pop:nth-child(5)" ).css("background-color" , "red");
-	//console.log ( $(".ct_list_pop:nth-child(1)" ).html() );
-	//console.log ( $(".ct_list_pop:nth-child(2)" ).html() );
-	//console.log ( $(".ct_list_pop:nth-child(3)" ).html() );
-	//console.log ( $(".ct_list_pop:nth-child(4)" ).html() ); //==> ok
-	//console.log ( $(".ct_list_pop:nth-child(5)" ).html() ); 
-	//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
-	//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
+	
+	
 	
 	
 })

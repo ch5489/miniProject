@@ -59,14 +59,14 @@
 	
 	</insert>
 	
-	<!-- <select 	id="getPurchase"	parameterType="string"	resultMap="purchaseSelectMap">
+	 <select 	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
 		SELECT
-		user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
-		FROM users 
-		WHERE user_id = #{value}
+		* 		
+		FROM TRANSACTION 
+		WHERE TRAN_NO = #{tranNo}
 	 </select>
 	 
-	 <update	id="updateUser"	parameterType="user" >
+	<!-- <update	id="updateUser"	parameterType="user" >
 	   	UPDATE users
 	   	<set>
 	   		user_name 			= #{userName} ,

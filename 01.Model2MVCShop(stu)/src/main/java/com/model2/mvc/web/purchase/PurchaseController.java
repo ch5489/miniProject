@@ -101,35 +101,34 @@ public class PurchaseController {
 	
 	
 	@RequestMapping(value = "getPurchase", method = RequestMethod.GET)
-	public ModelAndView getProduct(@RequestParam("tranNo") int tranNo, @RequestParam("buyerId") String buyerId, Purchase purchase) throws Exception{
+	public ModelAndView getPurchase(@RequestParam("tranNo") int tranNo, Purchase purchase) throws Exception{
 		
-		System.out.println("/Purchase/getPurchase : GET");
+		System.out.println("/purchase/getPurchase : GET");
 		String viewName = "/purchase/getPurchase.jsp";
 		
-		User user = userService.getUser(buyerId);
+		purchase = purchaseService.getPurchase(tranNo);
 		
-		purchase.setBuyer(user);
-		purchase.setTranNo(tranNo);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName(viewName);
+		modelAndView.addObject("purchase",purchase);
 		
-		purchaseService.getPurchase(purchase);
-		
-		
-		model.addAttribute("product", product);
-		System.out.println(product.getFileName());
-		return "forward:/product/readProduct.jsp";
+		return modelAndView;
 	}
 	
 	
-	//@RequestMapping(value="updateProduct", method=RequestMethod.GET)
-	public String updateProduct(@RequestParam("prodNo") int prodNo, Model model) throws Exception{
+	@RequestMapping(value="updatePurchase", method=RequestMethod.GET)
+	public ModelAndView updateProduct(@RequestParam("tranNo") int tranNo, Purchase purchase) throws Exception{
 		
-		System.out.println("/product/updateProduct : GET");
+		System.out.println("/purchase/updatePurchase : GET");
+		String viewName = "/purchase/updatePurchaseView.jsp";
 		
-		Product product = productService.getProduct(prodNo);
+		purchase = purchaseService.getPurchase(tranNo);
 		
-		model.addAttribute("product", product);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName(viewName);
+		modelAndView.addObject("purchase",purchase);
 		
-		return "forward:/product/updateProductView.jsp";
+		return modelAndView;
 	}
 	
 	//@RequestMapping(value="updateProduct", method=RequestMethod.POST)
