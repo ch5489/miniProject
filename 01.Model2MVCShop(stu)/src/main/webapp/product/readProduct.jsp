@@ -186,23 +186,23 @@ $(function () {
 				
 <%-- <%if(userproduct != null) {%> --%> 
 					<c:if test="${user != null}">
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-					</td>
-<%-- <%}else if(menu.equals("search")){ %> --%>
-					<c:if test="${param.menu == 'search'}">
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						구매
-					</td><td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td></c:if>
-					
-					<c:if test="${param.menu == 'ok'}">
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						확인</td><td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td>
-					</c:if>
+						<td width="17" height="23">
+							<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
+						</td>
+	<%-- <%}else if(menu.equals("search")){ %> --%>
+						<c:if test="${param.menu == 'search'}">
+						<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
+							구매
+						</td><td width="14" height="23">
+							<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
+						</td></c:if>
+						
+						<c:if test="${param.menu == 'ok'}">
+						<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
+							확인</td><td width="14" height="23">
+							<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
+						</td>
+						</c:if>
 <%-- <%} %> --%>
 					
 					</c:if> 

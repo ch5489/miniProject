@@ -14,6 +14,8 @@ public interface PurchaseDAO {
 	public int getTotalCount(Search search) throws Exception;
 	
 	public Purchase getPurchase(int tranNo) throws Exception;
+	
+	public void updatePurchase(Purchase purchase)throws Exception;
 //
 //	public PurchaseDAO() {
 //		

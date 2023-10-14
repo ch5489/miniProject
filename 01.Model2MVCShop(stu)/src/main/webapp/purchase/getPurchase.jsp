@@ -44,7 +44,15 @@ $(function () {
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td width="93%" class="ct_ttl01">구매상세조회</td>
+				<c:choose>
+				
+					<c:when test="${param.menu == 'ok'}">
+						<td width="93%" class="ct_ttl01">구매수정확인</td>
+					</c:when>
+					<c:otherwise>
+						<td width="93%" class="ct_ttl01">구매상세조회</td>
+					</c:otherwise>
+				</c:choose>
 				<td width="20%" align="right">&nbsp;</td>
 			</tr>
 		</table>
@@ -162,6 +170,18 @@ $(function () {
 		<td align="right">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
+				<c:choose>
+					<c:when test="${param.menu == 'ok'}">
+						<td width="17" height="23">
+							<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
+						</td>
+						<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
+						확인</td><td width="14" height="23">
+						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
+					</td>
+					<td width="30"></td>
+					</c:when>
+					<c:otherwise>
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
@@ -181,6 +201,8 @@ $(function () {
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
 					</td>
+					</c:otherwise>
+				</c:choose>
 				</tr>
 			</table>
 		</td>

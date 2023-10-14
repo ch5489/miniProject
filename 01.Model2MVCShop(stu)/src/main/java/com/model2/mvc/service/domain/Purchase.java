@@ -36,7 +36,9 @@ public class Purchase {
 		return dlvyDate;
 	}
 	public void setDlvyDate(String dlvyDate) {
-		this.dlvyDate = dlvyDate;
+		String[] Dlv =dlvyDate.split(" ");
+		
+		this.dlvyDate = Dlv[0];
 	}
 	public String getDlvyRequest() {
 		return dlvyRequest;

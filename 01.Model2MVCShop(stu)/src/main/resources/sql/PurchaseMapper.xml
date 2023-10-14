@@ -66,17 +66,19 @@
 		WHERE TRAN_NO = #{tranNo}
 	 </select>
 	 
-	<!-- <update	id="updateUser"	parameterType="user" >
-	   	UPDATE users
+	<update	id="updatePurchase"	parameterType="purchase" >
+	   	UPDATE TRANSACTION
 	   	<set>
-	   		user_name 			= #{userName} ,
-			cell_phone			= #{phone},
-			addr 				= #{addr} ,
-			email				=	#{email}
+	   		PAYMENT_OPTION 			= #{paymentOption} ,
+			RECEIVER_NAME			= #{receiverName},
+			RECEIVER_PHONE 			= #{receiverPhone} ,
+			DEMAILADDR 				= #{dlvyAddr},
+			DLVY_REQUEST 			= #{dlvyRequest} ,
+			DLVY_DATE 				= #{dlvyDate}
 	   	</set>
-	   	WHERE user_id = #{userId}
+	   	WHERE TRAN_NO = #{tranNo}
 	 </update>
-	 --> 
+	 
 	 <select  id="getPurchaseList"  parameterType="search"	resultMap="purchaseSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq

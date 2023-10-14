@@ -2,7 +2,7 @@
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <html>
@@ -18,7 +18,7 @@
 <!--
 function fncAddPurchase(){
 	
-	$("form").attr("method","POST").attr("enctype","multipart/form-data").attr("action","/product/updateProduct?prodNo=${product.prodNo}&menu=ok").submit();
+	$("form").attr("method","POST").attr("action","/purchase/updatePurchase?tranNo=${purchase.tranNo}&menu=ok").submit();
 	
 }
 $(function () {
@@ -30,10 +30,11 @@ $(function () {
 		
 		$("form")[0].reset();
 	})
-	
 	$("#calImg").on("click",function(){
-		show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value);
+		/* $("input:text[name='dlvyDate']").val(null); */
+		show_calendar('document.detailForm.dlvyDate', document.detailForm.dlvyDate.value);
 	})
+	
 	
 })
 
@@ -89,8 +90,10 @@ $(function () {
 		<td class="ct_write01">
 			<select 	name="paymentOption"		class="ct_input_g" 
 							style="width: 100px; height: 19px" maxLength="20">
-				<option value="1" selected="selected">현금구매</option>
-				<option value="2">신용구매</option>
+				<option value="1" 
+				 ${ purchase.paymentOption.trim() eq '1' ? "selected" : ""} >현금구매</option>
+				<option value="2"
+				 ${ purchase.paymentOption.trim() eq '2' ? "selected" : ""} >신용구매</option>
 			</select>
 		</td>
 	</tr>
@@ -147,8 +150,7 @@ $(function () {
 		<td width="200" class="ct_write01">
 			<input 	type="text" readonly="readonly" name="dlvyDate" class="ct_input_g" 
 							style="width: 100px; height: 19px" maxLength="20" value="${purchase.dlvyDate }"/>
-			<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
-						onclick="show_calendar('document.detailForm.dlvyDate', document.detailForm.dlvyDate.value)" />
+			<img 	src="../images/ct_icon_date.gif" width="15" height="15"	id = "calImg" />
 		</td>
 	</tr>
 	<tr>
@@ -161,26 +163,31 @@ $(function () {
 		<td width="53%"></td>
 		<td align="right">
 		<table border="0" cellspacing="0" cellpadding="0">
+			
+			
 			<tr>
-				<td width="17" height="23">
-					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-				</td>
-				<td background="/images/ct_btnbg02.gif" class="ct_btn01"  style="padding-top: 3px;">
-					수정
-				</td>
-				<td width="14" height="23">
-					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-				</td>
-				<td width="30"></td>
-				<td width="17" height="23">
-					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-				</td>
-				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	 style="padding-top: 3px;">
-					취소
-				</td>
-				<td width="14" height="23">
-					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-				</td>
+				
+				
+					<td width="17" height="23">
+						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
+					</td>
+					<td background="/images/ct_btnbg02.gif" class="ct_btn01"  style="padding-top: 3px;">
+						수정
+					</td>
+					<td width="14" height="23">
+						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
+					</td>
+					<td width="30"></td>
+					<td width="17" height="23">
+						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
+					</td>
+					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	 style="padding-top: 3px;">
+						취소
+					</td>
+					<td width="14" height="23">
+						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
+					</td>
+				
 			</tr>
 		</table>
 		</td>
