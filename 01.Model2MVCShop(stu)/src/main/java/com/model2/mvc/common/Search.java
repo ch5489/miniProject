@@ -16,6 +16,7 @@ public class Search {
 	
 	//private User buyer;
 	private String buyerId;
+	private int prodNo;
 	
 	public Search(){
 	}
@@ -77,6 +78,14 @@ public class Search {
 
 	public void setBuyerId(String buyerId) {
 		this.buyerId = buyerId;
+	}
+
+	public int getProdNo() {
+		return prodNo;
+	}
+
+	public void setProdNo(int prodNo) {
+		this.prodNo = prodNo;
 	}
 
 	@Override

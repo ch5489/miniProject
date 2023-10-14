@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.product.dao.ProductDAO;
+import com.model2.mvc.service.purchase.dao.PurchaseDAO;
 
 @Service("productServiceImpl")
 public class ProductServiceImpl implements ProductService {
@@ -22,6 +24,14 @@ public class ProductServiceImpl implements ProductService {
 	public void setProductDao(ProductDAO productDao) {
 		this.productDao = productDao;
 	}
+	@Autowired
+	@Qualifier("purchaseDaoImpl")
+	private PurchaseDAO purchaseDao;
+	
+	public void setPurchaseDao(PurchaseDAO purchaseDao) {
+		this.purchaseDao = purchaseDao;
+	}
+	
 	
 	public ProductServiceImpl() {
 		System.out.println(this.getClass());
@@ -39,7 +49,15 @@ public class ProductServiceImpl implements ProductService {
 
 	public Map<String,Object> getProductList(Search search) throws Exception {
 		List<Product> list = productDao.getProductList(search);
+		List<Purchase> listP = purchaseDao.getSaleList(search);
 		int totalCount = productDao.getTotalCount(search);
+		for(int i= 0; i<list.size();i++) {
+			if(listP.get(i).getTranCode() == null) {
+				list.get(i).setProTranCode("ÆÇ¸ÅÁß");
+			}else {
+				list.get(i).setProTranCode(listP.get(i).getTranCode());
+			}
+		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);

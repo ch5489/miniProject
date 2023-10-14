@@ -29,7 +29,6 @@ public class PurchaseDAOimpl implements PurchaseDAO {
 	}
 	@Override
 	public List<Purchase> getPurchaseList(Search search)throws Exception {
-		System.out.println(";;;;;;;; List sql날리기 전!!!!!");
 		return sqlSession.selectList("PurchaseMapper.getPurchaseList", search);
 		
 	}
@@ -46,6 +45,10 @@ public class PurchaseDAOimpl implements PurchaseDAO {
 	
 	public void updatePurchase(Purchase purchase)throws Exception{
 		sqlSession.update("PurchaseMapper.updatePurchase", purchase);
+	}
+	public List<Purchase> getSaleList(Search search)throws Exception {
+		return sqlSession.selectList("PurchaseMapper.getSaleList", search);
+		
 	}
 
 //	public PurchaseDAOimpl() {

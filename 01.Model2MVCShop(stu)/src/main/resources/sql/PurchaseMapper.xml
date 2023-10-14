@@ -104,5 +104,29 @@
 					</where>
 			) countTable						
 	 </select>
+	 
+	 <select  id="getSaleList"  parameterType="search"	 resultType="purchaseSelectMap">
+	  	SELECT *
+		FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+		        FROM ( SELECT p.prod_no, t.tran_status_code
+		                FROM PRODUCT p, transaction t
+		                <if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
+					 				PROD_NO LIKE '%'||#{searchKeyword}||'%'
+								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+					 				PROD_NAME LIKE '%'||#{searchKeyword}||'%'
+								</if>
+								<if test="searchCondition == 2 and searchKeyword !='' ">
+					 				PRICE LIKE '%'||#{searchKeyword}||'%'
+								</if>
+							</where>
+						</if>
+		                and p.prod_no = t.prod_no(+)
+		                ORDER BY p.PROD_NO ) inner_table
+		        WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}					
+	 </select>
  
 </mapper>
