@@ -15,7 +15,7 @@
 		<result property="prodName"		column="PROD_NAME"			jdbcType="VARCHAR"/>
 		<result property="prodNo"		column="PROD_NO"			jdbcType="NUMERIC"/>
 		<result property="regDate"		column="REG_DATE"			jdbcType="DATE"/>
-		
+		<result property="proTranCode" column="TRAN_STATUS_CODE"	jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	<insert id="addProduct"	parameterType="product">
@@ -32,10 +32,22 @@
 	</insert>
 	
 	<select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
-		SELECT
+		<!-- SELECT
 		* 		
 		FROM PRODUCT 
-		WHERE PROD_NO = #{value}
+		WHERE PROD_NO = #{value} -->
+		SELECT
+		p.IMAGE_FILE as IMAGE_FILE,
+		p.MANUFACTURE_DAY as MANUFACTURE_DAY,
+		p.PRICE as PRICE,
+		p.PROD_DETAIL as PROD_DETAIL,
+		p.PROD_NAME as PROD_NAME,
+		p.PROD_NO as PROD_NO,
+		p.REG_DATE as REG_DATE,
+		t.TRAN_STATUS_CODE as TRAN_STATUS_CODE
+		FROM PRODUCT p, transaction t
+		WHERE p.prod_no = t.prod_no(+)
+        and p.PROD_NO = #{value}
 	 </select>
 	 
 	<update	id="updateProduct"	parameterType="product" >
@@ -51,7 +63,7 @@
 	 </update>
 	 
 	 <select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
-	  	SELECT *
+	  	<!-- SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT *
 											FROM PRODUCT
@@ -70,6 +82,36 @@
 											</if>
 											ORDER BY PROD_NO ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}  -->
+		
+		SELECT *
+		FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+		       
+		        FROM ( SELECT  p.prod_no AS prod_no,
+		        				p.PROD_NAME AS PROD_NAME,
+		        				p.PRICE AS PRICE,
+		        				p.REG_DATE AS REG_DATE,
+								t.TRAN_STATUS_CODE AS TRAN_STATUS_CODE
+		                FROM PRODUCT p left join (
+		                select Distinct prod_no, TRAN_STATUS_CODE
+		                from
+		                transaction) t
+               			 on t.prod_no = p.prod_no
+		                <if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
+					 				p.PROD_NO LIKE '%'||#{searchKeyword}||'%'
+								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+					 				p.PROD_NAME LIKE '%'||#{searchKeyword}||'%'
+								</if>
+								<if test="searchCondition == 2 and searchKeyword !='' ">
+					 				p.PRICE LIKE '%'||#{searchKeyword}||'%'
+								</if>
+							</where>
+						</if>
+		                ORDER BY prod_no ) inner_table
+		        WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	 

@@ -129,7 +129,7 @@
 								</if>
 							</where>
 						</if>
-		                ORDER BY p.prod_no ) inner_table
+		                ORDER BY prod_no ) inner_table
 		        WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 		

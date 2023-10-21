@@ -8,8 +8,11 @@
 	<settings>
 		<setting name="callSettersOnNulls" value = "false"/>
 		<!-- <setting name="returnInstanceForEmptyRow" value = "false"/> -->
-		 <setting name="jdbcTypeForNull" value="NULL"/>
-		 <setting name="argNameBasedConstructorAutoMapping" value="NULL"/>
+		<!--  <setting name="jdbcTypeForNull" value="NULL"/> -->
+		 <!-- <setting name="argNameBasedConstructorAutoMapping" value="true"/>  -->
+		 
+		 
+		 
 		 
 	</settings>
 	

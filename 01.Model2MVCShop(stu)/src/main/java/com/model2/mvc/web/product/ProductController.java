@@ -58,7 +58,8 @@ public class ProductController {
 		
 		System.out.println("/product/addProduct : POST");
 		
-		String temDir ="/Users/ssg/miniProject/01.Model2MVCShop(stu)/src/main/webapp/images/uploadFiles";
+		String temDir ="/Users/ssg/git/miniProject/01.Model2MVCShop(stu)/src/main/webapp/images/uploadFiles";
+		
 		
 		if(!file.isEmpty()) {
 			
@@ -66,8 +67,7 @@ public class ProductController {
 			String utf8fileName = new String(fileName.getBytes("UTF-8"), "UTF-8");
 			String filePath = Paths.get(temDir, utf8fileName).toString();
 			
-			System.out.println();
-            File dest = new File(utf8fileName);
+            File dest = new File(filePath);
             file.transferTo(dest);
             System.out.println(utf8fileName);
 			product.setFileName(utf8fileName);
@@ -111,7 +111,7 @@ public class ProductController {
 	public String updateProduct( @ModelAttribute("product") Product product ,  @RequestParam("fileNamePost") MultipartFile file, Model model , HttpSession session) throws Exception{
 		
 		System.out.println("/product/updateProduct : POST");
-		String temDir = "/Users/ssg/miniProject/01.Model2MVCShop(stu)/src/main/webapp/images/uploadFiles";
+		String temDir = "/Users/ssg/git/miniProject/01.Model2MVCShop(stu)/src/main/webapp/images/uploadFiles";
 
 		if (!file.isEmpty()) {
 

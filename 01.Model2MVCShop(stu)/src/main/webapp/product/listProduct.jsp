@@ -229,6 +229,7 @@
 					<td class="ct_list_b">등록일</td>
 					<td class="ct_line02"></td>
 					<td class="ct_list_b">현재상태</td>
+					<td class="ct_list_b"></td>
 				</tr>
 				<tr>
 					<td colspan="11" bgcolor="808285" height="1"></td>
@@ -248,7 +249,13 @@
 						<td></td>
 						<td align="left">${list.regDate }</td>
 						<td></td>
-						<td align="left">${list.proTranCode }</td>
+						<td align="left">${list.proTranCode }
+						<c:if test="${param.menu == 'manage'}">
+							<c:if test="${list.proTranCode.trim() == '1' }">
+										/	<a href="">	배송하기</a>
+							</c:if>
+						</c:if>
+						</td>
 						<input type="hidden" name = '${list.prodName }'  value = ${list.prodNo }>
 						
 					</tr>

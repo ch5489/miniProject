@@ -185,4 +185,20 @@ public class PurchaseController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="updateTranCode", method=RequestMethod.GET)
+	public ModelAndView updateTranCode(@RequestParam("prodNo") int prodNo, Purchase purchase) throws Exception{
+		
+		System.out.println("/purchase/updateTranCode : GET");
+		String viewName = "/purchase/updatePurchaseView.jsp";
+		
+		purchaseService.updateTranCode(prodNo);
+		
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName(viewName);
+		modelAndView.addObject("purchase",purchase);
+		
+		return modelAndView;
+	}
+	
 }

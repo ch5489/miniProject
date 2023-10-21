@@ -49,23 +49,21 @@ public class ProductServiceImpl implements ProductService {
 
 	public Map<String,Object> getProductList(Search search) throws Exception {
 		System.out.println(";;;;;productservice[search]"+search);
-		List<Purchase> listP = purchaseDao.getSaleList(search); // 4
+		//List<Purchase> listP = purchaseDao.getSaleList(search); // 4
 		List<Product> list = productDao.getProductList(search);// 7
 		
 		int totalCount = productDao.getTotalCount(search);
-		System.out.println("listP size" + listP.size());
+		//System.out.println("listP size" + listP.size());
 		System.out.println("list size" + list.size());
-		System.out.println(":::::;productservice[listP] "+listP);
+		//System.out.println(":::::;productservice[listP] "+listP);
 		System.out.println(":::::;productservice[list] "+list);
 		for(int i= 0; i<list.size();i++) { //4
 			System.out.println(i +"¹ø¤Š µ¼");
-			if(listP.get(i).getTranCode() == null) {
+			if(list.get(i).getProTranCode() == null) {
 				list.get(i).setProTranCode("ÆÇ¸ÅÁß");
-			}else {
-				list.get(i).setProTranCode(listP.get(i).getTranCode());
 			}
 			
-//			System.out.println("ProTrandCode::::::"+list.get(i).getProTranCode());
+			System.out.println("ProTrandCode::::::"+list.get(i).getProTranCode());
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
