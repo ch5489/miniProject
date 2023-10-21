@@ -12,7 +12,7 @@ import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.purchase.dao.PurchaseDAO;
 
 @Repository("purchaseDaoImpl")
-public class PurchaseDAOimpl implements PurchaseDAO {
+public class PurchaseDaoImpl implements PurchaseDAO {
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
@@ -20,7 +20,7 @@ public class PurchaseDAOimpl implements PurchaseDAO {
 		this.sqlSession = sqlSession;
 	}
 	
-	public PurchaseDAOimpl() {
+	public PurchaseDaoImpl() {
 		System.out.println(this.getClass());
 	}
 	@Override

@@ -17,7 +17,7 @@ public class ProductDaoImpl implements ProductDAO{
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
-	public void seSqlSession(SqlSession sqlSession) {
+	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 	public ProductDaoImpl() {

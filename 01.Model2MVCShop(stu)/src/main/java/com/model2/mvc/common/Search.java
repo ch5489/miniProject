@@ -1,7 +1,5 @@
 package com.model2.mvc.common;
 
-import com.model2.mvc.service.domain.Product;
-import com.model2.mvc.service.domain.User;
 
 public class Search {
 	
@@ -16,7 +14,6 @@ public class Search {
 	
 	//private User buyer;
 	private String buyerId;
-	private int prodNo;
 	
 	public Search(){
 	}
@@ -57,7 +54,7 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	public int getEndRowNum() {
-		System.out.println("너가 문제가 있음,,"+getCurrentPage()*getPageSize());
+		System.out.println(";;;;;;;;;;;또 뭐냐고,,"+getCurrentPage()*getPageSize());
 		return getCurrentPage()*getPageSize();
 	}
 
@@ -79,15 +76,6 @@ public class Search {
 	public void setBuyerId(String buyerId) {
 		this.buyerId = buyerId;
 	}
-
-	public int getProdNo() {
-		return prodNo;
-	}
-
-	public void setProdNo(int prodNo) {
-		this.prodNo = prodNo;
-	}
-
 	@Override
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition="

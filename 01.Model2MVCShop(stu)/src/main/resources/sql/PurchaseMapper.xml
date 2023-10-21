@@ -14,7 +14,7 @@
 		<result property="receiverPhone"	column="RECEIVER_PHONE"		jdbcType="VARCHAR"/>
 		<result property="dlvyAddr"			column="DEMAILADDR"			jdbcType="VARCHAR"/>
 		<result property="dlvyRequest"		column="DLVY_REQUEST"		jdbcType="VARCHAR"/>
-		<result property="tranCode"			column="TRAN_STATUS_CODE"	jdbcType="VARCHAR"/>
+		<result property="tranCode"			column="TRAN_STATUS_CODE"	jdbcType="VARCHAR" />
 		<result property="orderDate"		column="ORDER_DATE"			jdbcType="DATE"/>
 		<result property="dlvyDate"			column="DLVY_DATE"			jdbcType="DATE"/>
 		
@@ -105,28 +105,68 @@
 			) countTable						
 	 </select>
 	 
-	 <select  id="getSaleList"  parameterType="search"	 resultType="purchaseSelectMap">
+	 <select  id="getSaleList"  parameterType="search"	 resultMap="purchaseSelectMap">
+	  	<!-- SELECT * -->
 	  	SELECT *
 		FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-		        FROM ( SELECT p.prod_no, t.tran_status_code
-		                FROM PRODUCT p, transaction t
+		       
+		        FROM ( SELECT  p.prod_no AS prod_no, t.TRAN_STATUS_CODE AS TRAN_STATUS_CODE
+		                FROM PRODUCT p left join (
+		                select Distinct prod_no, TRAN_STATUS_CODE
+		                from
+		                transaction) t
+               			 on t.prod_no = p.prod_no
 		                <if test="searchCondition != null">
 							<where>
 								<if test="searchCondition == 0 and searchKeyword !='' ">
-					 				PROD_NO LIKE '%'||#{searchKeyword}||'%'
+					 				p.PROD_NO LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchCondition == 1 and searchKeyword !='' ">
-					 				PROD_NAME LIKE '%'||#{searchKeyword}||'%'
+					 				p.PROD_NAME LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchCondition == 2 and searchKeyword !='' ">
-					 				PRICE LIKE '%'||#{searchKeyword}||'%'
+					 				p.PRICE LIKE '%'||#{searchKeyword}||'%'
 								</if>
 							</where>
 						</if>
-		                and p.prod_no = t.prod_no(+)
-		                ORDER BY p.PROD_NO ) inner_table
+		                ORDER BY p.prod_no ) inner_table
 		        WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}					
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+		
+		
+		
+		<!--       SELECT *
+      FROM(   select it.*, ROWNUM AS row_seq
+              from (  select 
+                      t.tran_no, t.tran_status_code, p.prod_no, p.prod_name, p.price, t.order_date
+                      from product p, transaction t 
+                      where p.prod_no = t.prod_no
+                      order by t.order_date)it
+              WHERE ROWNUM &lt;= #{endRowNum})
+      WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}		
+       
+      SELECT *
+        FROM (   SELECT inner_table.* , ROWNUM AS row_seq
+                    FROM      (   SELECT 
+                                p.prod_no, p.prod_name , p.price , p.reg_date, t.tran_status_code, p.image_file
+                              FROM product p LEFT JOIN transaction t
+                              ON p.prod_no = t.prod_no
+                                 <if test="searchCondition != null">
+                                    <where>
+                                       <if test="searchCondition == 0 and searchKeyword !='' ">
+                                           p.prod_no = ${searchKeyword}
+                                       </if>
+                                       <if test="searchCondition == 1 and searchKeyword !='' ">
+                                           p.prod_name LIKE '%' || #{searchKeyword} || '%'
+                                       </if>
+                                       <if test="searchCondition == 2 and searchKeyword !='' ">
+                                           p.price = ${searchKeyword}
+                                       </if>
+                                    </where>
+                                 </if>
+                                 ORDER BY p.prod_no ) inner_table
+                  WHERE ROWNUM &lt;= #{endRowNum} )
+      WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 	-->		
 	 </select>
  
 </mapper>

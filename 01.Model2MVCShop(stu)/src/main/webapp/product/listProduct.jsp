@@ -54,12 +54,14 @@
 			var toName = $(this).text().trim()
 			//alert($("input:hidden[name="+toName+"]").val())
 			
-			if(${param.menu == 'manage'}){
+			 if(${param.menu == 'manage'}){
 			
-				self.location="/product/updateProduct?prodNo="+$('input:hidden[name='+toName+']').val()+"&menu=${param.menu}";
+				self.location="/product/updateProduct?prodNo="+$('input:hidden[name="'+toName+'"]').val()+"&menu=${param.menu}";
 			}else{
-				self.location="/product/getProduct?prodNo="+$('input:hidden[name='+toName+']').val()+"&menu=${param.menu}";
-			}
+				self.location="/product/getProduct?prodNo="+$('input:hidden[name="'+toName+'"]').val()+"&menu=${param.menu}";
+			} 
+			
+			
 		})
 		
 		
@@ -247,7 +249,7 @@
 						<td align="left">${list.regDate }</td>
 						<td></td>
 						<td align="left">${list.proTranCode }</td>
-						<input type="hidden" name = ${list.prodName }  value = ${list.prodNo }>
+						<input type="hidden" name = '${list.prodName }'  value = ${list.prodNo }>
 						
 					</tr>
 					<tr>
