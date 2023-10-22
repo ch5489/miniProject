@@ -50,6 +50,12 @@ public class PurchaseDaoImpl implements PurchaseDAO {
 		return sqlSession.selectList("PurchaseMapper.getSaleList", search);
 		
 	}
+	
+	public void updateTranCode(Purchase purchase)throws Exception{
+		sqlSession.update("PurchaseMapper.updateTranCode", purchase);
+	}
+	
+	
 
 //	public PurchaseDAOimpl() {
 //		

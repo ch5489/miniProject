@@ -249,10 +249,18 @@
 						<td></td>
 						<td align="left">${list.regDate }</td>
 						<td></td>
-						<td align="left">${list.proTranCode }
+						<td align="left">
+						<c:choose>
+							<c:when test="${list.proTranCode eq '판매중'}">
+								${list.proTranCode }
+							</c:when>
+							<c:otherwise>	
+								판매완료
+							</c:otherwise>
+						</c:choose> 
 						<c:if test="${param.menu == 'manage'}">
 							<c:if test="${list.proTranCode.trim() == '1' }">
-										/	<a href="">	배송하기</a>
+										/	<a href="/purchase/updateTranCode?prodNo=${list.prodNo }&tranCode=2&currentPage=${resultPage.currentPage}&menu=${param.menu}">	배송하기</a>
 							</c:if>
 						</c:if>
 						</td>

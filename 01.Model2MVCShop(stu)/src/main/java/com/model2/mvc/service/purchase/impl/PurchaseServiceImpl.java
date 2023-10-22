@@ -53,6 +53,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public void updatePurchase(Purchase purchase) throws Exception{
 		purchaseDao.updatePurchase(purchase);
 	}
+	
+	public void updateTranCode(Purchase purchase) throws Exception{
+		purchaseDao.updateTranCode(purchase);
+	}
 }
 
 //getPurchase

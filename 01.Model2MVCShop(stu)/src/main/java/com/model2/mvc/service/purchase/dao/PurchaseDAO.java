@@ -18,6 +18,8 @@ public interface PurchaseDAO {
 	public void updatePurchase(Purchase purchase)throws Exception;
 	
 	public  List<Purchase> getSaleList(Search search) throws Exception;
+	
+	public void updateTranCode(Purchase purchase)throws Exception;
 //
 //	public PurchaseDAO() {
 //		

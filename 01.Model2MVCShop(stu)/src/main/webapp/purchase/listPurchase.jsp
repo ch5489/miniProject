@@ -120,14 +120,26 @@ $(function () {
 				</c:otherwise>
 			</c:choose>
 			<td></td>
-			<td align="left">${purchase.tranCode }</td>	
+			<td align="left">
+				<c:if test="${purchase.tranCode.trim() eq '1' }">
+					결제완료, 배송준비중입니다!!
+				</c:if>
+				<c:if test="${purchase.tranCode.trim() eq '2' }">
+					배송중, 배송완료 후 물건도착을 눌러주세요!!
+				</c:if>
+				<c:if test="${purchase.tranCode.trim() eq '3' }">
+					구매완료, 감사합니다!!
+				</c:if>
+			
+			</td>	
 			<td></td>
+			<td align="left">	
 			<c:choose>
 				<c:when test="${purchase.tranCode.trim() eq '2' }">
-					<td align="left">물건도착</td>	
+					<a href="/purchase/updateTranCode?prodNo=${purchase.purchaseProd.prodNo }&tranCode=3&currentPage=${resultPage.currentPage}&menu=${param.menu}">물건도착</a>
 				</c:when>
 			</c:choose>
-			
+			</td>
 			<td></td>
 			<input type="hidden" name = ${i } value = ${purchase.tranNo }>
 					

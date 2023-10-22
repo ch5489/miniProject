@@ -82,7 +82,7 @@
 	 <select  id="getPurchaseList"  parameterType="search"	resultMap="purchaseSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT tran_no, BUYER_ID, RECEIVER_NAME, RECEIVER_PHONE, TRAN_STATUS_CODE
+	  					FROM		(	SELECT tran_no, BUYER_ID, RECEIVER_NAME, RECEIVER_PHONE, TRAN_STATUS_CODE, prod_no
 											FROM TRANSACTION
 											
 											<where>	
@@ -168,5 +168,14 @@
                   WHERE ROWNUM &lt;= #{endRowNum} )
       WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 	-->		
 	 </select>
+	 
+	 <update	id="updateTranCode"	parameterType="purchase" >
+	   	UPDATE TRANSACTION
+	   	<set>
+	   		
+			TRAN_STATUS_CODE	= #{tranCode}
+	   	</set>
+	   	WHERE PROD_NO = #{purchaseProd.prodNo}
+	 </update>
  
 </mapper>

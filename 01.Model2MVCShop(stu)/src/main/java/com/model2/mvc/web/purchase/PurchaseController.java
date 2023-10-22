@@ -163,7 +163,7 @@ public class PurchaseController {
 		
 		search.setBuyerId(user.getUserId());
 		
-		System.out.println(";;;;;;;;;;;;;;;;;;;;"+search);
+		//System.out.println(";;;;;;;;;;;;;;;;;;;;"+search);
 		
 		// Business logic 수행
 		Map<String , Object> map=purchaseService.getPurchaseList(search);
@@ -186,19 +186,76 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping(value="updateTranCode", method=RequestMethod.GET)
-	public ModelAndView updateTranCode(@RequestParam("prodNo") int prodNo, Purchase purchase) throws Exception{
+	public ModelAndView updateTranCode(@RequestParam("prodNo") int prodNo, @RequestParam("tranCode") String tranCode, Purchase purchase, Search search, String menu, HttpSession session) throws Exception{
 		
 		System.out.println("/purchase/updateTranCode : GET");
-		String viewName = "/purchase/updatePurchaseView.jsp";
 		
-		purchaseService.updateTranCode(prodNo);
+		System.out.println(";;;;search_전;;;;"+search);
+		//search.setCurrentPage(currentPage);
+		System.out.println(";;;;search_후;;;;"+search);
+//		if(tranCode.equals("1")) {
+//			tranCode = "2";
+//		}else if(tranCode.equals("2")) {
+//			tranCode = "3";
+//		}
+		System.out.println(";;;;전;;;;"+purchase);
+		
+		purchase.setTranCode(tranCode);
+		purchase.setPurchaseProd(productService.getProduct(prodNo));
+		
+		System.out.println(";;;;후;;;;"+purchase);
+		
+		purchaseService.updateTranCode(purchase);
 		
 		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName(viewName);
-		modelAndView.addObject("purchase",purchase);
+		
+		if(menu.equals("search")) {
+			String viewName = "/purchase/listPurchase.jsp";
+			User user = (User)session.getAttribute("user");
+			
+			search.setBuyerId(user.getUserId());
+			
+			//System.out.println(";;;;;;;;;;;;;;;;;;;;"+search);
+			
+			// Business logic 수행
+			Map<String , Object> map=purchaseService.getPurchaseList(search);
+			
+			Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+			
+			System.out.println(resultPage);
+			System.out.println(map);
+			
+			modelAndView.setViewName(viewName);
+			modelAndView.addObject("list", map.get("list"));
+			modelAndView.addObject("resultPage", resultPage);
+			modelAndView.addObject("search", search);
+			
+		}else if(menu.equals("manage")) {
+			Map<String , Object> map=productService.getProductList(search);
+			
+			Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+			System.out.println(resultPage);
+			//System.out.println(search);
+			
+			String viewName = "/product/listProduct.jsp";
+			// Model 과 View 연결
+			
+			modelAndView.setViewName(viewName);
+			modelAndView.addObject("list", map.get("list"));
+			modelAndView.addObject("resultPage", resultPage);
+			modelAndView.addObject("search", search);
+		}
+		// Business logic 수행
+		
 		
 		return modelAndView;
+		
+		
 	}
 	
 }
