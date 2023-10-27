@@ -97,7 +97,14 @@ $(function () {
 	<tr>
 		<td width="104" class="ct_write">구매방법</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${purchase.paymentOption }</td>
+		<td class="ct_write01">
+			<c:if test="${purchase.paymentOption.trim() eq '1' }">
+					현금구매
+			</c:if>
+			<c:if test="${purchase.paymentOption.trim() eq '2' }">
+				신용구매
+			</c:if>
+		</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -162,15 +169,7 @@ $(function () {
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
-	<tr>
-		<td width="104" class="ct_write">주문일</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${purchase.tranCode}</td>
-	</tr>
-
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
+	
 </table>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top:10px;">

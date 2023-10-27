@@ -13,6 +13,8 @@ public interface PurchaseService {
 	
 	public Purchase getPurchase(int tranNo) throws Exception;
 	
+	public Purchase getPurchaseProd(int prodNo) throws Exception;
+	
 	public void updatePurchase(Purchase purchase) throws Exception;
 	
 	public void updateTranCode(Purchase purchase) throws Exception;

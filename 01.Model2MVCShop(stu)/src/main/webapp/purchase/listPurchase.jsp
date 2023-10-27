@@ -42,7 +42,34 @@ $(function () {
 	
 	$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
 	
-	
+	$("a:contains('물건도착')").on("click",function(){
+		
+		var closestTr = $(this).closest('tr.ct_list_pop');
+	    var hiddenInputs = closestTr.find('input[type="hidden"]');
+	    let hiddenInputsV = $(hiddenInputs[1]).val()
+		
+		 $.ajax({
+			url : "/purchase/json/updateTranCode/"+hiddenInputsV+"?tranCode=3",
+			
+			method : "GET" ,
+			dataType : "json" ,
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			success: function (JSONData, status) {
+	            // 서버에서 반환한 JSON 데이터를 data로 받아서 이후 처리
+	            // 이 곳에서 필요한 데이터 처리 및 페이지 업데이트 로직을 구현
+	            // 예: alert 등으로 데이터 확인
+	            
+	            closestTr.find('td:nth-child(9)').empty();
+	            closestTr.find('td:nth-child(9)').append('구매완료, 감사합니다!!');
+	            closestTr.find('td:nth-child(11)').remove();
+				
+	        }
+			
+		}) 
+	})
 	
 	
 })
@@ -57,6 +84,9 @@ $(function () {
 <div style="width:98%; margin-left:10px;">
 
 <form name="detailForm" action="/user/listUser" method="post">
+
+<input type="hidden" id="getcurrentPage" name="currentPage" value="${resultPage.currentPage}"/>
+<input type="hidden" id="menu" name="menu" value="${param.menu}"/>
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -136,12 +166,13 @@ $(function () {
 			<td align="left">	
 			<c:choose>
 				<c:when test="${purchase.tranCode.trim() eq '2' }">
-					<a href="/purchase/updateTranCode?prodNo=${purchase.purchaseProd.prodNo }&tranCode=3&currentPage=${resultPage.currentPage}&menu=${param.menu}">물건도착</a>
+					<a >물건도착</a>
 				</c:when>
 			</c:choose>
 			</td>
 			<td></td>
 			<input type="hidden" name = ${i } value = ${purchase.tranNo }>
+			<input type="hidden" name = ${i } value = ${purchase.purchaseProd.prodNo }>
 					
 		</tr>
 		<tr>

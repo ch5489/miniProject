@@ -99,6 +99,34 @@
 			
 		
 		})
+		
+		$("a:contains('	/	배송하기')").on("click",function(){
+		
+		var closestTr = $(this).closest('tr.ct_list_pop');
+	    var hiddenInputs = closestTr.find('input[type="hidden"]');
+	    let hiddenInputsV = $(hiddenInputs[0]).val()
+		alert(closestTr);
+	    alert(hiddenInputs);
+	    alert(hiddenInputsV);
+		 $.ajax({
+			url : "/purchase/json/updateTranCode/"+hiddenInputsV+"?tranCode=2",
+			
+			method : "GET" ,
+			dataType : "json" ,
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			success: function (JSONData, status) {
+	            // 서버에서 반환한 JSON 데이터를 data로 받아서 이후 처리
+	            // 이 곳에서 필요한 데이터 처리 및 페이지 업데이트 로직을 구현
+	            // 예: alert 등으로 데이터 확인
+	            $("a:contains('	/	배송하기')").empty();
+				
+	        }
+			
+		}) 
+	})
 	})
 </script>
 </head>
@@ -226,7 +254,7 @@
 					<td class="ct_line02"></td>
 					<td class="ct_list_b" width="150">가격</td>
 					<td class="ct_line02"></td>
-					<td class="ct_list_b">등록일</td>
+					<td class="ct_list_b" width='200'>등록일</td>
 					<td class="ct_line02"></td>
 					<td class="ct_list_b">현재상태</td>
 					<td class="ct_list_b"></td>
@@ -260,7 +288,7 @@
 						</c:choose> 
 						<c:if test="${param.menu == 'manage'}">
 							<c:if test="${list.proTranCode.trim() == '1' }">
-										/	<a href="/purchase/updateTranCode?prodNo=${list.prodNo }&tranCode=2&currentPage=${resultPage.currentPage}&menu=${param.menu}">	배송하기</a>
+										<a >	/	배송하기</a>
 							</c:if>
 						</c:if>
 						</td>

@@ -19,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseService;
 import com.model2.mvc.service.user.UserService;
@@ -55,128 +58,51 @@ public class PurchaseRestController {
 	// @Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	//@RequestMapping(value = "addProduct", method = RequestMethod.GET)
-	public String addProduct() throws Exception{
-		
-		System.out.println("/product/addProduct : GET");
-		
-		return "redirect:/product/addProduct.jsp";
-	}
 	
-	@RequestMapping(value = "/json/addProduct", method = RequestMethod.POST)
-	public Product addProduct(@RequestBody Product product) throws Exception{
-		
-		System.out.println("/product/json/addProduct : POST");
-		
-		
-		product.setManuDate(product.getManuDate().replaceAll("-", ""));
-		productService.addProduct(product);
-		
-		return productService.getProduct(1530000);
-	}
+//	@RequestMapping(value="/json/updateTranCode/{prodNo}")
+//	public Model updateTranCode(@PathVariable("prodNo") int prodNo, @RequestParam("tranCode") String tranCode, Purchase purchase, Model model) throws Exception{
+//		
+//		System.out.println("/purchase/json/updateTranCode : GET");
+//		
+//		System.out.println(";;;;전;;;;"+purchase);
+//		
+//		purchase.setTranCode(tranCode);
+//		purchase.setPurchaseProd(productService.getProduct(prodNo));
+//		
+//		System.out.println(";;;;후;;;;"+purchase);
+//		
+//		purchaseService.updateTranCode(purchase);
+//		
+//		purchase = purchaseService.getPurchaseProd(prodNo);
+//		System.out.println(";;;;;;;purchase 에 값이 많으면 get은 잘 돌았따,,"+purchase);
+//		
+//		model.addAttribute("purchase", purchase);
+//		System.out.println("\b;;;;;;;;;내보낼 modle 값"+model);
+//		
+//		return model;
+//	}
 	
-	
-	@RequestMapping(value = "/json/getProduct/{prodNo}", method = RequestMethod.GET)
-	public Product getProduct(@PathVariable("prodNo") int prodNo, Model model) throws Exception{
+	@RequestMapping(value="/json/updateTranCode/{prodNo}")
+	public Purchase updateTranCode(@PathVariable("prodNo") int prodNo, @RequestParam("tranCode") String tranCode, Purchase purchase, Model model) throws Exception{
 		
-		System.out.println("/product/json/getProduct : GET");
+		System.out.println("/purchase/json/updateTranCode : GET");
 		
-		Product product = productService.getProduct(prodNo);
+		System.out.println(";;;;전;;;;"+purchase);
 		
+		purchase.setTranCode(tranCode);
+		purchase.setPurchaseProd(productService.getProduct(prodNo));
 		
-		return product;
-	}
-	
-	
-	@RequestMapping(value="/json/updateProduct/{prodNo}", method=RequestMethod.GET)
-	public Map updateProduct(@PathVariable("prodNo") int prodNo, Model model) throws Exception{
+		System.out.println(";;;;후;;;;"+purchase);
 		
-		System.out.println("/product/json/updateProduct : GET");
+		purchaseService.updateTranCode(purchase);
 		
-		Product product = productService.getProduct(prodNo);
+		purchase = purchaseService.getPurchaseProd(prodNo);
+		System.out.println(";;;;;;;purchase 에 값이 많으면 get은 잘 돌았따,,"+purchase);
 		
-		Map map = new HashMap();
-		map.put("product", product);
+		model.addAttribute("purchase", purchase);
+		System.out.println("\b;;;;;;;;;내보낼 modle 값"+model);
 		
-		return map;
-	}
-	
-	@RequestMapping(value="/json/updateProduct", method=RequestMethod.POST)
-	public Product updateProduct( @RequestBody Product product , HttpSession session) throws Exception{
-		
-		System.out.println("/product/json/updateProduct : POST");
-		
-		product.setManuDate(product.getManuDate().replaceAll("-", ""));
-		System.out.println(product);
-		productService.updateProduct(product);
-		
-		return productService.getProduct(product.getProdNo());
-	}
-	
-
-	@RequestMapping(value = "/json/listProduct")
-	public Map listProduct( @ModelAttribute("search") Search searchGet , Search searchPost , HttpServletRequest request) throws Exception{
-		
-		System.out.println("/product/json/listProduct : GET / POST");
-		
-		Search search = (searchGet.getCurrentPage() == 0? searchPost:searchGet);
-		if(search.getCurrentPage() ==0 ){
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
-		
-		Map returnmap = new HashMap();
-		
-		// Business logic 수행
-		Map<String , Object> map=productService.getProductList(search);
-		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
-		//System.out.println(search);
-		
-		// Model 과 View 연결
-		returnmap.put("list", map.get("list"));
-		//System.out.println("model.addAttribute-----1");
-		returnmap.put("resultPage", resultPage);
-		//System.out.println("model.addAttribute-----2");
-		returnmap.put("search", search);
-		//System.out.println("model.addAttribute-----3");
-		
-		return returnmap;
-	}
-	
-	@RequestMapping(value = "/json/listProductAuto")
-	public List<Product> listProductAuto( @ModelAttribute("search") Search search , HttpServletRequest request) throws Exception{
-		
-		System.out.println("/product/json/listProductAuto : GET / POST");
-		
-		
-		search.setCurrentPage(1);
-		
-		search.setPageSize(10);
-		
-		
-		//Map returnmap = new HashMap();
-		
-		// Business logic 수행
-		Map<String , Object> map=productService.getProductList(search);
-		List<Product> list = (List<Product>)map.get("list");
-		
-		
-//		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-//		System.out.println(resultPage);
-		//System.out.println(search);
-		
-		// Model 과 View 연결
-		//returnmap.put("list", map.get("list"));
-		//System.out.println("model.addAttribute-----1");
-	//	returnmap.put("resultPage", resultPage);
-		//System.out.println("model.addAttribute-----2");
-	//	returnmap.put("search", search);
-		//System.out.println("model.addAttribute-----3");
-		//System.out.println(list);
-		
-		return list;
+		return purchase;
 	}
 	
 }

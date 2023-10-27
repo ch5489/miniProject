@@ -66,6 +66,13 @@
 		WHERE TRAN_NO = #{tranNo}
 	 </select>
 	 
+	  <select 	id="getPurchaseProd"	parameterType="int"	resultMap="purchaseSelectMap">
+		SELECT
+		* 		
+		FROM TRANSACTION 
+		WHERE PROD_NO = #{prodNo}
+	 </select>
+	 
 	<update	id="updatePurchase"	parameterType="purchase" >
 	   	UPDATE TRANSACTION
 	   	<set>

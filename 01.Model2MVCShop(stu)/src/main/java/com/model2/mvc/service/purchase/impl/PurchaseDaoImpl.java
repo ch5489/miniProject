@@ -42,6 +42,11 @@ public class PurchaseDaoImpl implements PurchaseDAO {
 		
 		return sqlSession.selectOne("PurchaseMapper.getPurchase", tranNo);
 	}
+
+	public Purchase getPurchaseProd(int prodNo) throws Exception {
+		//System.out.println(";;;;;;getPurchaseProd.dao;;;;;;;"+prodNo);
+		return sqlSession.selectOne("PurchaseMapper.getPurchaseProd", prodNo);
+	}
 	
 	public void updatePurchase(Purchase purchase)throws Exception{
 		sqlSession.update("PurchaseMapper.updatePurchase", purchase);
@@ -52,6 +57,7 @@ public class PurchaseDaoImpl implements PurchaseDAO {
 	}
 	
 	public void updateTranCode(Purchase purchase)throws Exception{
+		//System.out.println(";;;;;;updateTranCode.dao;;;;;;;"+purchase);
 		sqlSession.update("PurchaseMapper.updateTranCode", purchase);
 	}
 	

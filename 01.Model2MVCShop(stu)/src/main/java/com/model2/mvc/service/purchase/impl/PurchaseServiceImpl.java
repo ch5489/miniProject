@@ -49,12 +49,20 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseDao.getPurchase(tranNo);
 		
 	}
+
+	public Purchase getPurchaseProd(int prodNo) throws Exception {
+		System.out.println(";;;;;;getPurchaseProd;;;;;;;");
+		return purchaseDao.getPurchaseProd(prodNo);
+
+	}
 	
 	public void updatePurchase(Purchase purchase) throws Exception{
+		
 		purchaseDao.updatePurchase(purchase);
 	}
 	
 	public void updateTranCode(Purchase purchase) throws Exception{
+		System.out.println(";;;;;;updateTranCode;;;;;;;");
 		purchaseDao.updateTranCode(purchase);
 	}
 }
